@@ -5,6 +5,7 @@ import WebDesign from "../Components/Development/WebDesign";
 import SoftwareDevelopment from "../Components/Development/SoftwareDevelopment";
 import AppDevelopment from "../Components/Development/AppDevelopment";
 import CRMDevelopment from "../Components/Development/CRMDevelopment";
+import WavyScrollText from "../Components/WavyScrollText";
 
 const Development = () => {
   // Extract query parameter
@@ -52,15 +53,14 @@ const Development = () => {
   const firstHalf = words.slice(0, halfIndex).join(" ");
   const secondHalf = words.slice(halfIndex).join(" ");
 
+    
   return (
     <div className="w-full h-auto">
       {/* Hero Section */}
       <div className="w-full grid md:grid-cols-2 gap-2 grid-cols-1 px-5 py-24">
         <div className="col-span-1 flex items-center">
-          <h1 className="text-5xl font-bold">
-            <span className="text-green-500">{firstHalf} </span>
-            <span className="text-white text-4xl">{secondHalf}</span>
-          </h1>
+        <WavyScrollText highlight={firstHalf} text={secondHalf} />
+          
         </div>
         <div className="col-span-1 flex justify-center items-center">
           <img

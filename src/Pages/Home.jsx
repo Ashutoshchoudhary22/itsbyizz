@@ -1,9 +1,9 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import AutoSlider from "../Components/AutoSlider";
 import About from "../Components/About";
 import DomainList from "../Components/DomainList";
 import BookDemo from "../Components/BookDemo";
-
+import ScrollReveal from "scrollreveal";
 import { TbBrandJavascript } from "react-icons/tb";
 import { DiNodejs } from "react-icons/di";
 import { FaReact, FaJava, FaPython, FaPhp } from "react-icons/fa";
@@ -11,6 +11,7 @@ import { RiTailwindCssFill } from "react-icons/ri";
 import { SiMongodb, SiMysql } from "react-icons/si";
 import { FaHtml5, FaCss3  } from "react-icons/fa6";
 import Marquee from "react-fast-marquee";
+import WavyScrollText from "../Components/WavyScrollText";
 
 const Home = () => {
   const bookDemoRef = useRef(null); // Step 1: Create a reference
@@ -41,17 +42,13 @@ const Home = () => {
     { icon: RiTailwindCssFill, color: "text-blue-500" },
   ]
 
+  
+
   return (
     <div>
       <div className="w-full h-72 grid md:grid-cols-2 gap-2 grid-cols-1 px-5 py-24">
         <div className="col-span-1">
-          <h1 className="text-gray-50 text-5xl font-bold">
-            <span className="text-5xl text-green-400">
-              Smart IoT & <br />
-              Automation
-            </span>{" "}
-            <br /> for Maximum Efficiency.
-          </h1>
+        <WavyScrollText highlight="Smart IoT & Automation" text="for Maximum Efficiency." />
         </div>
 
         <div className="col-span-1">
@@ -83,8 +80,9 @@ const Home = () => {
         <AutoSlider />
       </div>
 
-      <div className="w-full flex items-center justify-center text-white flex-col">
+      <div className="w-full flex items-center justify-center text-white flex-col ">
         <h2 className="text-4xl mb-3 font-semibold">
+
           We have 80% active users across the nation
         </h2>
         <div className="flex w-full items-center justify-center mt-4">

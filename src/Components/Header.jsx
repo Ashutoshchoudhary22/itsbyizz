@@ -14,33 +14,15 @@ const Header = () => {
   ];
 
   const becomeBrand = [
-    { title: "Brand Building", link: "/development?title=Brand%20Building" },
-    { title: "ORM", link: "/development?title=ORM%20Design" },
-    {
-      title: "Public Relations",
-      link: "/development?title=Software%20Development",
-    },
-    {
-      title: "Digital Marketing",
-      link: "/development?title=App%20Development",
-    },
-    {
-      title: "Influence Marketing",
-      link: "/development?title=CRM%20Development",
-    },
-    {
-      title: "Social Media Presence",
-      link: "/development?title=CRM%20Development",
-    },
+    { title: "Brand Building", link: "/brand?title=Brand%20Building" },
+    { title: "ORM", link: "/brand?title=ORM" },
+    { title: "Public Relations", link: "/brand?title=Public%20Relations" },
+    { title: "Digital Marketing", link: "/brand?title=Digital%20Marketing" },
+    { title: "Influence Marketing", link: "/brand?title=Influence%20Marketing" },
+    { title: "Social Media Presence", link: "/brand?title=Social%20Media%20Presence" },
   ];
+  
 
-  const brandMenu = [
-    { title: "Brand Building", link: "/brand?title=B%20Development" },
-  { title: "Web Design", link: "/development?title=Web%20Design" },
-  { title: "Software Development", link: "/development?title=Software%20Development" },
-  { title: "App Development", link: "/development?title=App%20Development" },
-  { title: "CRM Development", link: "/development?title=CRM%20Development" },
-  ]
 
   return (
     <nav className="flex px-4 md:shadow-lg items-center relative">

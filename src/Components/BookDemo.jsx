@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import WavyScrollText from "./WavyScrollText";
+import ScrollReveal from "scrollreveal";
 
 const BookDemo = () => {
   const [formData, setFormData] = useState({
@@ -19,21 +21,32 @@ const BookDemo = () => {
     // Handle form submission logic here
   };
 
+  useEffect(() => {
+    // Initialize ScrollReveal
+    ScrollReveal().reveal('.reveal', {
+      distance: '50px', // Distance of the effect
+      duration: 800, // Duration of the effect
+      delay: 100, // Delay before the effect starts
+      opacity: 0, // Start opacity (element is invisible before scroll)
+      scale: 0.85, // Scaling effect when revealing
+      easing: 'ease-in-out', // Easing function for the effect
+    });
+  }, []);
+
   return (
     <div className="w-full h-auto flex items-center justify-between bg-gradient-to-b from-sky-900 to-sky-800 text-center py-10">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 px-10 w-full">
       
         <div className="text-start mt-20">
-          <h1 className="text-6xl font-bold text-gray-50">
-            <span className="text-green-500">Let's get</span> <br /> to work
-          </h1>
+        <WavyScrollText highlight="Let's get" text="  to work" />
+        
           <p className="text-gray-200 text-xl mt-3 font-semibold">
-            See how we can put AI to work for your people.
+          See how we can put AI to work for your people.
           </p>
         </div>
 
         {/* Right Side - Book a Demo Form */}
-        <div className="bg-transparent border border-sky-900 shadow-lg rounded-xl p-6 w-full max-w-lg mx-auto">
+        <div className="bg-transparent border reveal border-sky-900 shadow-lg rounded-xl p-6 w-full max-w-lg mx-auto">
           <h2 className="text-2xl font-bold text-gray-100 mb-4 text-center">Book a Demo</h2>
           <form onSubmit={handleSubmit} className="grid gap-4">
             {/* Name */}

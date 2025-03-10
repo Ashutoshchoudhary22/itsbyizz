@@ -96,7 +96,7 @@ const Home = () => {
       </div>
 
       <div className="w-full mt-20">
-        <About />
+        {/* <About /> */}
       </div>
 
       <div className="w-full mt-20 bg-white">

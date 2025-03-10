@@ -45,7 +45,7 @@ const AppDevelopment = () => {
         {cardsContent.map((card, index) => (
           <div
             key={index}
-            className="bg-white p-6 rounded-xl shadow-lg flex flex-col items-center text-center transition-transform duration-300 hover:scale-105"
+            className="bg-white p-7 rounded-xl shadow-lg flex flex-col items-center text-center transition-transform duration-300 hover:scale-105"
           >
             {card.icon}
             <h2 className="text-xl font-semibold text-gray-800 mt-4">

@@ -4,10 +4,34 @@ import { NavLink } from "react-router-dom";
 const Header = () => {
   const developmentmenu = [
     { title: "Web Development", link: "/development?title=Web%20Development" },
-  { title: "Web Design", link: "/development?title=Web%20Design" },
-  { title: "Software Development", link: "/development?title=Software%20Development" },
-  { title: "App Development", link: "/development?title=App%20Development" },
-  { title: "CRM Development", link: "/development?title=CRM%20Development" },
+    { title: "Web Design", link: "/development?title=Web%20Design" },
+    {
+      title: "Software Development",
+      link: "/development?title=Software%20Development",
+    },
+    { title: "App Development", link: "/development?title=App%20Development" },
+    { title: "CRM Development", link: "/development?title=CRM%20Development" },
+  ];
+
+  const becomeBrand = [
+    { title: "Brand Building", link: "/development?title=Brand%20Building" },
+    { title: "ORM", link: "/development?title=ORM%20Design" },
+    {
+      title: "Public Relations",
+      link: "/development?title=Software%20Development",
+    },
+    {
+      title: "Digital Marketing",
+      link: "/development?title=App%20Development",
+    },
+    {
+      title: "Influence Marketing",
+      link: "/development?title=CRM%20Development",
+    },
+    {
+      title: "Social Media Presence",
+      link: "/development?title=CRM%20Development",
+    },
   ];
 
   const brandMenu = [
@@ -41,32 +65,32 @@ const Header = () => {
           </a>
         </li>
         <li className="relative group">
-      <a
-        href="#"
-        className="text-gray-50 flex justify-between p-4 items-center hover:text-white space-x-2"
-      >
-        <span>Development</span>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          className="w-4 h-4 fill-current pt-1"
-          viewBox="0 0 24 24"
-        >
-          <path d="M0 7.33l2.829-2.83 9.175 9.339 9.167-9.339 2.829 2.83-11.996 12.17z" />
-        </svg>
-      </a>
+          <a
+            href="#"
+            className="text-gray-50 flex justify-between p-4 items-center hover:text-white space-x-2"
+          >
+            <span>Development</span>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="w-4 h-4 fill-current pt-1"
+              viewBox="0 0 24 24"
+            >
+              <path d="M0 7.33l2.829-2.83 9.175 9.339 9.167-9.339 2.829 2.83-11.996 12.17z" />
+            </svg>
+          </a>
 
-      {/* Dropdown Menu */}
-      <ul className="hidden group-hover:flex transition duration-300 md:absolute top-full left-0 md:w-auto bg-white md:shadow-lg md:rounded-b-lg p-2 flex-wrap">
-        {developmentmenu.map((item, index) => (
-          <li key={index} className="p-2 hover:bg-gray-100 rounded-lg w-48">
-            <NavLink to={item.link} className="block">
-              <h3 className="text-gray-900 font-normal">{item.title}</h3>
-              <p className="text-gray-600 text-sm">{item.description}</p>
-            </NavLink>
-          </li>
-        ))}
-      </ul>
-    </li>
+          {/* Dropdown Menu */}
+          <ul className="hidden group-hover:flex transition duration-300 md:absolute top-full left-0 md:w-auto bg-white md:shadow-lg md:rounded-b-lg p-2 flex-wrap">
+            {developmentmenu.map((item, index) => (
+              <li key={index} className="p-2 hover:bg-gray-100 rounded-lg w-48">
+                <NavLink to={item.link} className="block">
+                  <h3 className="text-gray-900 font-normal">{item.title}</h3>
+                  <p className="text-gray-600 text-sm">{item.description}</p>
+                </NavLink>
+              </li>
+            ))}
+          </ul>
+        </li>
         <li className="relative parent">
           <a
             href="#"
@@ -81,22 +105,16 @@ const Header = () => {
               <path d="M0 7.33l2.829-2.83 9.175 9.339 9.167-9.339 2.829 2.83-11.996 12.17z" />
             </svg>
           </a>
-          <ul className=" child transition duration-300 md:absolute top-full right-0 md:w-48 bg-white md:shadow-lg md:rounded-b ">
-            <li>
-              <a href="#" className="flex px-4 py-3 hover:text-whilte">
-                Digital Marketing
-              </a>
-            </li>
-            <li>
-              <a href="#" className="flex px-4 py-3 hover:text-whilte">
-                Web Design
-              </a>
-            </li>
-            <li>
-              <a href="#" className="flex px-4 py-3 hover:text-whilte">
-                Machine Learning
-              </a>
-            </li>
+          {/* Dropdown Menu */}
+          <ul className="hidden group-hover:flex transition duration-300 md:absolute top-full left-0 md:w-auto bg-white md:shadow-lg md:rounded-b-lg p-2 flex-wrap">
+            {becomeBrand.map((item, index) => (
+              <li key={index} className="p-2 hover:bg-gray-100 rounded-lg w-48">
+                <NavLink to={item.link} className="block">
+                  <h3 className="text-gray-900 font-normal">{item.title}</h3>
+                  <p className="text-gray-600 text-sm">{item.description}</p>
+                </NavLink>
+              </li>
+            ))}
           </ul>
         </li>
         <li>

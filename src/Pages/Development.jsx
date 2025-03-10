@@ -16,27 +16,27 @@ const Development = () => {
   const contentMap = {
     "Web Development": {
       title: "Nurturing Digital Excellence through Web Development",
-      image: "products.svg",
+      image: "web.svg",
       component: <WebDevelopment />
     },
     "Web Design": {
       title: "Crafting Exceptional Website Design Solutions",
-      image: "products.svg",
+      image: "design.svg",
       component: <WebDesign />
     },
     "Software Development": {
       title: "Innovative Software Development for a Smarter Future",
-      image: "products.svg",
+      image: "software.svg",
       component: <SoftwareDevelopment />
     },
     "App Development": {
       title: "Pioneering Digital Transformation through Innovative App Development",
-      image: "products.svg",
+      image: "demo.svg",
       component: <AppDevelopment />
     },
     "CRM Development": {
       title: "Elevating Business Relationships through CRM Development Excellence",
-      image: "products.svg",
+      image: "crm.svg",
       component: <CRMDevelopment />
     },
   };

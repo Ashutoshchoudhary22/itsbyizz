@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
+import ScrollReveal from "scrollreveal";
+
 import { IoIosBusiness } from "react-icons/io";
 import { FaClinicMedical } from "react-icons/fa";
 import { RiShoppingBag4Fill } from "react-icons/ri";
@@ -51,6 +53,16 @@ const DomainList = () => {
     },
   ];
 
+  useEffect(() => {
+    ScrollReveal().reveal(".card", {
+      duration: 800, // Animation duration
+      origin: "bottom", // Starts from bottom
+      distance: "50px", // Moves 50px up
+      easing: "ease-in-out",
+      interval: 200, // Stagger effect (one by one)
+      reset: false, // Prevents re-animation when scrolling back
+    });
+  }, []);
   return (
     <div className="w-full p-4 text-center">
       <h1 className="text-4xl font-bold mt-10 text-gray-600">
@@ -79,7 +91,7 @@ const DomainList = () => {
         {cardData.map((card, index) => (
           <div
             key={index}
-            className="p-5 border border-gray-300 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 bg-white"
+            className="p-5 border card border-gray-300 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 bg-white"
           >
             <div className="flex items-center justify-center w-14 h-14 mt-5 rounded-full bg-green-100 mx-auto">
               <card.icon className="text-2xl text-gray-700" />

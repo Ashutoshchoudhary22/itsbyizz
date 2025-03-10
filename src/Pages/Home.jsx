@@ -112,7 +112,7 @@ const Home = () => {
 
       <div className="w-full h-auto py-10 bg-gray-100 flex flex-col items-center justify-center gap-5 ">
       <h1 className="text-4xl font-bold mt-10 text-center text-gray-600 mb-5">
-       Technologies We Use
+       Technologies We Use 
       </h1>
       <Marquee speed={50} gradient={false}>
         {techStack.map((tech, index) => (

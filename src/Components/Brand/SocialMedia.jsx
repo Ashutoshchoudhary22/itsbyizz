@@ -41,22 +41,18 @@ const SocialMedia = () => {
       </p>
 
       <div className="grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-6">
-      {cardsContent.map((data, index) => (
-        <motion.div
-          key={index}
-          className="flex w-48 flex-col items-center justify-center"
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{
-            delay: index * 0.2, // Stagger effect for each box
-            duration: 0.6,
-            ease: "easeOut",
-          }}
-        >
-          <h1 className="text-4xl font-bold text-green-500">{data.value}+</h1>
-          <p className="text-xl text-gray-100 font-semibold">{data.label}</p>
-        </motion.div>
-      ))}
+      {cardsContent.map((card, index) => (
+          <div
+            key={index}
+            className="bg-white p-6 rounded-xl shadow-lg flex flex-col items-center text-center transition-transform duration-300 hover:scale-105"
+          >
+            {card.icon}
+            <h2 className="text-xl font-semibold text-gray-800 mt-4">
+              {card.title}
+            </h2>
+            <p className="text-gray-600 mt-2">{card.description}</p>
+          </div>
+        ))}
       </div>
     </div>
   );

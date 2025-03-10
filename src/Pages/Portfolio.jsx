@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import WavyScrollText from "../Components/WavyScrollText";
+import WavyScrollText from "../Components/WavyScroll";
 import ScrollReveal from "scrollreveal";
 
 const Portfolio = () => {

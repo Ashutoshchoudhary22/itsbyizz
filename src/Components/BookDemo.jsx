@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import WavyScrollText from "./WavyScrollText";
+import WavyScrollText from "./WavyScroll";
 import ScrollReveal from "scrollreveal";
 
 const BookDemo = () => {

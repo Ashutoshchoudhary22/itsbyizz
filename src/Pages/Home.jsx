@@ -11,7 +11,7 @@ import { RiTailwindCssFill } from "react-icons/ri";
 import { SiMongodb, SiMysql } from "react-icons/si";
 import { FaHtml5, FaCss3  } from "react-icons/fa6";
 import Marquee from "react-fast-marquee";
-import WavyScrollText from "../Components/WavyScrollText";
+import WavyScrollText from "../Components/WavyScroll";
 
 const Home = () => {
   const bookDemoRef = useRef(null); // Step 1: Create a reference

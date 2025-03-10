@@ -5,7 +5,7 @@ import WebDesign from "../Components/Development/WebDesign";
 import SoftwareDevelopment from "../Components/Development/SoftwareDevelopment";
 import AppDevelopment from "../Components/Development/AppDevelopment";
 import CRMDevelopment from "../Components/Development/CRMDevelopment";
-import WavyScrollText from "../Components/WavyScrollText";
+import WavyScrollText from "../Components/WavyScroll";
 
 const Development = () => {
   // Extract query parameter

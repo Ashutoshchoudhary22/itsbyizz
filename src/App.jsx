@@ -4,6 +4,7 @@ import Home from "./Pages/Home";
 import MainLayout from "./Components/MainLayout";
 import Portfolio from "./Pages/Portfolio";
 import Development from "./Pages/Development";
+import Brand from "./Pages/Brand";
 
 const App = () => {
   return (
@@ -14,6 +15,7 @@ const App = () => {
           <Route index element={<Home />} />
           <Route path="portfolio" element={<Portfolio />} />
           <Route path="development" element={<Development />} />
+          <Route path="brand" element={<Brand />} />
           {/* <Route path="*" element={<PageNotFound />} /> */}
         </Route>
       </Routes>

@@ -10,6 +10,14 @@ const Header = () => {
   { title: "CRM Development", link: "/development?title=CRM%20Development" },
   ];
 
+  const brandMenu = [
+    { title: "Brand Building", link: "/brand?title=B%20Development" },
+  { title: "Web Design", link: "/development?title=Web%20Design" },
+  { title: "Software Development", link: "/development?title=Software%20Development" },
+  { title: "App Development", link: "/development?title=App%20Development" },
+  { title: "CRM Development", link: "/development?title=CRM%20Development" },
+  ]
+
   return (
     <nav className="flex px-4 md:shadow-lg items-center relative">
       <div className="text-lg text-gray-50 font-bold md:py-0 py-4">

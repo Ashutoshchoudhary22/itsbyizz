@@ -2,11 +2,11 @@ import React from "react";
 import Marquee from "react-fast-marquee";
 
 const images = [
+  "2[1]-01.png",
+  "1-01.png",
   "https://images.unsplash.com/photo-1551836022-d5d88e9218df",
   "https://images.unsplash.com/photo-1686061594225-3e92c0cd51b0",
-  "https://images.unsplash.com/photo-1551836022-d5d88e9218df",
-  "https://images.unsplash.com/photo-1551836022-d5d88e9218df",
-  "https://images.unsplash.com/photo-1551836022-d5d88e9218df",
+  "3-01.png",
 ];
 
 const AutoSlider = () => {

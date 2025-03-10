@@ -75,19 +75,6 @@ const About = () => {
         </div>
         <div>
           {/* Why Choose Us Section */}
-          <div className="text-center py-16 bg-white text-black">
-            <h1 className="text-4xl capitalize  font-semibold">
-              Why Choose Us
-            </h1>
-            <div className="max-w-[80%] mx-auto  mt-6">
-              <p className="text-lg leading-relaxed">
-                We don't believe in one-size-fits-all solutions. Our approach is
-                personalized, ensuring every client gets a strategy aligned with
-                their goals and challenges. From inception to execution, our
-                all-in-one services empower businesses to grow and innovate.
-              </p>
-            </div>
-          </div>
 
           <div className="flex flex-col md:flex-row items-center p-6 bg-white  w-full">
             {/* Text Section */}
@@ -190,6 +177,20 @@ const About = () => {
 
           <div className="p-8">
             {/* Responsive Cards */}
+            <div className="text-center py-6  text-white">
+              <h1 className="text-4xl capitalize  font-semibold">
+                Why Choose Us
+              </h1>
+              <div className="max-w-[80%] mx-auto  mt-6">
+                <p className="text-lg leading-relaxed">
+                  We don't believe in one-size-fits-all solutions. Our approach
+                  is personalized, ensuring every client gets a strategy aligned
+                  with their goals and challenges. From inception to execution,
+                  our all-in-one services empower businesses to grow and
+                  innovate.
+                </p>
+              </div>
+            </div>
             <div className="grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-6">
               {cardsContent.map((card, index) => (
                 <div
@@ -207,8 +208,7 @@ const About = () => {
           </div>
         </div>
 
-        <TeamCarousel/>
-
+        <TeamCarousel />
       </div>
     </>
   );

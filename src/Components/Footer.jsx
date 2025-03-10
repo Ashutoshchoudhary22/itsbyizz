@@ -40,7 +40,7 @@ const Footer = () => {
 
           {/* Become Brand */}
           <div>
-            <h2 className="text-lg font-bold">BECOME BRAND</h2>
+            <h2 className="text-lg font-bold">DIGITAL MARKETING</h2>
             <ul className="mt-2 space-y-1 text-sm">
               <li><a href="#" className="hover:text-gray-300 transition">Meta & Google Ads</a></li>
               <li><a href="#" className="hover:text-gray-300 transition">Email & Content Marketing</a></li>

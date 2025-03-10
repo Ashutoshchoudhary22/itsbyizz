@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   FaShieldAlt,
   FaLaptopCode,
@@ -13,6 +13,7 @@ import { FaApple, FaAndroid, FaSyncAlt, FaBug, FaWrench } from "react-icons/fa";
 import { FaRegFileCode } from "react-icons/fa6";
 import { AiOutlineSolution } from "react-icons/ai";
 import TeamCarousel from "./TeamCarousel/TeamCarousel";
+import ScrollReveal from "scrollreveal";
 
 const About = () => {
   const cardsContent = [
@@ -35,6 +36,19 @@ const About = () => {
       icon: <FaSyncAlt className="w-10 h-10 text-green-500" />,
     },
   ];
+
+    useEffect(() => {
+      // Initialize ScrollReveal
+      ScrollReveal().reveal('.reveal', {
+        distance: '50px', // Distance of the effect
+        duration: 800, // Duration of the effect
+        delay: 100, // Delay before the effect starts
+        opacity: 0, // Start opacity (element is invisible before scroll)
+        scale: 0.85, // Scaling effect when revealing
+        easing: 'ease-in-out', // Easing function for the effect
+      });
+    }, []);
+  
 
   return (
     <>
@@ -64,7 +78,7 @@ const About = () => {
             </div>
 
             {/* Image Section */}
-            <div className="md:w-1/2 flex justify-center">
+            <div className="md:w-1/2 flex justify-center reveal ">
               <img
                 className="w-full max-w-xs md:max-w-sm rounded-lg"
                 src="https://www.servicenow.com/content/dam/servicenow-assets/public/en-us/images/ds-backgrounds/about-page-marquee.sm.jpg"
@@ -76,9 +90,9 @@ const About = () => {
         <div>
           {/* Why Choose Us Section */}
 
-          <div className="flex flex-col md:flex-row items-center p-6 bg-white  w-full">
+          <div className="flex flex-col md:flex-row items-center p-6 bg-white  w-full ">
             {/* Text Section */}
-            <div className="md:w-1/2 text-center md:text-left p-4">
+            <div className="md:w-1/2 text-center md:text-left p-4 reveal">
               <h1 className="text-4xl pb-4 font-bold text-gray-800">
                 Our Vision
               </h1>
@@ -93,7 +107,7 @@ const About = () => {
             </div>
 
             {/* Image Section */}
-            <div className="md:w-1/2 flex justify-center">
+            <div className="md:w-1/2 flex justify-center reveal">
               <img
                 className="w-full max-w-xs md:max-w-sm "
                 src={svg}
@@ -102,9 +116,9 @@ const About = () => {
             </div>
           </div>
           {/* {second sections}   */}
-          <div className="flex flex-col md:flex-row items-center p-6 bg-gray-50  w-full">
+          <div className="flex flex-col md:flex-row items-center p-6 bg-gray-50  w-full ">
             {/* Image Section */}
-            <div className="md:w-1/2 flex justify-center ">
+            <div className="md:w-1/2 flex justify-center reveal">
               <img
                 className="w-full max-w-xs md:max-w-sm rounded-lg"
                 src={svg2}
@@ -113,7 +127,7 @@ const About = () => {
             </div>
 
             {/* Text Section */}
-            <div className="md:w-1/2 text-center md:text-left p-4">
+            <div className="md:w-1/2 text-center md:text-left p-4 reveal">
               <h1 className="text-4xl pb-4 font-bold text-gray-800">
                 Our Mission
               </h1>
@@ -126,9 +140,9 @@ const About = () => {
             </div>
           </div>
           {/* {third sections}   */}
-          <div className="flex flex-col md:flex-row items-center p-6 bg-white   w-full">
+          <div className="flex flex-col md:flex-row items-center p-6 bg-white  w-full">
             {/* Text Section */}
-            <div className="md:w-1/2 text-center md:text-left p-4">
+            <div className="md:w-1/2 text-center md:text-left p-4 reveal">
               <h1 className="text-4xl pb-4 font-bold text-gray-800">
                 Our Approach
               </h1>
@@ -141,7 +155,7 @@ const About = () => {
             </div>
 
             {/* Image Section */}
-            <div className="md:w-1/2 flex justify-center">
+            <div className="md:w-1/2 flex justify-center reveal">
               <img
                 className="w-full max-w-xs md:max-w-sm "
                 src={svg}
@@ -153,7 +167,7 @@ const About = () => {
 
           <div className="flex flex-col md:flex-row items-center p-6 bg-gray-50  w-full">
             {/* Image Section */}
-            <div className="md:w-1/2 flex justify-center ">
+            <div className="md:w-1/2 flex justify-center reveal">
               <img
                 className="w-full max-w-xs md:max-w-sm rounded-lg"
                 src={svg2}
@@ -162,7 +176,7 @@ const About = () => {
             </div>
 
             {/* Text Section */}
-            <div className="md:w-1/2 text-center md:text-left p-4">
+            <div className="md:w-1/2 text-center md:text-left p-4 reveal">
               <h1 className="text-4xl pb-4 font-bold text-gray-800">
                 Our Core Services
               </h1>
@@ -175,10 +189,10 @@ const About = () => {
             </div>
           </div>
 
-          <div className="p-8">
+          <div className="p-8 ">
             {/* Responsive Cards */}
             <div className="text-center py-6  text-white">
-              <h1 className="text-4xl capitalize  font-semibold">
+              <h1 className="text-4xl capitalize  font-semibold reveal">
                 Why Choose Us
               </h1>
               <div className="max-w-[80%] mx-auto  mt-6">
@@ -191,11 +205,11 @@ const About = () => {
                 </p>
               </div>
             </div>
-            <div className="grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-6">
+            <div className="grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-6 reveal">
               {cardsContent.map((card, index) => (
                 <div
                   key={index}
-                  className="bg-white p-7 rounded-xl shadow-lg flex flex-col items-center text-center transition-transform duration-300 hover:scale-105"
+                  className="bg-white p-7 reveal rounded-xl shadow-lg flex flex-col items-center text-center transition-transform duration-300 hover:scale-105"
                 >
                   {card.icon}
                   <h2 className="text-xl font-semibold text-gray-800 mt-4">

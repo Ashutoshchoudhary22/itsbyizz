@@ -83,7 +83,7 @@ const Header = () => {
             ))}
           </ul>
         </li>
-        <li className="relative parent">
+        <li className="relative group">
           <a
             href="#"
             className="text-gray-50 flex justify-between md:inline-flex p-4 items-center hover:text-whilte space-x-2"

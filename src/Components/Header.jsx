@@ -23,6 +23,19 @@ const Header = () => {
   ];
   
 
+<<<<<<< HEAD
+  const brandMenu = [
+    { title: "Brand Building", link: "/brand?title=B%20Development" },
+    { title: "Web Design", link: "/development?title=Web%20Design" },
+    {
+      title: "Software Development",
+      link: "/development?title=Software%20Development",
+    },
+    { title: "App Development", link: "/development?title=App%20Development" },
+    { title: "CRM Development", link: "/development?title=CRM%20Development" },
+  ];
+=======
+>>>>>>> 799a9fbdf712afe2e1721c956b8f4706db6b64be
 
   return (
     <nav className="flex px-4 md:shadow-lg items-center relative">

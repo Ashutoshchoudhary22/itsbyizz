@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import WavyScrollText from "../Components/WavyScroll";
-import ScrollReveal from "scrollreveal";
+import RevealWrapper from "../Components/RevealWrapper";
 
 const Portfolio = () => {
   const [activeTab, setActiveTab] = useState("B2B");
@@ -150,26 +150,16 @@ const Portfolio = () => {
     ],
   };
 
-  useEffect(() => {
-    // Initialize ScrollReveal
-    ScrollReveal().reveal('.reveal', {
-      distance: '50px', // Distance of the effect
-      duration: 800, // Duration of the effect
-      delay: 100, // Delay before the effect starts
-      opacity: 0, // Start opacity (element is invisible before scroll)
-      scale: 0.85, // Scaling effect when revealing
-      easing: 'ease-in-out', // Easing function for the effect
-    });
-  }, []);
-
   return (
     <div className="w-full h-auto ">
       {/* Header Section */}
       <div className="w-full  grid md:grid-cols-2 gap-2 grid-cols-1 px-5 py-24">
         <div className="col-span-1 flex items-center">
-        <WavyScrollText highlight=" Our Products & 
-              " text="Solutions" />
-         
+          <WavyScrollText
+            highlight=" Our Products & 
+              "
+            text="Solutions"
+          />
         </div>
         <div className="col-span-1 flex justify-center items-center">
           <img
@@ -201,19 +191,18 @@ const Portfolio = () => {
         {/* Product Cards Section */}
         <div className="w-full flex flex-wrap justify-center gap-6 pb-5">
           {products[activeTab].map((product, index) => (
-            <div
-              key={index}
-              className="bg-white shadow-lg rounded-lg p-4  w-62 text-center reveal"
-            >
-              <img
-                src={product.img}
-                alt={product.title}
-                className="w-40 h-auto mx-auto"
-              />
-              <h3 className="text-lg font-semibold mt-2 text-gray-800">
-                {product.title}
-              </h3>
-            </div>
+            <RevealWrapper key={index}>
+              <div className="bg-white shadow-lg rounded-lg p-4  w-62 text-center">
+                <img
+                  src={product.img}
+                  alt={product.title}
+                  className="w-40 h-auto mx-auto"
+                />
+                <h3 className="text-lg font-semibold mt-2 text-gray-800">
+                  {product.title}
+                </h3>
+              </div>
+            </RevealWrapper>
           ))}
         </div>
       </div>

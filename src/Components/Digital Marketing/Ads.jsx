@@ -7,6 +7,7 @@ import {
   FaEye,
   
 } from "react-icons/fa";
+import RevealWrapper from "../RevealWrapper";
 
 
 const Ads = () => {
@@ -43,7 +44,7 @@ const Ads = () => {
     },
   ];
 
-
+  
 
   return (
     <div className="w-full py-12 px-5">
@@ -58,8 +59,9 @@ const Ads = () => {
     {/* Responsive Cards */}
     <div className="grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-6">
       {cardsContent.map((card, index) => (
+        <RevealWrapper  key={index}>
         <div
-          key={index}
+         
           className="bg-white p-7 rounded-xl shadow-lg flex flex-col items-center text-center transition-transform duration-300 hover:scale-105"
         >
           {card.icon}
@@ -68,6 +70,7 @@ const Ads = () => {
           </h2>
           <p className="text-gray-600 mt-2">{card.description}</p>
         </div>
+        </RevealWrapper>
       ))}
     </div>
   </div>

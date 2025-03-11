@@ -1,5 +1,6 @@
 import React from 'react';
 import { FaEnvelopeOpenText, FaUsers, FaTags, FaClock, FaChartPie } from 'react-icons/fa';
+import RevealWrapper from '../RevealWrapper';
 
 const EmailM = () => {
     const emailServices = [
@@ -43,8 +44,9 @@ const EmailM = () => {
         {/* Responsive Cards */}
         <div className="grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-6">
           {emailServices.map((service, index) => (
+            <RevealWrapper  key={index}>
             <div
-              key={index}
+           
               className="bg-white p-7 rounded-xl shadow-lg flex flex-col items-center text-center transition-transform duration-300 hover:scale-105"
             >
               {service.icon}
@@ -53,6 +55,7 @@ const EmailM = () => {
               </h2>
               <p className="text-gray-600 mt-2">{service.description}</p>
             </div>
+            </RevealWrapper>
           ))}
         </div>
       </div>

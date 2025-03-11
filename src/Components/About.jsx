@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import svg from "../../public/about1.svg";
 import svg2 from "../../public/about2.svg";
+import svg3 from "../../public/about3.png";
 import approach from "../../public/approach.svg";
 import { FaApple, FaAndroid, FaSyncAlt, FaBug, FaWrench } from "react-icons/fa";
 import { FaRegFileCode } from "react-icons/fa6";
@@ -30,18 +31,17 @@ const About = () => {
     },
   ];
 
-    useEffect(() => {
-      // Initialize ScrollReveal
-      ScrollReveal().reveal('.reveal', {
-        distance: '50px', // Distance of the effect
-        duration: 800, // Duration of the effect
-        delay: 100, // Delay before the effect starts
-        opacity: 0, // Start opacity (element is invisible before scroll)
-        scale: 0.85, // Scaling effect when revealing
-        easing: 'ease-in-out', // Easing function for the effect
-      });
-    }, []);
-  
+  useEffect(() => {
+    // Initialize ScrollReveal
+    ScrollReveal().reveal(".reveal", {
+      distance: "50px", // Distance of the effect
+      duration: 800, // Duration of the effect
+      delay: 100, // Delay before the effect starts
+      opacity: 0, // Start opacity (element is invisible before scroll)
+      scale: 0.85, // Scaling effect when revealing
+      easing: "ease-in-out", // Easing function for the effect
+    });
+  }, []);
 
   return (
     <>
@@ -163,7 +163,7 @@ const About = () => {
             <div className="md:w-1/2 flex justify-center reveal">
               <img
                 className="w-full max-w-xs md:max-w-sm rounded-lg"
-                src={svg2}
+                src={svg3}
                 alt="AI Business Transformation"
               />
             </div>

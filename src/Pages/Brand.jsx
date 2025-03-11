@@ -18,12 +18,12 @@ const Brand = () => {
   const contentMap = {
     "Brand Building": {
       title: " Crafting Legacies Through Brand Building Mastery",
-      image: "web.svg",
+      image: "brand.png",
       component: <BrandBuilding />
     },
     "ORM": {
       title: "Fortifying Reputations and Safeguarding Trust with Expert ORM",
-      image: "design.svg",
+      image: "orm.png",
       component: <ORM />
     },
     "Public Relations": {
@@ -38,12 +38,12 @@ const Brand = () => {
     },
     "Influence Marketing": {
       title: "Illuminating Brands through Influencer Marketing Expertise",
-      image: "crm.svg",
+      image: "marketing.png",
       component: <InfluenceMarketing />
     },
     "Social Media Presence": {
       title: "Navigating Digital Frontiers with Mastery in Digital Marketing",
-      image: "crm.svg",
+      image: "media.png",
       component: <SocialMedia />
     },
   };

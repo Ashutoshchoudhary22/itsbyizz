@@ -7,6 +7,7 @@ import {
 } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
 import { Link } from "react-router-dom";
+import { FaYoutube } from "react-icons/fa";
 
 const Footer = () => {
   const digitalMarketingLinks = [
@@ -32,25 +33,25 @@ const Footer = () => {
           <h2 className="text-lg font-bold pb-3">Follow Us</h2>
           <div className="flex space-x-4">
             <a
-              href="#"
+              href="https://www.facebook.com/deepnapsoftech"
               className="p-2 bg-white rounded-full text-sky-800 hover:bg-sky-700 hover:text-white transition"
             >
               <FaFacebookF size={20} />
             </a>
             <a
-              href="#"
+              href="https://x.com/deepnapsoftech"
               className="p-2 bg-white rounded-full text-sky-800 hover:bg-sky-700 hover:text-white transition"
             >
               <FaTwitter size={20} />
             </a>
             <a
-              href="#"
+              href="https://www.youtube.com/@deepnap_softech"
               className="p-2 bg-white rounded-full text-sky-800 hover:bg-sky-700 hover:text-white transition"
             >
-              <FaLinkedinIn size={20} />
+              <FaYoutube size={20} />
             </a>
             <a
-              href="#"
+              href="https://www.instagram.com/deepnapsoftech/"
               className="p-2 bg-white rounded-full text-sky-800 hover:bg-sky-700 hover:text-white transition"
             >
               <FaInstagram size={20} />
@@ -74,11 +75,7 @@ const Footer = () => {
                   Portfolio
                 </Link>
               </li>
-              <li>
-                <a href="#" className="hover:text-gray-300 transition">
-                  Products
-                </a>
-              </li>
+
               <li>
                 <Link
                   to="/contact-us"

@@ -163,7 +163,7 @@ const Portfolio = () => {
         </div>
         <div className="col-span-1 flex justify-center items-center">
           <img
-            src="/products.svg"
+            src="/portfolio.png"
             alt="Products & Solutions"
             className="w-80 h-auto"
           />

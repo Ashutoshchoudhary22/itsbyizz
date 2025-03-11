@@ -1,6 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { FaRegUserCircle } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   const developmentmenu = [
@@ -42,7 +43,7 @@ const Header = () => {
   return (
     <nav className="flex px-4 md:shadow-lg items-center relative">
       <div className="text-lg text-gray-50 font-bold md:py-0 py-4">
-        ITSYBIZZ
+        <Link to="/">ITSYBIZZ</Link>
       </div>
       <ul className="md:px-2 ml-auto md:flex md:space-x-2 absolute md:relative top-full left-0 right-0">
         <li>
@@ -152,7 +153,10 @@ const Header = () => {
           </a>
           <ul className="hidden group-hover:flex transition duration-300 md:absolute top-full right-0 md:w-auto bg-white md:shadow-lg md:rounded-b-lg p-2 flex-wrap">
             <li className="p-2 hover:bg-gray-100 rounded-lg w-48">
-              <NavLink to="/signup" className="block text-gray-900 font-normal">
+              <NavLink
+                to="/register"
+                className="block text-gray-900 font-normal"
+              >
                 Register
               </NavLink>
             </li>

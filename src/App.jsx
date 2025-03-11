@@ -10,6 +10,8 @@ import Register from "./Pages/Register";
 import Login from "./Pages/Login";
 import PrivacyPolicy from "./Components/Legal/PrivacyPolicy";
 import Term from "./Components/Legal/Term";
+import MetaAdds from "./Components/DigitalMarketing/MetaAdds";
+import Contact from "./Pages/Contact";
 
 const App = () => {
   return (
@@ -27,6 +29,8 @@ const App = () => {
           <Route path="/about-us" element={<About />} />
           <Route path="/policy" element={<PrivacyPolicy />} />
           <Route path="/terms" element={<Term/>} />
+          <Route path="/meta/ads" element={<MetaAdds/>} />
+          <Route path="/contact-us" element={<Contact/>} />
 
           {/* <Route path="*" element={<PageNotFound />} /> */}
         </Route>

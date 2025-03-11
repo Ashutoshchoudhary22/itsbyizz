@@ -34,7 +34,7 @@ const Footer = () => {
               <li><a href="/about-us" className="hover:text-gray-300 transition">About Us</a></li>
               <li><a href="#" className="hover:text-gray-300 transition">Portfolio</a></li>
               <li><a href="#" className="hover:text-gray-300 transition">Products</a></li>
-              <li><a href="#" className="hover:text-gray-300 transition">Contact</a></li>
+              <li><a href="/contact-us" className="hover:text-gray-300 transition">Contact</a></li>
             </ul>
           </div>
 
@@ -42,7 +42,7 @@ const Footer = () => {
           <div>
             <h2 className="text-lg font-bold">DIGITAL MARKETING</h2>
             <ul className="mt-2 space-y-1 text-sm">
-              <li><a href="#" className="hover:text-gray-300 transition">Meta & Google Ads</a></li>
+              <li><a href="/meta/ads" className="hover:text-gray-300 transition">Meta & Google Ads</a></li>
               <li><a href="#" className="hover:text-gray-300 transition">Email & Content Marketing</a></li>
               <li><a href="#" className="hover:text-gray-300 transition">SEO & SEM</a></li>
               <li><a href="#" className="hover:text-gray-300 transition">PPC</a></li>

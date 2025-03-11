@@ -6,12 +6,17 @@ import Portfolio from "./Pages/Portfolio";
 import Development from "./Pages/Development";
 import Brand from "./Pages/Brand";
 import About from "./Components/About";
+import Register from "./Pages/Register";
+import Login from "./Pages/Login";
 
 const App = () => {
   return (
     <Router>
       <Routes>
         {/* Main Layout with Header & Footer */}
+        <Route path="/register" element= {<Register />} />
+        <Route path="/login" element= {<Login />} />
+
         <Route path="/" element={<MainLayout />}>
           <Route index element={<Home />} />
           <Route path="portfolio" element={<Portfolio />} />

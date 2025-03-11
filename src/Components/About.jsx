@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import svg from "../../public/about1.svg";
 import svg2 from "../../public/about2.svg";
+import approach from "../../public/approach.svg";
 import { FaApple, FaAndroid, FaSyncAlt, FaBug, FaWrench } from "react-icons/fa";
 import { FaRegFileCode } from "react-icons/fa6";
 import { AiOutlineSolution } from "react-icons/ai";
@@ -150,7 +151,7 @@ const About = () => {
             <div className="md:w-1/2 flex justify-center reveal">
               <img
                 className="w-full max-w-xs md:max-w-sm "
-                src={svg}
+                src={approach}
                 alt="AI Business Transformation"
               />
             </div>

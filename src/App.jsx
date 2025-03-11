@@ -13,6 +13,7 @@ import Term from "./Components/Legal/Term";
 import DigitalMarketing from "./Pages/DigitalMarketing";
 import MetaAdds from "./Components/DigitalMarketing/MetaAdds";
 import Contact from "./Pages/Contact";
+import Career from "./Components/Career";
 
 const App = () => {
   return (
@@ -33,6 +34,8 @@ const App = () => {
           <Route path="/terms" element={<Term/>} />
           <Route path="/meta/ads" element={<MetaAdds/>} />
           <Route path="/contact-us" element={<Contact/>} />
+          <Route path="/career" element={<Career/>}/>
+
 
           {/* <Route path="*" element={<PageNotFound />} /> */}
         </Route>

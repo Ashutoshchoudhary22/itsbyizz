@@ -23,27 +23,27 @@ const Development = () => {
   const contentMap = {
     "Meta Ads": {
       title: "Maximize Your Reach with Meta  Ads",
-      image: "web.svg",
+      image: "meta.svg",
       component: <Ads />
     },
     "Google Ads": {
       title: "Maximize Your Reach with Google Ads",
-      image: "web.svg",
+      image: "ads.svg",
       component: <GoogleAds />
     },
     "Email Marketing": {
       title: "Engage Your Audience with Email Marketing",
-      image: "design.svg",
+      image: "email.svg",
       component: <EmailM />
     },
     "Content Marketing": {
       title: "Engage Your Audience with Content Marketing",
-      image: "design.svg",
+      image: "content.svg",
       component: <Marketing />
     },
     "SEO SEM": {
       title: "Boost Your Online Presence with SEO & SEM Strategies",
-      image: "software.svg",
+      image: "seo.svg",
       component: <SEO />
     },
     "PPC": {

@@ -1,13 +1,25 @@
 import React from "react";
-import { FaFacebookF, FaTwitter, FaLinkedinIn, FaInstagram } from "react-icons/fa";
+import {
+  FaFacebookF,
+  FaTwitter,
+  FaLinkedinIn,
+  FaInstagram,
+} from "react-icons/fa";
 import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   const digitalMarketingLinks = [
     { title: "Meta  Ads", link: "/digitalMarketing?title=Meta%20Ads" },
     { title: "Google Ads", link: "/digitalMarketing?title=Google%20Ads" },
-    { title: "Email Marketing", link: "/digitalMarketing?title=Email%20Marketing" },
-    { title: "Content Marketing", link: "/digitalMarketing?title=Content%20Marketing" },
+    {
+      title: "Email Marketing",
+      link: "/digitalMarketing?title=Email%20Marketing",
+    },
+    {
+      title: "Content Marketing",
+      link: "/digitalMarketing?title=Content%20Marketing",
+    },
     { title: "SEO & SEM", link: "/digitalMarketing?title=SEO%20SEM" },
     { title: "PPC", link: "/digitalMarketing?title=PPC" },
   ];
@@ -15,21 +27,32 @@ const Footer = () => {
   return (
     <div className="w-full bg-gradient-to-b from-sky-800 to-sky-900 text-white py-10 px-6">
       <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between">
-        
         {/* Left - Social Links */}
         <div className="flex flex-col md:items-start items-center space-y-4 md:space-y-0">
           <h2 className="text-lg font-bold pb-3">Follow Us</h2>
           <div className="flex space-x-4">
-            <a href="#" className="p-2 bg-white rounded-full text-sky-800 hover:bg-sky-700 hover:text-white transition">
+            <a
+              href="#"
+              className="p-2 bg-white rounded-full text-sky-800 hover:bg-sky-700 hover:text-white transition"
+            >
               <FaFacebookF size={20} />
             </a>
-            <a href="#" className="p-2 bg-white rounded-full text-sky-800 hover:bg-sky-700 hover:text-white transition">
+            <a
+              href="#"
+              className="p-2 bg-white rounded-full text-sky-800 hover:bg-sky-700 hover:text-white transition"
+            >
               <FaTwitter size={20} />
             </a>
-            <a href="#" className="p-2 bg-white rounded-full text-sky-800 hover:bg-sky-700 hover:text-white transition">
+            <a
+              href="#"
+              className="p-2 bg-white rounded-full text-sky-800 hover:bg-sky-700 hover:text-white transition"
+            >
               <FaLinkedinIn size={20} />
             </a>
-            <a href="#" className="p-2 bg-white rounded-full text-sky-800 hover:bg-sky-700 hover:text-white transition">
+            <a
+              href="#"
+              className="p-2 bg-white rounded-full text-sky-800 hover:bg-sky-700 hover:text-white transition"
+            >
               <FaInstagram size={20} />
             </a>
           </div>
@@ -41,10 +64,29 @@ const Footer = () => {
           <div>
             <h2 className="text-lg font-bold">Quick Links</h2>
             <ul className="mt-2 space-y-1 text-sm">
-              <li><a href="/about-us" className="hover:text-gray-300 transition">About Us</a></li>
-              <li><a href="#" className="hover:text-gray-300 transition">Portfolio</a></li>
-              <li><a href="#" className="hover:text-gray-300 transition">Products</a></li>
-              <li><a href="/contact-us" className="hover:text-gray-300 transition">Contact</a></li>
+              <li>
+                <Link to="/about-us" className="hover:text-gray-300 transition">
+                  About Us
+                </Link>
+              </li>
+              <li>
+                <Link to="portfolio" className="hover:text-gray-300 transition">
+                  Portfolio
+                </Link>
+              </li>
+              <li>
+                <a href="#" className="hover:text-gray-300 transition">
+                  Products
+                </a>
+              </li>
+              <li>
+                <Link
+                  to="/contact-us"
+                  className="hover:text-gray-300 transition"
+                >
+                  Contact
+                </Link>
+              </li>
             </ul>
           </div>
 
@@ -53,7 +95,14 @@ const Footer = () => {
             <h2 className="text-lg font-bold">DIGITAL MARKETING</h2>
             <ul className="mt-2 space-y-1 text-sm">
               {digitalMarketingLinks.map((item, index) => (
-                <li key={index}><NavLink to={item.link} className="hover:text-gray-300 transition">{item.title}</NavLink></li>
+                <li key={index}>
+                  <NavLink
+                    to={item.link}
+                    className="hover:text-gray-300 transition"
+                  >
+                    {item.title}
+                  </NavLink>
+                </li>
               ))}
             </ul>
           </div>
@@ -62,9 +111,21 @@ const Footer = () => {
           <div>
             <h2 className="text-lg font-bold">LEGAL</h2>
             <ul className="mt-2 space-y-1 text-sm">
-              <li><a href="#" className="hover:text-gray-300 transition">Career</a></li>
-              <li><a href="/policy" className="hover:text-gray-300 transition">Privacy Policy</a></li>
-              <li><a href="/terms" className="hover:text-gray-300 transition">Terms & Conditions</a></li>
+              <li>
+                <Link to="/career" className="hover:text-gray-300 transition">
+                  Career
+                </Link>
+              </li>
+              <li>
+                <Link className="hover:text-gray-300 transition" to="/policy">
+                  Privacy Policy
+                </Link>
+              </li>
+              <li>
+                <Link to="/terms" className="hover:text-gray-300 transition">
+                  Terms & Conditions
+                </Link>
+              </li>
             </ul>
           </div>
         </div>

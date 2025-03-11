@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import ScrollReveal from "scrollreveal";
+import { Link } from "react-router-dom";
 
 
 const Register = () => {
@@ -33,7 +34,7 @@ const Register = () => {
           <h2 className="text-2xl font-semibold">Sign up</h2>
           <p className="text-sm text-gray-500">
             Already have an account?{" "}
-            <span className="text-blue-500 cursor-pointer">Sign in</span>
+            <span className="text-blue-500 cursor-pointer"><Link to="/login">Sign in</Link></span>
           </p>
 
           <form className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-6 p-6 ">
@@ -65,12 +66,12 @@ const Register = () => {
               <input type="checkbox" className="w-5 h-5 mt-1 accent-blue-600" />
               <p>
                 I have read and agree to the
-                <span className="text-green-600 font-medium cursor-pointer hover:underline">
+                <span className="text-green-600 font-medium cursor-pointer hover:underline px-1">
                   Terms of Use
                 </span>
                 and understand my personal information is processed in
                 accordance with the
-                <span className="text-green-600 font-medium cursor-pointer hover:underline">
+                <span className="text-green-600 font-medium cursor-pointer hover:underline px-1">
                   Privacy Statement
                 </span>
                 .

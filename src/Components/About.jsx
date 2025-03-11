@@ -1,12 +1,4 @@
 import React, { useEffect } from "react";
-import {
-  FaShieldAlt,
-  FaLaptopCode,
-  FaShoppingCart,
-  FaFileAlt,
-  FaGlobe,
-} from "react-icons/fa";
-import { FaGamepad } from "react-icons/fa6";
 import svg from "../../public/about1.svg";
 import svg2 from "../../public/about2.svg";
 import { FaApple, FaAndroid, FaSyncAlt, FaBug, FaWrench } from "react-icons/fa";

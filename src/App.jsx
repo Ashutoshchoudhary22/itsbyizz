@@ -6,6 +6,8 @@ import Portfolio from "./Pages/Portfolio";
 import Development from "./Pages/Development";
 import Brand from "./Pages/Brand";
 import About from "./Components/About";
+import PrivacyPolicy from "./Components/Legal/PrivacyPolicy";
+import Term from "./Components/Legal/Term";
 
 const App = () => {
   return (
@@ -17,7 +19,10 @@ const App = () => {
           <Route path="portfolio" element={<Portfolio />} />
           <Route path="development" element={<Development />} />
           <Route path="brand" element={<Brand />} />
-          <Route path="/about-us" element={<About/>} />
+          <Route path="/about-us" element={<About />} />
+          <Route path="/policy" element={<PrivacyPolicy />} />
+          <Route path="/terms" element={<Term/>} />
+
           {/* <Route path="*" element={<PageNotFound />} /> */}
         </Route>
       </Routes>

@@ -12,6 +12,8 @@ import { SiMongodb, SiMysql } from "react-icons/si";
 import { FaHtml5, FaCss3  } from "react-icons/fa6";
 import Marquee from "react-fast-marquee";
 import WavyScrollText from "../Components/WavyScroll";
+import { NavLink } from "react-router-dom";
+import Loop from "../Components/Loop";
 
 const Home = () => {
   const bookDemoRef = useRef(null); // Step 1: Create a reference
@@ -69,7 +71,7 @@ const Home = () => {
               href="#"
               className="text-gray-50 font-semibold flex md:inline-flex px-20 py-2 mt-2 rounded-full hover:text-green-500 transition-all ease border-2 border-gray-400 items-center hover:border-green-500"
             >
-              <span>Contact Us</span>
+              <NavLink to="contact-us">Contact Us</NavLink>
             </a>
           </div>
         </div>
@@ -95,8 +97,9 @@ const Home = () => {
         </div>
       </div>
 
-      <div className="w-full mt-20">
+      <div className="w-full mt-20 h-96">
         {/* <About /> */}
+        <Loop />
       </div>
 
       <div className="w-full mt-20 bg-white">

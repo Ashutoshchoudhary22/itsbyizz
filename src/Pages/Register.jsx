@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import ScrollReveal from "scrollreveal";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 
 const Register = () => {
@@ -66,14 +66,14 @@ const Register = () => {
               <input type="checkbox" className="w-5 h-5 mt-1 accent-blue-600" />
               <p>
                 I have read and agree to the
-                <span className="text-green-600 font-medium cursor-pointer hover:underline px-1">
+                <NavLink to="/terms" className="text-green-600 font-medium cursor-pointer hover:underline px-1">
                   Terms of Use
-                </span>
+                </NavLink>
                 and understand my personal information is processed in
                 accordance with the
-                <span className="text-green-600 font-medium cursor-pointer hover:underline px-1">
+                <NavLink to="/policy" className="text-green-600 font-medium cursor-pointer hover:underline px-1">
                   Privacy Statement
-                </span>
+                </NavLink>
                 .
               </p>
             </div>

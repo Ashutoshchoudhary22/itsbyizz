@@ -56,7 +56,7 @@ const Header = () => {
         <li className="relative group">
           <a
             href="#"
-            className=" text-gray-50 flex md:inline-flex p-4 items-center hover:text-white"
+            className=" text-gray-50 flex md:inline-flex p-4 items-center space-x-2 hover:text-white "
           >
             <span>Products</span>
             <svg
@@ -152,7 +152,7 @@ const Header = () => {
           </a>
           <ul className="hidden group-hover:flex transition duration-300 md:absolute top-full right-0 md:w-auto bg-white md:shadow-lg md:rounded-b-lg p-2 flex-wrap">
             <li className="p-2 hover:bg-gray-100 rounded-lg w-48">
-              <NavLink to="/signup" className="block text-gray-900 font-normal">
+              <NavLink to="/register" className="block text-gray-900 font-normal">
                 Register
               </NavLink>
             </li>

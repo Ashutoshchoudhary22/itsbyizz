@@ -10,6 +10,7 @@ import Register from "./Pages/Register";
 import Login from "./Pages/Login";
 import PrivacyPolicy from "./Components/Legal/PrivacyPolicy";
 import Term from "./Components/Legal/Term";
+import DigitalMarketing from "./Pages/DigitalMarketing";
 
 const App = () => {
   return (
@@ -23,6 +24,7 @@ const App = () => {
           <Route index element={<Home />} />
           <Route path="portfolio" element={<Portfolio />} />
           <Route path="development" element={<Development />} />
+          <Route path="digitalmarketing" element={<DigitalMarketing />} />
           <Route path="brand" element={<Brand />} />
           <Route path="/about-us" element={<About />} />
           <Route path="/policy" element={<PrivacyPolicy />} />

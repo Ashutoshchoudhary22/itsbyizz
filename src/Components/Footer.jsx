@@ -1,7 +1,17 @@
 import React from "react";
 import { FaFacebookF, FaTwitter, FaLinkedinIn, FaInstagram } from "react-icons/fa";
+import { NavLink } from "react-router-dom";
 
 const Footer = () => {
+  const digitalMarketingLinks = [
+    { title: "Meta  Ads", link: "/digitalMarketing?title=Meta%20Ads" },
+    { title: "Google Ads", link: "/digitalMarketing?title=Google%20Ads" },
+    { title: "Email Marketing", link: "/digitalMarketing?title=Email%20Marketing" },
+    { title: "Content Marketing", link: "/digitalMarketing?title=Content%20Marketing" },
+    { title: "SEO & SEM", link: "/digitalMarketing?title=SEO%20SEM" },
+    { title: "PPC", link: "/digitalMarketing?title=PPC" },
+  ];
+
   return (
     <div className="w-full bg-gradient-to-b from-sky-800 to-sky-900 text-white py-10 px-6">
       <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between">
@@ -38,14 +48,13 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Become Brand */}
+          {/* Digital Marketing */}
           <div>
             <h2 className="text-lg font-bold">DIGITAL MARKETING</h2>
             <ul className="mt-2 space-y-1 text-sm">
-              <li><a href="#" className="hover:text-gray-300 transition">Meta & Google Ads</a></li>
-              <li><a href="#" className="hover:text-gray-300 transition">Email & Content Marketing</a></li>
-              <li><a href="#" className="hover:text-gray-300 transition">SEO & SEM</a></li>
-              <li><a href="#" className="hover:text-gray-300 transition">PPC</a></li>
+              {digitalMarketingLinks.map((item, index) => (
+                <li key={index}><NavLink to={item.link} className="hover:text-gray-300 transition">{item.title}</NavLink></li>
+              ))}
             </ul>
           </div>
 
@@ -59,7 +68,6 @@ const Footer = () => {
             </ul>
           </div>
         </div>
-
       </div>
 
       {/* Copyright Section */}

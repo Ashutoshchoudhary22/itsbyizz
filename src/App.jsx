@@ -14,6 +14,9 @@ import DigitalMarketing from "./Pages/DigitalMarketing";
 import MetaAdds from "./Components/DigitalMarketing/MetaAdds";
 import Contact from "./Pages/Contact";
 import Career from "./Components/Career";
+import Dashboard from "./Pages/Admin/Dashboard";
+import Overview from "./Pages/Admin/Overview";
+import Users from "./Pages/Admin/Users";
 
 const App = () => {
   return (
@@ -35,9 +38,15 @@ const App = () => {
           <Route path="/meta/ads" element={<MetaAdds/>} />
           <Route path="/contact-us" element={<Contact/>} />
           <Route path="/career" element={<Career/>}/>
-
+        
 
           {/* <Route path="*" element={<PageNotFound />} /> */}
+        </Route>
+
+
+        <Route path="/dashboard" element={<Dashboard />}>
+          <Route index element={<Overview />} />
+          <Route path="users" element={<Users />} />
         </Route>
       </Routes>
     </Router>

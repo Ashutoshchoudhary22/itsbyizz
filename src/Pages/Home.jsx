@@ -9,14 +9,15 @@ import { DiNodejs } from "react-icons/di";
 import { FaReact, FaJava, FaPython, FaPhp } from "react-icons/fa";
 import { RiTailwindCssFill } from "react-icons/ri";
 import { SiMongodb, SiMysql } from "react-icons/si";
-import { FaHtml5, FaCss3  } from "react-icons/fa6";
+import { FaHtml5, FaCss3 } from "react-icons/fa6";
 import Marquee from "react-fast-marquee";
 import WavyScrollText from "../Components/WavyScroll";
 import { NavLink } from "react-router-dom";
 import Loop from "../Components/Loop";
+import RevealWrapper from "../Components/RevealWrapper";
 
 const Home = () => {
-  const bookDemoRef = useRef(null); // Step 1: Create a reference
+  const bookDemoRef = useRef(null); 
 
   const scrollToBookDemo = () => {
     if (bookDemoRef.current) {
@@ -32,7 +33,7 @@ const Home = () => {
 
   const techStack = [
     { icon: FaHtml5, color: "text-orange-600" },
-    { icon: FaCss3 , color: "text-blue-600" },
+    { icon: FaCss3, color: "text-blue-600" },
     { icon: TbBrandJavascript, color: "text-yellow-500" },
     { icon: DiNodejs, color: "text-green-600" },
     { icon: FaReact, color: "text-blue-400" },
@@ -42,15 +43,16 @@ const Home = () => {
     { icon: SiMysql, color: "text-blue-700" },
     { icon: FaPhp, color: "text-indigo-700" },
     { icon: RiTailwindCssFill, color: "text-blue-500" },
-  ]
-
-  
+  ];
 
   return (
     <div>
       <div className="w-full h-72 grid md:grid-cols-2 gap-2 grid-cols-1 px-5 py-24">
         <div className="col-span-1">
-        <WavyScrollText highlight="Smart IoT & Automation" text="for Maximum Efficiency." />
+          <WavyScrollText
+            highlight="Smart IoT & Automation"
+            text="for Maximum Efficiency."
+          />
         </div>
 
         <div className="col-span-1">
@@ -84,44 +86,52 @@ const Home = () => {
 
       <div className="w-full flex items-center justify-center text-white flex-col ">
         <h2 className="text-4xl mb-3 font-semibold">
-
           We have 80% active users across the nation
         </h2>
         <div className="flex w-full items-center justify-center mt-4">
           {content.map((data, index) => (
-            <div key={index} className="flex w-48 flex-col items-center justify-center">
-              <h1 className="text-4xl font-bold text-green-500">{data.value}+</h1>
-              <p className="text-xl text-gray-100 font-semibold">{data.label}</p>
+            <div
+              key={index}
+              className="flex w-48 flex-col items-center justify-center"
+            >
+              <h1 className="text-4xl font-bold text-green-500">
+                {data.value}+
+              </h1>
+              <p className="text-xl text-gray-100 font-semibold">
+                {data.label}
+              </p>
             </div>
           ))}
         </div>
       </div>
 
-      <div className="w-full mt-20 h-96">
+      <div className="w-full mt-20">
         {/* <About /> */}
-        <Loop />
+        {/* <Loop /> */}
       </div>
 
-      <div className="w-full mt-20 bg-white">
+      <div className="w-full bg-white">
         <DomainList />
       </div>
 
       {/* Step 3: Attach ref to BookDemo */}
       <div ref={bookDemoRef}>
-        <BookDemo />
+        
+          <BookDemo />
+
       </div>
 
       <div className="w-full h-auto py-10 bg-gray-100 flex flex-col items-center justify-center gap-5 ">
-      <h1 className="text-4xl font-bold mt-10 text-center text-gray-600 mb-5">
-       Technologies We Use 
-      </h1>
-      <Marquee speed={50} gradient={false}>
-        {techStack.map((tech, index) => (
-          <div key={index} className="mx-6 text-7xl">
-            <tech.icon className={`${tech.color}`} />
-          </div>
-        ))}
-      </Marquee>
+        <h1 className="text-4xl font-bold mt-10 text-center text-gray-600 mb-5">
+          Technologies We Use
+        </h1>
+        <Marquee speed={50} gradient={false}>
+          {techStack.map((tech, index) => (
+            <div key={index} className="mx-6 text-7xl">
+              <tech.icon className={`${tech.color}`} />
+            </div>
+          ))}
+        </Marquee>
       </div>
     </div>
   );

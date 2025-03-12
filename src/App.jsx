@@ -14,6 +14,7 @@ import DigitalMarketing from "./Pages/DigitalMarketing";
 import MetaAdds from "./Components/DigitalMarketing/MetaAdds";
 import Contact from "./Pages/Contact";
 import Career from "./Components/Career";
+import { Toaster } from "react-hot-toast";
 import Dashboard from "./Pages/Admin/Dashboard";
 import Overview from "./Pages/Admin/Overview";
 import Users from "./Pages/Admin/Users";
@@ -21,6 +22,7 @@ import Users from "./Pages/Admin/Users";
 const App = () => {
   return (
     <Router>
+      <Toaster position="top-right" reverseOrder={false} />
       <Routes>
         {/* Main Layout with Header & Footer */}
         <Route path="/register" element= {<Register />} />

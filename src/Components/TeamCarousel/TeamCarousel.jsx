@@ -18,7 +18,7 @@ const teamMembers = [
     image: "https://itsybizz.com/images/teams/pankajshukla.webp",
   },
   {
-    name: "Yatish Sharma",
+    name: "Vivek",
     post: "CMO",
     image: "https://itsybizz.com/images/teams/yatish.webp",
   },
@@ -28,8 +28,8 @@ const teamMembers = [
     image: "https://itsybizz.com/images/teams/kiara.webp",
   },
   {
-    name: "Nitin",
-    post: "Mern Stack Developer",
+    name: "Nitin Thakur",
+    post: "Full Stack Developer",
     image: "https://itsybizz.com/images/teams/devesh.webp",
   },
   {

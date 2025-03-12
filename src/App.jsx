@@ -14,10 +14,12 @@ import DigitalMarketing from "./Pages/DigitalMarketing";
 import MetaAdds from "./Components/DigitalMarketing/MetaAdds";
 import Contact from "./Pages/Contact";
 import Career from "./Components/Career";
+import { Toaster } from "react-hot-toast";
 
 const App = () => {
   return (
     <Router>
+      <Toaster position="top-right" reverseOrder={false} />
       <Routes>
         {/* Main Layout with Header & Footer */}
         <Route path="/register" element= {<Register />} />

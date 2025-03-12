@@ -1,6 +1,7 @@
 import React from "react";
 import { FiMenu, FiX, FiHome, FiUsers, FiBriefcase, FiMessageCircle, FiPhone, FiPackage, FiList, FiUserPlus, FiUserCheck, FiClipboard, FiPlusCircle, FiTrendingUp, FiDollarSign } from 'react-icons/fi';
 import { FaBuilding } from "react-icons/fa";
+import { NavLink } from "react-router-dom";
 
 const Sidebar = ({ isOpen, toggleSidebar }) => {
     return (
@@ -17,17 +18,17 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
         </div>
         <nav className="p-5">
         <ul className="space-y-4">
-          <li className="flex items-center space-x-2   p-3 rounded cursor-pointer"><FiHome /> <span>Dashboard</span></li>
+          <NavLink to="/dashboard" className="flex items-center space-x-2 p-3 hover:bg-sky-700 rounded cursor-pointer"><FiHome /> <span>Dashboard</span></NavLink>
 
-          <li className="flex items-center space-x-2 hover:bg-sky-700 p-3 rounded cursor-pointer"><FiUsers /> <span>Users</span></li>
+          <NavLink to="users" className="flex items-center space-x-2 hover:bg-sky-700 p-3 rounded cursor-pointer"><FiUsers /> <span>Users</span></NavLink>
 
-          <li className="flex items-center space-x-2 hover:bg-sky-700 p-3 rounded cursor-pointer"><FiBriefcase /> <span>Career</span></li>
+          <NavLink to="career" className="flex items-center space-x-2 hover:bg-sky-700 p-3 rounded cursor-pointer"><FiBriefcase /> <span>Career</span></NavLink>
 
-          <li className="flex items-center space-x-2 hover:bg-sky-700 p-3 rounded cursor-pointer"><FiMessageCircle /> <span>Enquiry</span></li>
+          <NavLink to="enquiry" className="flex items-center space-x-2 hover:bg-sky-700 p-3 rounded cursor-pointer"><FiMessageCircle /> <span>Enquiry</span></NavLink>
 
-          <li className="flex items-center space-x-2 hover:bg-sky-700 p-3 rounded cursor-pointer"><FiPhone /> <span>Contact</span></li>
+          <NavLink to="contact-list" className="flex items-center space-x-2 hover:bg-sky-700 p-3 rounded cursor-pointer"><FiPhone /> <span>Contact</span></NavLink>
 
-          <li className="flex items-center space-x-2 hover:bg-sky-700 p-3 rounded cursor-pointer"><FiPackage /> <span>IOT Products</span></li>
+          <NavLink to="products" className="flex items-center space-x-2 hover:bg-sky-700 p-3 rounded cursor-pointer"><FiPackage /> <span>IOT Products</span></NavLink>
           
           <li className="flex items-center space-x-2 hover:bg-sky-700 p-3 rounded cursor-pointer"><FiClipboard /> <span>IOT Products Quote</span></li>
 

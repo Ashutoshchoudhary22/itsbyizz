@@ -18,6 +18,10 @@ import { Toaster } from "react-hot-toast";
 import Dashboard from "./Pages/Admin/Dashboard";
 import Overview from "./Pages/Admin/Overview";
 import Users from "./Pages/Admin/Users";
+import CareerList from "./Pages/Admin/CareerList";
+import Enquiry from "./Pages/Admin/Enquiry";
+import Contacts from "./Pages/Admin/Contacts";
+import Products from "./Pages/Admin/Products";
 
 const App = () => {
   return (
@@ -49,6 +53,10 @@ const App = () => {
         <Route path="/dashboard" element={<Dashboard />}>
           <Route index element={<Overview />} />
           <Route path="users" element={<Users />} />
+          <Route path="career" element={<CareerList />} />
+          <Route path="enquiry" element={<Enquiry />} />
+          <Route path="contact-list" element={<Contacts />} />
+          <Route path="products" element={<Products />} />
         </Route>
       </Routes>
     </Router>

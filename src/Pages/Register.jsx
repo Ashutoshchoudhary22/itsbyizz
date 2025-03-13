@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import ScrollReveal from "scrollreveal";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import axios from "axios";
+import { Navigate } from "react-router-dom";
 
 const Register = () => {
   const [email, setEmail] = useState("");
@@ -11,6 +12,8 @@ const Register = () => {
   const [mobile, setMobile] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+
+  const navigate = useNavigate();
 
   const data = {
     email,
@@ -23,26 +26,30 @@ const Register = () => {
     e.preventDefault();
     setError("");
     setLoading(true);
-
+  
     try {
       const response = await axios.post(
         `${import.meta.env.VITE_BACKEND_BASE_URL}/user/register`,
+        data, // Remove extra curly braces around 'data'
         {
-          data,
+          headers: {
+            "Content-Type": "application/json",
+          },
         }
       );
-
+  
       console.log("Register successful:", response.data);
-      toast.success("Register successful");
+      toast.success("Register successful",err.response?.data || err.message);
       navigate("/login");
     } catch (err) {
-      console.error("Login failed:", err.response?.data || err.message);
-      toast.error("Login failed:", err.response?.data || err.message);
-      setError(err.response?.data?.message || "Login failed. Try again.");
+      console.error("Register failed:", err.response?.data || err.message);
+      toast.error("Register failed:", err.response?.data || err.message);
+      setError(err.response?.data?.message || "Registration failed. Try again.");
     } finally {
       setLoading(false);
     }
   };
+  
 
   useEffect(() => {
     // Initialize ScrollReveal

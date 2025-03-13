@@ -22,6 +22,11 @@ import CareerList from "./Pages/Admin/CareerList";
 import Enquiry from "./Pages/Admin/Enquiry";
 import Contacts from "./Pages/Admin/Contacts";
 import Products from "./Pages/Admin/Products";
+import Employees from "./Pages/Admin/Employees";
+import Followup from "./Pages/Admin/Followup";
+import Refferal from "./Pages/Admin/Refferal";
+import Business from "./Pages/Admin/Business";
+import Corporate from "./Pages/Admin/Corporate";
 
 const App = () => {
   return (
@@ -57,6 +62,11 @@ const App = () => {
           <Route path="enquiry" element={<Enquiry />} />
           <Route path="contact-list" element={<Contacts />} />
           <Route path="products" element={<Products />} />
+          <Route path="employees" element={<Employees />} />
+          <Route path="followups" element={<Followup />} />
+          <Route path="refferal" element={<Refferal />} />
+          <Route path="business" element={<Business />} />
+          <Route path="corporate" element={<Corporate />} />
         </Route>
       </Routes>
     </Router>

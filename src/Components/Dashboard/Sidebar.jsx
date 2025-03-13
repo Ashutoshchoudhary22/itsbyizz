@@ -32,18 +32,20 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
           
           <li className="flex items-center space-x-2 hover:bg-sky-700 p-3 rounded cursor-pointer"><FiClipboard /> <span>IOT Products Quote</span></li>
 
-          <li className="flex items-center space-x-2 hover:bg-sky-700 p-3 rounded cursor-pointer"><FiUserCheck /> <span>Employee</span></li>
+          <NavLink to="employees" className="flex items-center space-x-2 hover:bg-sky-700 p-3 rounded cursor-pointer"><FiUserCheck /> <span>Employee</span></NavLink>
 
-          <li className="flex items-center space-x-2 hover:bg-sky-700 p-3 rounded cursor-pointer"><FiClipboard /> <span>Follow Ups</span></li>
+          <NavLink to="followups" className="flex items-center space-x-2 hover:bg-sky-700 p-3 rounded cursor-pointer"><FiClipboard /> <span>Follow Ups</span></NavLink>
           
          
-          <li className="flex items-center space-x-2 hover:bg-sky-700 p-3 rounded cursor-pointer"><FiTrendingUp /> <span>Refferal Program</span></li>
+          <NavLink to="refferal" className="flex items-center space-x-2 hover:bg-sky-700 p-3 rounded cursor-pointer"><FiTrendingUp /> <span>Refferal Program</span></NavLink>
          
-          <li className="flex items-center space-x-2 hover:bg-sky-700 p-3 rounded cursor-pointer"><FiDollarSign /> <span>Business</span></li>
+          <NavLink to="business" className="flex items-center space-x-2 hover:bg-sky-700 p-3 rounded cursor-pointer"><FiDollarSign /> <span>Business</span></NavLink>
 
-          <li className="flex items-center space-x-2 hover:bg-sky-700 p-3 rounded cursor-pointer"><FaBuilding /> <span>Corporate</span></li>
+          <NavLink to="corporate" className="flex items-center space-x-2 hover:bg-sky-700 p-3 rounded cursor-pointer"><FaBuilding /> <span>Corporate</span></NavLink>
          
         </ul>
+
+        <button className="w-full hover:bg-white hover:text-sky-800 transition-all ease-in rounded font-semibold shadow border border-white mt-5 text-center p-2">Logout</button>
       </nav>
       </aside>
     );

@@ -165,11 +165,11 @@ const Header = () => {
                 Login
               </NavLink>
             </li>
-            <li className="p-2 hover:bg-gray-100 rounded-lg w-48">
+            {/* <li className="p-2 hover:bg-gray-100 rounded-lg w-48">
               <NavLink to="/dashboard" className="block text-gray-900 font-normal">
                 Dashboard
               </NavLink>
-            </li>
+            </li> */}
           </ul>
         </li>
       </ul>

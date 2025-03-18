@@ -3,11 +3,15 @@ import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { FaEdit, FaEye } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
+import Modal from "../../Components/Dashboard/Modal";
+import DetailsComponent from "../../Components/Dashboard/DetailsComponent";
 
 const Users = () => {
   const [search, setSearch] = useState("");
   const [userdata, setUserData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
+  const [selectedUser, setSelectedUser] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const itemsPerPage = 10;
 
   useEffect(() => {
@@ -16,7 +20,6 @@ const Users = () => {
         const response = await axios.get(
           `${import.meta.env.VITE_BACKEND_BASE_URL}/user/all-users`
         );
-        console.log(response.data);
         setUserData(response.data);
       } catch (error) {
         console.error(
@@ -46,7 +49,6 @@ const Users = () => {
   const handleDeleteUser = async (userId) => {
     if (!userId) {
       console.error("User ID is undefined or invalid");
-
       return;
     }
 
@@ -54,10 +56,7 @@ const Users = () => {
       await axios.delete(
         `${import.meta.env.VITE_BACKEND_BASE_URL}/user/${userId}`
       );
-
-      // Update state to reflect deletion
       setUserData(userdata.filter((user) => user._id !== userId));
-
       toast.success("User deleted successfully");
     } catch (error) {
       console.error(
@@ -67,6 +66,35 @@ const Users = () => {
       alert("Failed to delete user");
     }
   };
+
+  const handleEdit = (userdata) => {
+    console.log(userdata);
+  };
+
+  const handleView = (e, userData) => {
+    e.preventDefault();
+    setSelectedUser(userData);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setSelectedUser(null);
+  };
+
+  const details = selectedUser
+    ? [
+        { label: "Name", value: selectedUser.name },
+        { label: "Email", value: selectedUser.email },
+        { label: "Mobile", value: selectedUser.mobile },
+        { label: "Role", value: selectedUser.role },
+        {
+          label: "Created At",
+          value: new Date(selectedUser.createdAt).toLocaleDateString(),
+        },
+        { label: "Is Blocked", value: selectedUser.isBlocked ? "Yes" : "No" },
+      ]
+    : [];
 
   return (
     <div className="p-5">
@@ -95,24 +123,29 @@ const Users = () => {
           {paginatedData.length > 0 ? (
             paginatedData.map((user) => (
               <tr
-                key={user.id}
+                key={user._id}
                 className="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700 border-gray-200"
               >
                 <td className="p-3 font-semibold">{user.name}</td>
                 <td className="p-3">{user.mobile}</td>
                 <td className="p-3">{user.role}</td>
                 <td className="p-3">{user.email}</td>
-
                 <td className="p-3 flex">
-                  <button className="px-4 py-2 text-lg text-green-500 rounded hover:text-green-600">
+                  <button
+                    className="px-4 py-2 text-lg text-green-500 rounded hover:text-green-600"
+                    onClick={(e) => handleView(e, user)}
+                  >
                     <FaEye />
                   </button>
-                  <button className="px-2 py-2 text-lg text-blue-500 rounded hover:text-blue-600">
+                  <button
+                    className="px-2 py-2 text-lg text-blue-500 rounded hover:text-blue-600"
+                    onClick={() => handleEdit(user)}
+                  >
                     <FaEdit />
                   </button>
                   <button
                     className="px-2 py-2 text-lg text-orange-500 rounded hover:text-orange-600"
-                    onClick={() => handleDeleteUser(user._id)} // Use _id instead of id
+                    onClick={() => handleDeleteUser(user._id)}
                   >
                     <MdDelete />
                   </button>
@@ -128,6 +161,7 @@ const Users = () => {
           )}
         </tbody>
       </table>
+
       {/* Pagination Controls */}
       {totalPages > 1 && (
         <div className="mt-4 flex justify-center items-center space-x-4">
@@ -155,6 +189,12 @@ const Users = () => {
             Next
           </button>
         </div>
+      )}
+
+      {isModalOpen && (
+        <Modal isOpen={isModalOpen} onClose={closeModal}>
+          <DetailsComponent details={details} />
+        </Modal>
       )}
     </div>
   );

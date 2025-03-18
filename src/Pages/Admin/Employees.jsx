@@ -16,6 +16,7 @@ const Employees = () => {
   const [selectedEmployee, setSelectedEmployee] = useState(null); // State for selected employee
   const [isViewModalOpen, setIsViewModalOpen] = useState(false); // State for view modal visibility
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [isEditModalClose,setisEditModalClose] = useState(false);
   const itemsPerPage = 10; // Show only 10 items per page
 
   const employeeFields = [
@@ -315,7 +316,7 @@ const Employees = () => {
       )}
 
       {isEditModalOpen && (
-        <Modal onClose={closeEditModal}>
+        <Modal onClose={isEditModalClose}>
           <EmployeeEdit data = {selectedEmployee} />
         </Modal>
       )}

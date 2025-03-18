@@ -13,16 +13,11 @@ const Employees = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [employeeList, setEmployeeList] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-<<<<<<< HEAD
-  const [selectedEmployee, setSelectedEmployee] = useState(null);
-  const [isViewModalOpen, setIsViewModalOpen] = useState(false);
-  const itemsPerPage = 10;
-=======
   const [selectedEmployee, setSelectedEmployee] = useState(null); // State for selected employee
   const [isViewModalOpen, setIsViewModalOpen] = useState(false); // State for view modal visibility
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [isEditModalClose,setisEditModalClose] = useState(false);
   const itemsPerPage = 10; // Show only 10 items per page
->>>>>>> f122b734f4bb0c357432d613bd258394c93b460e
 
   const employeeFields = [
     { name: "name", label: "Employee Name", type: "text", required: true },
@@ -154,22 +149,17 @@ const Employees = () => {
     setIsViewModalOpen(true);
   };
 
-<<<<<<< HEAD
-  // Close the view modal
-=======
   const handleEdit = (empData) =>{
     setSelectedEmployee(empData);
     setIsEditModalOpen(true);
   }
 
   // Close View Modal Function
->>>>>>> f122b734f4bb0c357432d613bd258394c93b460e
   const closeViewModal = () => {
     setIsViewModalOpen(false);
     setSelectedEmployee(null);
   };
 
-<<<<<<< HEAD
   // Filter employees based on search
   const filteredEmployee = employeeList.filter(
     (emp) =>
@@ -185,12 +175,6 @@ const Employees = () => {
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   );
-=======
-  const closeEditModal = () => {
-    setIsEditModalOpen(false);
-    setSelectedEmployee(null);
-  }
->>>>>>> f122b734f4bb0c357432d613bd258394c93b460e
 
   // Prepare details for the DetailsComponent
   const details = selectedEmployee
@@ -327,7 +311,7 @@ const Employees = () => {
       )}
 
       {isEditModalOpen && (
-        <Modal onClose={closeEditModal}>
+        <Modal onClose={isEditModalClose}>
           <EmployeeEdit data = {selectedEmployee} />
         </Modal>
       )}

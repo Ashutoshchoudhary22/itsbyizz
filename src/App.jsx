@@ -27,6 +27,7 @@ import Followup from "./Pages/Admin/Followup";
 import Refferal from "./Pages/Admin/Refferal";
 import Business from "./Pages/Admin/Business";
 import Corporate from "./Pages/Admin/Corporate";
+import ProductQuote from "./Pages/Admin/ProductQuote";
 
 const App = () => {
   return (
@@ -67,6 +68,7 @@ const App = () => {
           <Route path="refferal" element={<Refferal />} />
           <Route path="business" element={<Business />} />
           <Route path="corporate" element={<Corporate />} />
+          <Route path="products/quote" element={<ProductQuote/>} />
         </Route>
       </Routes>
     </Router>

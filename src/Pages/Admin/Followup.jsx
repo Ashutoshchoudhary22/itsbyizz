@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Modal from "../../Components/Dashboard/Modal";
 import FormComponent from "../../Components/Dashboard/FormComponent";
-import DetailsComponent from "../../Components/Dashboard/DetailsComponent"; // Import the DetailsComponent
+import DetailsComponent from "../../Components/Dashboard/DetailsComponent";
 import { FaEdit, FaEye } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import axios from "axios";
@@ -12,10 +12,24 @@ const Followup = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [followList, setFollowList] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [isLoading, setIsLoading] = useState(true); // Loading state
-  const [selectedFollowup, setSelectedFollowup] = useState(null); // State for selected follow-up
-  const [isViewModalOpen, setIsViewModalOpen] = useState(false); // State for view modal visibility
+  const [isLoading, setIsLoading] = useState(true);
+  const [selectedFollowup, setSelectedFollowup] = useState(null);
+  const [isViewModalOpen, setIsViewModalOpen] = useState(false);
   const itemsPerPage = 10;
+
+  const followupFields = [
+    { name: "name", label: "Name", type: "text", required: true },
+    { name: "mobile", label: "Mobile No.", type: "text", required: true },
+    { name: "email", label: "Email", type: "text", required: true },
+    {
+      name: "status",
+      label: "Status",
+      type: "select",
+      options: ["Pending", "In Progress", "Completed"],
+      required: true,
+    },
+    { name: "remarks", label: "Remarks", type: "textarea" },
+  ];
 
   useEffect(() => {
     const getFollowups = async () => {
@@ -51,27 +65,54 @@ const Followup = () => {
         toast.error("Failed to fetch follow-ups");
         setFollowList([]);
       } finally {
-        setIsLoading(false); // Stop loading
+        setIsLoading(false);
       }
     };
 
     getFollowups();
   }, []);
 
-  // Filtering logic
-  const filteredFollowups = followList.filter(
-    (fu) =>
-      fu?.name?.toLowerCase().includes(search.toLowerCase()) ||
-      fu?.mobile?.toString().includes(search) ||
-      fu?.status?.toLowerCase().includes(search.toLowerCase())
-  );
+  const handleAddFollowup = async (formData) => {
+    try {
+      const token = localStorage.getItem("user");
+      if (!token) {
+        toast.error("Authentication token not found. Please log in.");
+        return;
+      }
 
-  // Pagination logic
-  const totalPages = Math.ceil(filteredFollowups.length / itemsPerPage);
-  const paginatedData = filteredFollowups.slice(
-    (currentPage - 1) * itemsPerPage,
-    currentPage * itemsPerPage
-  );
+      const followupData = {
+        ...formData,
+        remarks: formData.remarks
+          ? [{ val: formData.remarks, date: new Date() }]
+          : [],
+      };
+
+      const response = await axios.post(
+        `${import.meta.env.VITE_BACKEND_BASE_URL}/followup`,
+        followupData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      setFollowList([...followList, response.data]);
+      setIsModalOpen(false);
+      toast.success("Follow-up added successfully");
+    } catch (error) {
+      if (error.response?.data?.error) {
+        toast.error(error.response.data.error);
+      } else {
+        console.error(
+          "Adding follow-up failed:",
+          error.response?.data || error.message
+        );
+        toast.error("Failed to add follow-up");
+      }
+    }
+  };
 
   const handleDeleteUser = async (userId) => {
     if (!userId) {
@@ -87,7 +128,6 @@ const Followup = () => {
         return;
       }
 
-      // Send DELETE request to backend
       const response = await axios.delete(
         `${import.meta.env.VITE_BACKEND_BASE_URL}/followup/${userId}`,
         {
@@ -97,24 +137,15 @@ const Followup = () => {
         }
       );
 
-      // Check if the deletion was successful
-      if (response.data.status === "success") {
-        // Update frontend state to reflect deletion
-        setFollowList((prevList) => prevList.filter((user) => user._id !== userId));
-        toast.success("Follow-up deleted successfully");
-      } else {
-        // Use template literals and provide a fallback message
-        toast.error(
-          `Failed to delete follow-up: ${response.data.message || "Unknown error"}`
-        );
-      }
+      setFollowList((prevList) =>
+        prevList.filter((user) => user._id !== userId)
+      );
+      toast.success("Follow-up deleted successfully");
     } catch (error) {
       console.error(
         "Deleting follow-up failed:",
         error.response?.data || error.message
       );
-
-      // Use template literals for error message
       toast.error(
         `Failed to delete follow-up: ${
           error.response?.data?.message || error.message
@@ -123,21 +154,29 @@ const Followup = () => {
     }
   };
 
-  // Handle View Function
   const handleView = (followupData) => {
-    setSelectedFollowup(followupData); // Set selected follow-up data
-    setIsViewModalOpen(true); // Open the view modal
+    setSelectedFollowup(followupData);
+    setIsViewModalOpen(true);
   };
 
-  // Close View Modal Function
   const closeViewModal = () => {
-    setIsViewModalOpen(false); // Close the view modal
-    setSelectedFollowup(null); // Clear selected follow-up data
+    setIsViewModalOpen(false);
+    setSelectedFollowup(null);
   };
 
+  const filteredFollowups = followList.filter(
+    (fu) =>
+      fu?.name?.toLowerCase().includes(search.toLowerCase()) ||
+      fu?.mobile?.toString().includes(search) ||
+      fu?.status?.toLowerCase().includes(search.toLowerCase())
+  );
 
-  console.log(selectedFollowup)
-  // Prepare details for the DetailsComponent
+  const totalPages = Math.ceil(filteredFollowups.length / itemsPerPage);
+  const paginatedData = filteredFollowups.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
+
   const details = selectedFollowup
     ? [
         { label: "Name", value: selectedFollowup.name },
@@ -147,10 +186,10 @@ const Followup = () => {
           label: "Latest Remark",
           value:
             selectedFollowup.remarks?.length > 0
-              ? selectedFollowup.remarks[selectedFollowup.remarks.length - 1].val
+              ? selectedFollowup.remarks[selectedFollowup.remarks.length - 1]
+                  .val
               : "No remarks",
         },
-       
       ]
     : [];
 
@@ -176,7 +215,9 @@ const Followup = () => {
       {isLoading ? (
         <div className="text-center py-4">Loading...</div>
       ) : paginatedData.length === 0 ? (
-        <div className="text-center py-4 text-gray-600">No follow-ups found</div>
+        <div className="text-center py-4 text-gray-600">
+          No follow-ups found
+        </div>
       ) : (
         <>
           <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
@@ -192,7 +233,10 @@ const Followup = () => {
             </thead>
             <tbody>
               {paginatedData.map((fu, index) => (
-                <tr key={fu._id} className="odd:bg-white even:bg-gray-50 border-b">
+                <tr
+                  key={fu._id}
+                  className="odd:bg-white even:bg-gray-50 border-b"
+                >
                   <td className="p-3 font-semibold">{index + 1}</td>
                   <td className="p-3">{fu.name}</td>
                   <td className="p-3">{fu.mobile}</td>
@@ -205,7 +249,7 @@ const Followup = () => {
                   <td className="p-3 flex">
                     <button
                       className="px-4 py-2 text-lg text-green-500 rounded hover:text-green-600"
-                      onClick={() => handleView(fu)} // Open view modal on click
+                      onClick={() => handleView(fu)}
                     >
                       <FaEye />
                     </button>
@@ -224,7 +268,6 @@ const Followup = () => {
             </tbody>
           </table>
 
-          {/* Pagination Controls */}
           {totalPages > 1 && (
             <div className="mt-4 flex justify-center items-center space-x-4">
               <button
@@ -241,7 +284,9 @@ const Followup = () => {
               </span>
               <button
                 className={`px-4 py-2 text-white bg-sky-600 rounded ${
-                  currentPage === totalPages ? "opacity-50 cursor-not-allowed" : ""
+                  currentPage === totalPages
+                    ? "opacity-50 cursor-not-allowed"
+                    : ""
                 }`}
                 onClick={() =>
                   setCurrentPage((prev) => Math.min(prev + 1, totalPages))
@@ -255,14 +300,16 @@ const Followup = () => {
         </>
       )}
 
-      {/* Add Follow-up Modal */}
       {isModalOpen && (
         <Modal onClose={() => setIsModalOpen(false)}>
-          <FormComponent title="Add Follow-up" />
+          <FormComponent
+            title="Add Follow-up"
+            fields={followupFields}
+            onSubmit={handleAddFollowup}
+          />
         </Modal>
       )}
 
-      {/* View Follow-up Modal */}
       {isViewModalOpen && (
         <Modal onClose={closeViewModal}>
           <DetailsComponent details={details} />

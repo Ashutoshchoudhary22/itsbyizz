@@ -3,7 +3,7 @@ import { FaEdit, FaEye } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import Modal from "../../Components/Dashboard/Modal";
 import FormComponent from "../../Components/Dashboard/FormComponent";
-import DetailsComponent from "../../Components/Dashboard/DetailsComponent"; // Import the DetailsComponent
+import DetailsComponent from "../../Components/Dashboard/DetailsComponent";
 import axios from "axios";
 import toast from "react-hot-toast";
 
@@ -12,41 +12,38 @@ const Employees = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [employeeList, setEmployeeList] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [selectedEmployee, setSelectedEmployee] = useState(null); // State for selected employee
-  const [isViewModalOpen, setIsViewModalOpen] = useState(false); // State for view modal visibility
-  const itemsPerPage = 10; // Show only 10 items per page
+  const [selectedEmployee, setSelectedEmployee] = useState(null);
+  const [isViewModalOpen, setIsViewModalOpen] = useState(false);
+  const itemsPerPage = 10;
 
   const employeeFields = [
-    { name: "name", label: "Employee Name", type: "text" },
-    { name: "EmployeeId", label: "Employee Id", type: "text" },
-    { name: "phone", label: "Phone No.", type: "text" },
-    { name: "email", label: "Email", type: "text" },
-    { name: "role", label: "Role", type: "text" },
-    { name: "joiningDate", label: "Joining Date", type: "date" },
+    { name: "name", label: "Employee Name", type: "text", required: true },
+    { name: "employeeId", label: "Employee Id", type: "text", required: true },
+    { name: "mobile", label: "Mobile No.", type: "text", required: true },
+    { name: "email", label: "Email", type: "text", required: true },
+    { name: "jobrole", label: "Job Role", type: "text", required: true },
+    { name: "dateOfJoining", label: "Joining Date", type: "date", required: true },
+    {
+      name: "isWorking",
+      label: "Currently Working",
+      type: "select",
+      options: ["Yes", "No"],
+      required: true,
+    },
     {
       name: "gender",
       label: "Gender",
       type: "select",
       options: ["Male", "Female", "Other"],
     },
-    {
-      name: "currentlyWorking",
-      label: "Currently Working",
-      type: "select",
-      options: ["Yes", "No"],
-    },
     { name: "profile", label: "Profile", type: "file" },
   ];
 
-  const handleEmployeeAdd = (newEmployee) => {
-    setEmployeeList([...employeeList, { id: employeeList.length + 1, ...newEmployee }]);
-    setIsModalOpen(false);
-  };
-
+  // Fetch employees from the backend
   useEffect(() => {
-    const getUsers = async () => {
+    const getEmployees = async () => {
       try {
-        const token = localStorage.getItem("user"); // Assuming token is stored in localStorage
+        const token = localStorage.getItem("user");
         if (!token) {
           console.error("No token found");
           return;
@@ -56,7 +53,7 @@ const Employees = () => {
           `${import.meta.env.VITE_BACKEND_BASE_URL}/employee`,
           {
             headers: {
-              Authorization: `Bearer ${token}`, // Attach token
+              Authorization: `Bearer ${token}`,
               "Content-Type": "application/json",
             },
           }
@@ -69,34 +66,54 @@ const Employees = () => {
           setEmployeeList([]);
         }
       } catch (err) {
-        console.error(
-          "Fetching users failed:",
-          err.response?.data || err.message
-        );
+        console.error("Fetching employees failed:", err.response?.data || err.message);
         setEmployeeList([]);
       }
     };
 
-    getUsers();
+    getEmployees();
   }, []);
 
-  const filteredEmployee = (employeeList || []).filter(
-    (emp) =>
-      (emp?.Name?.toLowerCase() || "").includes(search?.toLowerCase() || "") ||
-      (emp?.Role?.toLowerCase() || "").includes(search?.toLowerCase() || "") ||
-      (emp?.EmployeeId?.toLowerCase() || "").includes(
-        search?.toLowerCase() || ""
-      ) ||
-      (emp?.Mobile?.toLowerCase() || "").includes(search?.toLowerCase() || "")
-  );
+  // Handle adding a new employee
+  const handleEmployeeAdd = async (formData) => {
+    try {
+      const token = localStorage.getItem("user");
+      if (!token) {
+        toast.error("Authentication token not found. Please log in.");
+        return;
+      }
+  
+      // Prepare the payload with all required fields
+      const employeeData = {
+        ...formData,
+        password: "#Deepnap123", // Default password
+        role: "employee", // Default role
+        isWorking: formData.isWorking === "Yes", // Convert "Yes" to boolean true
+        dateOfJoining: new Date(formData.dateOfJoining).toISOString(), // Convert to ISO format
+      };
+  
+      const response = await axios.post(
+        `${import.meta.env.VITE_BACKEND_BASE_URL}/employee`,
+        employeeData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+  
+      // Update the employee list with the new employee
+      setEmployeeList([...employeeList, response.data]);
+      setIsModalOpen(false);
+      toast.success("Employee added successfully");
+    } catch (error) {
+      console.error("Adding employee failed:", error.response?.data || error.message);
+      toast.error("Failed to add employee" ,error.response?.data || error.message);
+    }
+  };
 
-  // Pagination logic
-  const totalPages = Math.ceil(filteredEmployee.length / itemsPerPage);
-  const paginatedData = filteredEmployee.slice(
-    (currentPage - 1) * itemsPerPage,
-    currentPage * itemsPerPage
-  );
-
+  // Handle deleting an employee
   const handleDeleteUser = async (userId) => {
     if (!userId) {
       console.error("User ID is undefined or invalid");
@@ -106,43 +123,58 @@ const Employees = () => {
 
     try {
       await axios.delete(
-        `${import.meta.env.VITE_BACKEND_BASE_URL}/employee/${userId}`
+        `${import.meta.env.VITE_BACKEND_BASE_URL}/employee/${userId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("user")}`,
+          },
+        }
       );
 
       // Update state to reflect deletion
       setEmployeeList(employeeList.filter((user) => user._id !== userId));
-
-      toast.success("User deleted successfully");
+      toast.success("Employee deleted successfully");
     } catch (error) {
-      console.error(
-        "Deleting user failed:",
-        error.response?.data || error.message
-      );
-      toast.error("Failed to delete user");
+      console.error("Deleting employee failed:", error.response?.data || error.message);
+      toast.error("Failed to delete employee" ,error.response?.data || error.message);
     }
   };
 
-  // Handle View Function
+  // Handle viewing employee details
   const handleView = (employeeData) => {
-    setSelectedEmployee(employeeData); // Set selected employee data
-    setIsViewModalOpen(true); // Open the view modal
+    setSelectedEmployee(employeeData);
+    setIsViewModalOpen(true);
   };
 
-  // Close View Modal Function
+  // Close the view modal
   const closeViewModal = () => {
-    setIsViewModalOpen(false); // Close the view modal
-    setSelectedEmployee(null); // Clear selected employee data
+    setIsViewModalOpen(false);
+    setSelectedEmployee(null);
   };
 
-  console.log(selectedEmployee);
+  // Filter employees based on search
+  const filteredEmployee = employeeList.filter(
+    (emp) =>
+      (emp?.name?.toLowerCase() || "").includes(search?.toLowerCase() || "") ||
+      (emp?.employeeId?.toLowerCase() || "").includes(search?.toLowerCase() || "") ||
+      (emp?.role?.toLowerCase() || "").includes(search?.toLowerCase() || "") ||
+      (emp?.phone?.toLowerCase() || "").includes(search?.toLowerCase() || "")
+  );
+
+  // Pagination logic
+  const totalPages = Math.ceil(filteredEmployee.length / itemsPerPage);
+  const paginatedData = filteredEmployee.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
 
   // Prepare details for the DetailsComponent
   const details = selectedEmployee
     ? [
         { label: "Name", value: selectedEmployee.name },
         { label: "Employee ID", value: selectedEmployee.employeeId },
-        { label: "Role", value: selectedEmployee.jobrole },
-        { label: "Mobile", value: selectedEmployee.mobile },
+        { label: "Role", value: selectedEmployee.jobrole},
+        { label: "Mobile", value: selectedEmployee.mobile},
         {
           label: "Joining Date",
           value: new Date(selectedEmployee.dateOfJoining).toLocaleDateString(),
@@ -151,7 +183,7 @@ const Employees = () => {
         { label: "Gender", value: selectedEmployee.gender || "N/A" },
         {
           label: "Currently Working",
-          value: selectedEmployee.isWorking? "Yes" : "No",
+          value: selectedEmployee.currentlyWorking === "Yes" ? "Yes" : "No",
         },
       ]
     : [];
@@ -203,7 +235,7 @@ const Employees = () => {
               <td className="p-3 flex">
                 <button
                   className="px-4 py-2 text-lg text-green-500 rounded hover:text-green-600"
-                  onClick={() => handleView(emp)} // Open view modal on click
+                  onClick={() => handleView(emp)}
                 >
                   <FaEye />
                 </button>
@@ -212,7 +244,7 @@ const Employees = () => {
                 </button>
                 <button
                   className="px-2 py-2 text-lg text-orange-500 rounded hover:text-orange-600"
-                  onClick={() => handleDeleteUser(emp._id)} // Use _id instead of id
+                  onClick={() => handleDeleteUser(emp._id)}
                 >
                   <MdDelete />
                 </button>

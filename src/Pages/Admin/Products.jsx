@@ -3,7 +3,7 @@ import { FaEdit, FaEye } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import Modal from "../../Components/Dashboard/Modal";
 import FormComponent from "../../Components/Dashboard/FormComponent";
-import DetailsComponent from "../../Components/Dashboard/DetailsComponent"; // Import the DetailsComponent
+import DetailsComponent from "../../Components/Dashboard/DetailsComponent";
 import axios from "axios";
 import { toast } from "react-toastify";
 
@@ -12,28 +12,44 @@ const Products = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [productList, setProductList] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [selectedProduct, setSelectedProduct] = useState(null); // State for selected product
-  const [isViewModalOpen, setIsViewModalOpen] = useState(false); // State for view modal visibility
-  const itemsPerPage = 10; // Show only 10 items per page
+  const [selectedProduct, setSelectedProduct] = useState(null);
+  const [isViewModalOpen, setIsViewModalOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false); // Loading state
+  const itemsPerPage = 10;
 
   const productFields = [
-    { name: "productName", label: "Product Name", type: "text" },
-    { name: "brand", label: "Brand", type: "text" },
-    { name: "category", label: "Category", type: "text" },
-    { name: "subcategory", label: "Subcategory", type: "text" },
+    {
+      name: "productName",
+      label: "Product Name",
+      type: "text",
+      required: true,
+    },
+    { name: "brandName", label: "Brand", type: "text", required: true }, // Updated to match backend
+    { name: "category", label: "Category", type: "text", required: true },
+    { name: "subcategory", label: "Subcategory", type: "text", required: true },
+    {
+      name: "description",
+      label: "Description",
+      type: "textarea",
+      required: true,
+    },
+    {
+      name: "specification",
+      label: "Specification",
+      type: "textarea",
+      required: true,
+    },
+    { name: "image", label: "Upload Image", type: "file", required: true }, // Add file upload field
   ];
 
-  const handleAddProduct = (newProduct) => {
-    setProductList([...productList, { id: productList.length + 1, ...newProduct }]);
-    setIsModalOpen(false);
-  };
-
+  // Fetch products from the backend
   useEffect(() => {
-    const getUsers = async () => {
+    const fetchProducts = async () => {
       try {
-        const token = localStorage.getItem("user"); // Assuming token is stored in localStorage
+        const token = localStorage.getItem("user");
         if (!token) {
           console.error("No token found");
+          toast.error("Authentication token missing");
           return;
         }
 
@@ -41,8 +57,9 @@ const Products = () => {
           `${import.meta.env.VITE_BACKEND_BASE_URL}/iot/prodcuts/all`,
           {
             headers: {
-              Authorization: `Bearer ${token}`, // Attach token
-              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+
+              headers: { "Content-Type": "multipart/form-data" },
             },
           }
         );
@@ -55,74 +72,146 @@ const Products = () => {
         }
       } catch (err) {
         console.error(
-          "Fetching users failed:",
+          "Fetching products failed:",
           err.response?.data || err.message
         );
+        toast.error("Failed to fetch products");
         setProductList([]);
       }
     };
 
-    getUsers();
+    fetchProducts();
   }, []);
 
+  // Handle adding a new product
+  const handleAddProduct = async (formData) => {
+    try {
+      const token = localStorage.getItem("user");
+      if (!token) {
+        toast.error("Authentication token not found. Please log in.");
+        return;
+      }
+
+      // Create FormData for file upload
+      const data = new FormData();
+      for (const key in formData) {
+        if (key === "specification" && typeof formData[key] === "string") {
+          // Convert specification to array if it's a string
+          data.append(
+            key,
+            JSON.stringify(formData[key].split("\n").map((spec) => spec.trim()))
+          );
+        } else {
+          data.append(key, formData[key]);
+        }
+      }
+
+      setIsLoading(true); // Start loading
+      const response = await axios.post(
+        `${import.meta.env.VITE_BACKEND_BASE_URL}/iot/prodcuts`,
+        data,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "multipart/form-data", // Use multipart/form-data for file upload
+          },
+        }
+      );
+
+      // Update the product list with the new product
+      setProductList([...productList, response.data.product]);
+      setIsModalOpen(false);
+      toast.success("Product added successfully");
+    } catch (error) {
+      console.error(
+        "Adding product failed:",
+        error.response?.data || error.message
+      );
+      toast.error("Failed to add product");
+    } finally {
+      setIsLoading(false); // Stop loading
+    }
+  };
+
+  // Handle deleting a product
+  const handleDeleteUser = async (productId) => {
+    if (!productId) {
+      console.error("Product ID is undefined or invalid");
+      toast.error("Invalid product ID");
+      return;
+    }
+
+    try {
+      const token = localStorage.getItem("user");
+      if (!token) {
+        toast.error("Authentication token missing");
+        return;
+      }
+
+      await axios.delete(
+        `${import.meta.env.VITE_BACKEND_BASE_URL}/iot/prodcuts/${productId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      // Update state to reflect deletion
+      setProductList(
+        productList.filter((product) => product._id !== productId)
+      );
+      toast.success("Product deleted successfully");
+    } catch (error) {
+      console.error(
+        "Deleting product failed:",
+        error.response?.data || error.message
+      );
+      toast.error("Failed to delete product");
+    }
+  };
+
+  // Handle viewing product details
+  const handleView = (productData) => {
+    setSelectedProduct(productData);
+    setIsViewModalOpen(true);
+  };
+
+  // Close the view modal
+  const closeViewModal = () => {
+    setIsViewModalOpen(false);
+    setSelectedProduct(null);
+  };
+
+  // Filter products based on search
   const filteredProducts = productList.filter(
     (product) =>
       product?.productName?.toLowerCase().includes(search.toLowerCase()) ||
-      product?.brand?.toLowerCase().includes(search.toLowerCase()) ||
+      product?.brandName?.toLowerCase().includes(search.toLowerCase()) ||
       product?.category?.toLowerCase().includes(search.toLowerCase()) ||
       product?.subcategory?.toLowerCase().includes(search.toLowerCase())
   );
 
+  // Pagination logic
   const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
   const paginatedData = filteredProducts.slice(
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   );
 
-  const handleDeleteUser = async (userId) => {
-    if (!userId) {
-      console.error("User ID is undefined or invalid");
-      toast.error("Invalid user ID");
-      return;
-    }
-
-    try {
-      await axios.delete(
-        `${import.meta.env.VITE_BACKEND_BASE_URL}/iot/prodcuts/${userId}`
-      );
-
-      // Update state to reflect deletion
-      setProductList(productList.filter((user) => user._id !== userId));
-
-      toast.success("User deleted successfully");
-    } catch (error) {
-      console.error(
-        "Deleting user failed:",
-        error.response?.data || error.message
-      );
-      toast.error("Failed to delete user");
-    }
-  };
-
-  // Handle View Function
-  const handleView = (productData) => {
-    setSelectedProduct(productData); // Set selected product data
-    setIsViewModalOpen(true); // Open the view modal
-  };
-
-  // Close View Modal Function
-  const closeViewModal = () => {
-    setIsViewModalOpen(false); // Close the view modal
-    setSelectedProduct(null); // Clear selected product data
-  };
-
   // Prepare details for the DetailsComponent
   const details = selectedProduct
     ? [
         { label: "Product Name", value: selectedProduct.productName },
-        { label: "Brand", value: selectedProduct.brand },
+        { label: "Brand", value: selectedProduct.brandName },
         { label: "Category", value: selectedProduct.category },
         { label: "Subcategory", value: selectedProduct.subcategory },
+        { label: "Description", value: selectedProduct.description },
+        {
+          label: "Specification",
+          value: selectedProduct.specification?.join("\n") || "N/A",
+        },
+        { label: "Image", value: selectedProduct.image, type: "image" }, // Display image
       ]
     : [];
 
@@ -158,17 +247,17 @@ const Products = () => {
         <tbody>
           {paginatedData.map((product) => (
             <tr
-              key={product._id} // Use _id instead of id
+              key={product._id}
               className="odd:bg-white even:bg-gray-50 border-b"
             >
               <td className="p-3">{product.productName}</td>
-              <td className="p-3">{product.brand}</td>
+              <td className="p-3">{product.brandName}</td>
               <td className="p-3">{product.category}</td>
               <td className="p-3">{product.subcategory}</td>
               <td className="p-3 flex">
                 <button
                   className="px-4 py-2 text-lg text-green-500 rounded hover:text-green-600"
-                  onClick={() => handleView(product)} // Open view modal on click
+                  onClick={() => handleView(product)}
                 >
                   <FaEye />
                 </button>
@@ -177,7 +266,7 @@ const Products = () => {
                 </button>
                 <button
                   className="px-2 py-2 text-lg text-orange-500 rounded hover:text-orange-600"
-                  onClick={() => handleDeleteUser(product._id)} // Use _id instead of id
+                  onClick={() => handleDeleteUser(product._id)}
                 >
                   <MdDelete />
                 </button>
@@ -223,6 +312,7 @@ const Products = () => {
             title="Add Product"
             fields={productFields}
             onSubmit={handleAddProduct}
+            isLoading={isLoading} // Pass loading state
           />
         </Modal>
       )}

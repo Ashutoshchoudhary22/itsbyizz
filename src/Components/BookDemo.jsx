@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import WavyScrollText from "./WavyScroll";
 import ScrollReveal from "scrollreveal";
+import axios from "axios";
+import toast from "react-hot-toast";
 
 const BookDemo = () => {
   const [formData, setFormData] = useState({
@@ -8,48 +10,99 @@ const BookDemo = () => {
     email: "",
     phone: "",
     city: "",
-    requirements: "",
+    requirement: "",
   });
+
+  const [message, setMessage] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Form Submitted:", formData);
-    // Handle form submission logic here
+
+    if (
+      !formData.name ||
+      !formData.email ||
+      !formData.phone ||
+      !formData.city ||
+      !formData.requirement
+    ) {
+      setMessage("All fields are required.");
+      return;
+    }
+
+    setLoading(true);
+    setMessage("");
+
+    try {
+      const response = await axios.post(
+        `${import.meta.env.VITE_BACKEND_BASE_URL}/quotes`,
+        formData
+      );
+
+      if (response.status === 200) {
+        setMessage("Your demo request has been sent successfully!");
+        setFormData({
+          name: "",
+          email: "",
+          phone: "",
+          city: "",
+          requirement: "",
+        }); // Clear form
+        toast.success("Your demo request has been sent successfully!");
+      } else {
+        setMessage("Failed to send request. Please try again.");
+      }
+    } catch (err) {
+      setMessage(
+        "Error: " + (err.response?.data?.message || "Something went wrong")
+      );
+    } finally {
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
-    // Initialize ScrollReveal
-    ScrollReveal().reveal('.reveal', {
-      distance: '50px', // Distance of the effect
-      duration: 800, // Duration of the effect
-      delay: 100, // Delay before the effect starts
-      opacity: 0, // Start opacity (element is invisible before scroll)
-      scale: 0.85, // Scaling effect when revealing
-      easing: 'ease-in-out', // Easing function for the effect
+    ScrollReveal().reveal(".reveal", {
+      distance: "50px",
+      duration: 800,
+      delay: 100,
+      opacity: 0,
+      scale: 0.85,
+      easing: "ease-in-out",
     });
   }, []);
 
   return (
     <div className="w-full h-auto flex items-center justify-between bg-gradient-to-b from-sky-900 to-sky-800 text-center py-10">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 px-10 w-full">
-      
         <div className="text-start mt-20">
-        <WavyScrollText highlight="Let's get" text="  to work" />
-        
+          <WavyScrollText highlight="Let's get" text=" to work" />
           <p className="text-gray-200 text-xl mt-3 font-semibold">
-          See how we can put AI to work for your people.
+            See how we can put AI to work for your people.
           </p>
         </div>
 
         {/* Right Side - Book a Demo Form */}
         <div className="bg-transparent border reveal border-sky-900 shadow-lg rounded-xl p-6 w-full max-w-lg mx-auto">
-          <h2 className="text-2xl font-bold text-gray-100 mb-4 text-center">Book a Demo</h2>
+          <h2 className="text-2xl font-bold text-gray-100 mb-4 text-center">
+            Book a Demo
+          </h2>
+
+          {message && (
+            <p
+              className={`mt-3 text-lg font-semibold ${
+                message.includes("Error") ? "text-white" : "text-green-600"
+              }`}
+            >
+              {message}
+            </p>
+          )}
+
           <form onSubmit={handleSubmit} className="grid gap-4">
-            {/* Name */}
             <input
               type="text"
               name="name"
@@ -59,7 +112,6 @@ const BookDemo = () => {
               className="w-full px-4 py-2 text-gray-200 border rounded-lg focus:outline-none"
               required
             />
-            {/* Email */}
             <input
               type="email"
               name="email"
@@ -69,17 +121,15 @@ const BookDemo = () => {
               className="w-full px-4 py-2 text-gray-200 border rounded-lg focus:outline-none"
               required
             />
-            {/* Phone */}
             <input
               type="tel"
               name="phone"
               placeholder="Your Phone"
               value={formData.phone}
               onChange={handleChange}
-             className="w-full px-4 py-2 text-gray-200 border rounded-lg focus:outline-none"
+              className="w-full px-4 py-2 text-gray-200 border rounded-lg focus:outline-none"
               required
             />
-            {/* City */}
             <input
               type="text"
               name="city"
@@ -89,15 +139,16 @@ const BookDemo = () => {
               className="w-full px-4 py-2 text-gray-200 border rounded-lg focus:outline-none"
               required
             />
-            {/* Requirements Dropdown */}
             <select
-              name="requirements"
-              value={formData.requirements}
+              name="requirement"
+              value={formData.requirement}
               onChange={handleChange}
               className="w-full px-4 py-2 text-gray-200 border bg-sky-800 rounded-lg focus:outline-none"
               required
             >
-              <option value="" disabled>Select Your Requirement</option>
+              <option value="" disabled>
+                Select Your Requirement
+              </option>
               <option value="static-web-dev">Static Web Development</option>
               <option value="dynamic-web-dev">Dynamic Web Development</option>
               <option value="ecom">E-Commerce Development</option>
@@ -105,16 +156,20 @@ const BookDemo = () => {
               <option value="hrm">HRM Development</option>
               <option value="digital-marketing">Digital Marketing</option>
               <option value="software-dev">Software Development</option>
-              <option value="appointment-booking">Appointment Booking Web Dev</option>
-              <option value="online-reputation">Online Reputation Management</option>
+              <option value="appointment-booking">
+                Appointment Booking Web Dev
+              </option>
+              <option value="online-reputation">
+                Online Reputation Management
+              </option>
             </select>
 
-            {/* Submit Button */}
             <button
               type="submit"
-              className="w-full bg-green-600 hover:bg-green-700  text-gray-50 py-2 rounded-full font-semibold transition-all"
+              disabled={loading}
+              className="w-full bg-green-600 hover:bg-green-700 text-gray-50 py-2 rounded-full font-semibold transition-all"
             >
-              Submit Request
+              {loading ? "Submitting..." : "Submit Request"}
             </button>
           </form>
         </div>

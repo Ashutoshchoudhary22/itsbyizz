@@ -1,10 +1,16 @@
-import React,{ useState } from "react";
+import React, { useState, useEffect } from "react";
 
-const FormComponent = ({ title, fields, onSubmit }) => {
-  const [formData, setFormData] = useState({});
+const FormComponent = ({ title, fields, onSubmit, initialData = {} }) => {
+  const [formData, setFormData] = useState(initialData);
+  
+  // Update formData when initialData changes
+  useEffect(() => {
+    setFormData(initialData);
+  }, [initialData]);
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
   };
 
   const handleSubmit = (e) => {
@@ -13,7 +19,7 @@ const FormComponent = ({ title, fields, onSubmit }) => {
   };
 
   return (
-    <div className="max-w-md mx-auto p-6 ">
+    <div className="max-w-md mx-auto p-6">
       <h2 className="text-2xl font-bold mb-6 text-center">{title}</h2>
       <form onSubmit={handleSubmit} className="space-y-6">
         {fields.map((field) => (
@@ -27,7 +33,9 @@ const FormComponent = ({ title, fields, onSubmit }) => {
                 className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                 required
               >
-                <option value="" disabled>Select {field.label}</option>
+                <option value="" disabled>
+                  Select {field.label}
+                </option>
                 {field.options.map((option) => (
                   <option key={option} value={option}>
                     {option}

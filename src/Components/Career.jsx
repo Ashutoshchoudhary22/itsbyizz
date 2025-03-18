@@ -60,12 +60,7 @@ const Career = () => {
               required
               className="col-span-2 p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
-            <input
-              type="text"
-              placeholder="Enter Your City"
-              required
-              className="col-span-2 p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
+           
 
             <select
               id="designation"

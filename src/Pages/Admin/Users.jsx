@@ -5,13 +5,15 @@ import { FaEdit, FaEye } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import Modal from "../../Components/Dashboard/Modal";
 import DetailsComponent from "../../Components/Dashboard/DetailsComponent";
+import FormComponent from "../../Components/Dashboard/FormComponent"; // Import the FormComponent
 
 const Users = () => {
   const [search, setSearch] = useState("");
   const [userdata, setUserData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedUser, setSelectedUser] = useState(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isViewModalOpen, setIsViewModalOpen] = useState(false);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false); // State for edit modal visibility
   const itemsPerPage = 10;
 
   useEffect(() => {
@@ -67,19 +69,46 @@ const Users = () => {
     }
   };
 
-  const handleEdit = (userdata) => {
-    console.log(userdata);
+  const handleEdit = (userData) => {
+    setSelectedUser(userData); // Set selected user data for editing
+    setIsEditModalOpen(true); // Open the edit modal
   };
 
   const handleView = (e, userData) => {
     e.preventDefault();
     setSelectedUser(userData);
-    setIsModalOpen(true);
+    setIsViewModalOpen(true);
   };
 
   const closeModal = () => {
-    setIsModalOpen(false);
+    setIsViewModalOpen(false);
+    setIsEditModalOpen(false); // Close both modals
     setSelectedUser(null);
+  };
+
+  const handleEditSubmit = async (updatedData) => {
+    try {
+      const response = await axios.put(
+        `${import.meta.env.VITE_BACKEND_BASE_URL}/user/${selectedUser._id}`,
+        updatedData
+      );
+
+      // Update the user data in the frontend
+      setUserData((prevData) =>
+        prevData.map((user) =>
+          user._id === selectedUser._id ? { ...user, ...updatedData } : user
+        )
+      );
+
+      toast.success("User updated successfully");
+      setIsEditModalOpen(false); // Close the edit modal
+    } catch (error) {
+      console.error(
+        "Updating user failed:",
+        error.response?.data || error.message
+      );
+      toast.error("Failed to update user");
+    }
   };
 
   const details = selectedUser
@@ -95,6 +124,20 @@ const Users = () => {
         { label: "Is Blocked", value: selectedUser.isBlocked ? "Yes" : "No" },
       ]
     : [];
+
+  const editFields = [
+    { name: "name", label: "Name", type: "text", defaultValue: selectedUser?.name },
+    { name: "email", label: "Email", type: "email", defaultValue: selectedUser?.email },
+    { name: "mobile", label: "Mobile", type: "text", defaultValue: selectedUser?.mobile },
+    { name: "role", label: "Role", type: "text", defaultValue: selectedUser?.role },
+    {
+      name: "isBlocked",
+      label: "Is Blocked",
+      type: "select",
+      options: ["Yes", "No"],
+      defaultValue: selectedUser?.isBlocked ? "Yes" : "No",
+    },
+  ];
 
   return (
     <div className="p-5">
@@ -191,9 +234,21 @@ const Users = () => {
         </div>
       )}
 
-      {isModalOpen && (
-        <Modal isOpen={isModalOpen} onClose={closeModal}>
+      {/* View User Modal */}
+      {isViewModalOpen && (
+        <Modal isOpen={isViewModalOpen} onClose={closeModal}>
           <DetailsComponent details={details} />
+        </Modal>
+      )}
+
+      {/* Edit User Modal */}
+      {isEditModalOpen && (
+        <Modal isOpen={isEditModalOpen} onClose={closeModal}>
+          <FormComponent
+            title="Edit User"
+            fields={editFields}
+            onSubmit={handleEditSubmit}
+          />
         </Modal>
       )}
     </div>

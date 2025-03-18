@@ -6,6 +6,7 @@ import FormComponent from "../../Components/Dashboard/FormComponent";
 import DetailsComponent from "../../Components/Dashboard/DetailsComponent"; // Import the DetailsComponent
 import axios from "axios";
 import toast from "react-hot-toast";
+import EmployeeEdit from "../../Components/EditForms/EmployeeEdit";
 
 const Employees = () => {
   const [search, setSearch] = useState("");
@@ -14,6 +15,7 @@ const Employees = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedEmployee, setSelectedEmployee] = useState(null); // State for selected employee
   const [isViewModalOpen, setIsViewModalOpen] = useState(false); // State for view modal visibility
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const itemsPerPage = 10; // Show only 10 items per page
 
   const employeeFields = [
@@ -128,13 +130,21 @@ const Employees = () => {
     setIsViewModalOpen(true); // Open the view modal
   };
 
+  const handleEdit = (empData) =>{
+    setSelectedEmployee(empData);
+    setIsEditModalOpen(true);
+  }
+
   // Close View Modal Function
   const closeViewModal = () => {
     setIsViewModalOpen(false); // Close the view modal
     setSelectedEmployee(null); // Clear selected employee data
   };
 
-  console.log(selectedEmployee);
+  const closeEditModal = () => {
+    setIsEditModalOpen(false);
+    setSelectedEmployee(null);
+  }
 
   // Prepare details for the DetailsComponent
   const details = selectedEmployee
@@ -207,7 +217,8 @@ const Employees = () => {
                 >
                   <FaEye />
                 </button>
-                <button className="px-2 py-2 text-lg text-blue-500 rounded hover:text-blue-600">
+                <button className="px-2 py-2 text-lg text-blue-500 rounded hover:text-blue-600"
+                 onClick={() => handleEdit(emp)}>
                   <FaEdit />
                 </button>
                 <button
@@ -266,6 +277,12 @@ const Employees = () => {
       {isViewModalOpen && (
         <Modal onClose={closeViewModal}>
           <DetailsComponent details={details} />
+        </Modal>
+      )}
+
+      {isEditModalOpen && (
+        <Modal onClose={closeEditModal}>
+          <EmployeeEdit data = {selectedEmployee} />
         </Modal>
       )}
     </div>

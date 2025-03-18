@@ -1,14 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FaEdit, FaEye } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
-import { useEffect } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
+import Modal from "../../Components/Dashboard/Modal";
+import DetailsComponent from "../../Components/Dashboard/DetailsComponent";
+
 
 const Enquiry = () => {
   const [search, setSearch] = useState("");
   const [enquiryList, setEnquiryList] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
+  const [selectedEnquiry, setSelectedEnquiry] = useState(null); // State for selected enquiry
+  const [isModalOpen, setIsModalOpen] = useState(false); // State for modal visibility
   const itemsPerPage = 10; // Show only 10 items per page
 
   useEffect(() => {
@@ -32,7 +36,6 @@ const Enquiry = () => {
 
         if (Array.isArray(response.data)) {
           setEnquiryList(response.data);
-          console.log(response.data);
         } else {
           console.error("Unexpected API response:", response.data);
           setEnquiryList([]);
@@ -49,6 +52,7 @@ const Enquiry = () => {
     getUsers();
   }, []);
 
+  // Filtered data based on search query
   const filteredEnquiry = enquiryList.filter(
     (entry) =>
       entry?.date?.includes(search) ||
@@ -64,6 +68,7 @@ const Enquiry = () => {
     currentPage * itemsPerPage
   );
 
+  // Handle Delete Function
   const handleDeleteUser = async (userId) => {
     if (!userId) {
       console.error("User ID is undefined or invalid");
@@ -88,6 +93,33 @@ const Enquiry = () => {
       toast.error("Failed to delete user");
     }
   };
+
+  // Handle View Function
+  const handleView = (enquiryData) => {
+    setSelectedEnquiry(enquiryData); // Set selected enquiry data
+    setIsModalOpen(true); // Open the modal
+  };
+
+  // Close Modal Function
+  const closeModal = () => {
+    setIsModalOpen(false); // Close the modal
+    setSelectedEnquiry(null); // Clear selected enquiry data
+  };
+
+  // Prepare details for the DetailsComponent
+  const details = selectedEnquiry
+    ? [
+        {
+          label: "Date",
+          value: new Date(selectedEnquiry.date).toLocaleDateString(),
+        },
+        { label: "Name", value: selectedEnquiry.name },
+        { label: "Mobile", value: selectedEnquiry.phone },
+        { label: "Requirement", value: selectedEnquiry.requirement },
+        { label: "Email", value: selectedEnquiry.email || "N/A" },
+      ]
+    : [];
+
   return (
     <div className="p-5">
       <h2 className="text-2xl text-sky-900 font-bold mb-4">Enquiry Requests</h2>
@@ -107,13 +139,13 @@ const Enquiry = () => {
             <th className="px-6 py-3">Name</th>
             <th className="px-6 py-3">Mobile</th>
             <th className="px-6 py-3">Requirement</th>
-            <th className="px-6 py-3 ">Actions</th>
+            <th className="px-6 py-3">Actions</th>
           </tr>
         </thead>
         <tbody>
           {paginatedData.map((entry) => (
             <tr
-              key={entry.id}
+              key={entry._id} // Use _id instead of id
               className="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700 border-gray-200"
             >
               <td className="p-3 font-semibold">
@@ -127,7 +159,10 @@ const Enquiry = () => {
               <td className="p-3">{entry.phone}</td>
               <td className="p-3">{entry.requirement}</td>
               <td className="p-3 flex">
-                <button className="px-4 py-2 text-lg text-green-500 rounded hover:text-green-600">
+                <button
+                  className="px-4 py-2 text-lg text-green-500 rounded hover:text-green-600"
+                  onClick={() => handleView(entry)} // Open modal on click
+                >
                   <FaEye />
                 </button>
                 <button className="px-2 py-2 text-lg text-blue-500 rounded hover:text-blue-600">
@@ -144,6 +179,7 @@ const Enquiry = () => {
           ))}
         </tbody>
       </table>
+
       {/* Pagination Controls */}
       {totalPages > 1 && (
         <div className="mt-4 flex justify-center items-center space-x-4">
@@ -171,6 +207,12 @@ const Enquiry = () => {
             Next
           </button>
         </div>
+      )}
+
+      {isModalOpen && (
+        <Modal isOpen={isModalOpen} onClose={closeModal}>
+          <DetailsComponent details={details} />
+        </Modal>
       )}
     </div>
   );

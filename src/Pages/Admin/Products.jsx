@@ -1,41 +1,21 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FaEdit, FaEye } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import Modal from "../../Components/Dashboard/Modal";
 import FormComponent from "../../Components/Dashboard/FormComponent";
-import { useEffect } from "react";
+import DetailsComponent from "../../Components/Dashboard/DetailsComponent"; // Import the DetailsComponent
 import axios from "axios";
 import { toast } from "react-toastify";
 
 const Products = () => {
   const [search, setSearch] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [productList, setproductList] = useState([]);
+  const [productList, setProductList] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
+  const [selectedProduct, setSelectedProduct] = useState(null); // State for selected product
+  const [isViewModalOpen, setIsViewModalOpen] = useState(false); // State for view modal visibility
   const itemsPerPage = 10; // Show only 10 items per page
-  const [products, setProducts] = useState([
-    {
-      id: 1,
-      productName: "Laptop",
-      brand: "Dell",
-      category: "Electronics",
-      subcategory: "Computers",
-    },
-    {
-      id: 2,
-      productName: "Smartphone",
-      brand: "Apple",
-      category: "Electronics",
-      subcategory: "Mobile Phones",
-    },
-    {
-      id: 3,
-      productName: "Headphones",
-      brand: "Sony",
-      category: "Accessories",
-      subcategory: "Audio",
-    },
-  ]);
+
   const productFields = [
     { name: "productName", label: "Product Name", type: "text" },
     { name: "brand", label: "Brand", type: "text" },
@@ -44,7 +24,7 @@ const Products = () => {
   ];
 
   const handleAddProduct = (newProduct) => {
-    setProducts([...products, { id: products.length + 1, ...newProduct }]);
+    setProductList([...productList, { id: productList.length + 1, ...newProduct }]);
     setIsModalOpen(false);
   };
 
@@ -68,17 +48,17 @@ const Products = () => {
         );
 
         if (Array.isArray(response.data)) {
-          setproductList(response.data);
+          setProductList(response.data);
         } else {
           console.error("Unexpected API response:", response.data);
-          setproductList([]);
+          setProductList([]);
         }
       } catch (err) {
         console.error(
           "Fetching users failed:",
           err.response?.data || err.message
         );
-        setproductList([]);
+        setProductList([]);
       }
     };
 
@@ -112,7 +92,7 @@ const Products = () => {
       );
 
       // Update state to reflect deletion
-      setproductList(productList.filter((user) => user._id !== userId));
+      setProductList(productList.filter((user) => user._id !== userId));
 
       toast.success("User deleted successfully");
     } catch (error) {
@@ -123,6 +103,29 @@ const Products = () => {
       toast.error("Failed to delete user");
     }
   };
+
+  // Handle View Function
+  const handleView = (productData) => {
+    setSelectedProduct(productData); // Set selected product data
+    setIsViewModalOpen(true); // Open the view modal
+  };
+
+  // Close View Modal Function
+  const closeViewModal = () => {
+    setIsViewModalOpen(false); // Close the view modal
+    setSelectedProduct(null); // Clear selected product data
+  };
+
+  // Prepare details for the DetailsComponent
+  const details = selectedProduct
+    ? [
+        { label: "Product Name", value: selectedProduct.productName },
+        { label: "Brand", value: selectedProduct.brand },
+        { label: "Category", value: selectedProduct.category },
+        { label: "Subcategory", value: selectedProduct.subcategory },
+      ]
+    : [];
+
   return (
     <div className="p-5">
       <h2 className="text-2xl text-sky-900 font-bold mb-4">IoT Products</h2>
@@ -155,15 +158,18 @@ const Products = () => {
         <tbody>
           {paginatedData.map((product) => (
             <tr
-              key={product.id}
+              key={product._id} // Use _id instead of id
               className="odd:bg-white even:bg-gray-50 border-b"
             >
               <td className="p-3">{product.productName}</td>
-              <td className="p-3">{product.brandName}</td>
+              <td className="p-3">{product.brand}</td>
               <td className="p-3">{product.category}</td>
               <td className="p-3">{product.subcategory}</td>
               <td className="p-3 flex">
-                <button className="px-4 py-2 text-lg text-green-500 rounded hover:text-green-600">
+                <button
+                  className="px-4 py-2 text-lg text-green-500 rounded hover:text-green-600"
+                  onClick={() => handleView(product)} // Open view modal on click
+                >
                   <FaEye />
                 </button>
                 <button className="px-2 py-2 text-lg text-blue-500 rounded hover:text-blue-600">
@@ -210,6 +216,7 @@ const Products = () => {
         </div>
       )}
 
+      {/* Add Product Modal */}
       {isModalOpen && (
         <Modal onClose={() => setIsModalOpen(false)}>
           <FormComponent
@@ -217,6 +224,13 @@ const Products = () => {
             fields={productFields}
             onSubmit={handleAddProduct}
           />
+        </Modal>
+      )}
+
+      {/* View Product Modal */}
+      {isViewModalOpen && (
+        <Modal onClose={closeViewModal}>
+          <DetailsComponent details={details} />
         </Modal>
       )}
     </div>

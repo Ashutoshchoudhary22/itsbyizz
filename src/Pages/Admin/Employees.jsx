@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FaEdit, FaEye } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import Modal from "../../Components/Dashboard/Modal";
 import FormComponent from "../../Components/Dashboard/FormComponent";
-import { useEffect } from "react";
+import DetailsComponent from "../../Components/Dashboard/DetailsComponent"; // Import the DetailsComponent
 import axios from "axios";
 import toast from "react-hot-toast";
 
@@ -12,25 +12,9 @@ const Employees = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [employeeList, setEmployeeList] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
+  const [selectedEmployee, setSelectedEmployee] = useState(null); // State for selected employee
+  const [isViewModalOpen, setIsViewModalOpen] = useState(false); // State for view modal visibility
   const itemsPerPage = 10; // Show only 10 items per page
-  const [employees, setEmployees] = useState([
-    {
-      id: 1,
-      Name: "	Ravi Kant Shikre",
-      EmployeeId: "DEEPNAP",
-      Role: "devloper",
-      Mobile: "9871182389",
-      JoiningDate: "2024-01-18",
-    },
-    {
-      id: 2,
-      Name: "Kiara",
-      EmployeeId: "DEEPNAP02",
-      Role: "devloper",
-      Mobile: "7065003066",
-      JoiningDate: "2023-11-08",
-    },
-  ]);
 
   const employeeFields = [
     { name: "name", label: "Employee Name", type: "text" },
@@ -55,7 +39,7 @@ const Employees = () => {
   ];
 
   const handleEmployeeAdd = (newEmployee) => {
-    setProducts([...employees, { id: employees.length + 1, ...newEmployee }]);
+    setEmployeeList([...employeeList, { id: employeeList.length + 1, ...newEmployee }]);
     setIsModalOpen(false);
   };
 
@@ -137,6 +121,41 @@ const Employees = () => {
       toast.error("Failed to delete user");
     }
   };
+
+  // Handle View Function
+  const handleView = (employeeData) => {
+    setSelectedEmployee(employeeData); // Set selected employee data
+    setIsViewModalOpen(true); // Open the view modal
+  };
+
+  // Close View Modal Function
+  const closeViewModal = () => {
+    setIsViewModalOpen(false); // Close the view modal
+    setSelectedEmployee(null); // Clear selected employee data
+  };
+
+  console.log(selectedEmployee);
+
+  // Prepare details for the DetailsComponent
+  const details = selectedEmployee
+    ? [
+        { label: "Name", value: selectedEmployee.name },
+        { label: "Employee ID", value: selectedEmployee.employeeId },
+        { label: "Role", value: selectedEmployee.jobrole },
+        { label: "Mobile", value: selectedEmployee.mobile },
+        {
+          label: "Joining Date",
+          value: new Date(selectedEmployee.dateOfJoining).toLocaleDateString(),
+        },
+        { label: "Email", value: selectedEmployee.email || "N/A" },
+        { label: "Gender", value: selectedEmployee.gender || "N/A" },
+        {
+          label: "Currently Working",
+          value: selectedEmployee.isWorking? "Yes" : "No",
+        },
+      ]
+    : [];
+
   return (
     <div className="p-5">
       <h2 className="text-2xl text-sky-900 font-bold mb-4">Employees</h2>
@@ -169,13 +188,12 @@ const Employees = () => {
         </thead>
         <tbody>
           {paginatedData.map((emp) => (
-            <tr key={emp.id} className="odd:bg-white even:bg-gray-50 border-b">
+            <tr key={emp._id} className="odd:bg-white even:bg-gray-50 border-b">
               <td className="p-3">{emp.name}</td>
               <td className="p-3">{emp.employeeId}</td>
               <td className="p-3">{emp.jobrole}</td>
               <td className="p-3">{emp.mobile}</td>
               <td className="p-3">
-                {" "}
                 {new Date(emp.dateOfJoining).toLocaleDateString("en-GB", {
                   day: "2-digit",
                   month: "2-digit",
@@ -183,7 +201,10 @@ const Employees = () => {
                 })}
               </td>
               <td className="p-3 flex">
-                <button className="px-4 py-2 text-lg text-green-500 rounded hover:text-green-600">
+                <button
+                  className="px-4 py-2 text-lg text-green-500 rounded hover:text-green-600"
+                  onClick={() => handleView(emp)} // Open view modal on click
+                >
                   <FaEye />
                 </button>
                 <button className="px-2 py-2 text-lg text-blue-500 rounded hover:text-blue-600">
@@ -230,13 +251,21 @@ const Employees = () => {
         </div>
       )}
 
+      {/* Add Employee Modal */}
       {isModalOpen && (
         <Modal onClose={() => setIsModalOpen(false)}>
           <FormComponent
-            title="Add Product"
+            title="Add Employee"
             fields={employeeFields}
             onSubmit={handleEmployeeAdd}
           />
+        </Modal>
+      )}
+
+      {/* View Employee Modal */}
+      {isViewModalOpen && (
+        <Modal onClose={closeViewModal}>
+          <DetailsComponent details={details} />
         </Modal>
       )}
     </div>

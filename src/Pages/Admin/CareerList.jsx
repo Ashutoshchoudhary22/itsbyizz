@@ -3,11 +3,15 @@ import { FaEdit, FaEye } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import axios from "axios";
 import toast from "react-hot-toast";
+import Modal from "../../Components/Dashboard/Modal";
+import DetailsComponent from "../../Components/Dashboard/DetailsComponent";
 
 const CareerList = () => {
   const [search, setSearch] = useState("");
   const [careerList, setCareerList] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
+  const [selectedCareer, setSelectedCareer] = useState(null); // State for selected career
+  const [isModalOpen, setIsModalOpen] = useState(false); // State for modal visibility
   const itemsPerPage = 10; // Show only 10 items per page
 
   useEffect(() => {
@@ -78,7 +82,7 @@ const CareerList = () => {
 
       // Update state to reflect deletion
       setCareerList(careerList.filter((user) => user._id !== userId));
-      
+
       toast.success("User deleted successfully");
     } catch (error) {
       console.error(
@@ -88,6 +92,39 @@ const CareerList = () => {
       toast.error("Failed to delete user");
     }
   };
+
+  // Handle View Function
+  const handleView = (careerData) => {
+    setSelectedCareer(careerData); // Set selected career data
+    setIsModalOpen(true); // Open the modal
+  };
+
+  // Close Modal Function
+  const closeModal = () => {
+    setIsModalOpen(false); // Close the modal
+    setSelectedCareer(null); // Clear selected career data
+  };
+
+  console.log(selectedCareer);
+
+  // Prepare details for the DetailsComponent
+  const details = selectedCareer
+    ? [
+        {
+          label: "Date",
+          value: new Date(selectedCareer.date).toLocaleDateString(),
+        },
+        { label: "Name", value: selectedCareer.name },
+        { label: "Mobile", value: selectedCareer.phone },
+        { label: "Designation", value: selectedCareer.designation },
+        { label: "Email", value: selectedCareer.email || "N/A" },
+        { label: "Experience", value: selectedCareer.experience || "N/A" },
+        {
+          label: "Resume",
+          value: selectedCareer.resume ? selectedCareer.resume : "Not Available",
+        },
+      ]
+    : [];
 
   return (
     <div className="p-5">
@@ -128,10 +165,14 @@ const CareerList = () => {
                   })}
                 </td>
                 <td className="p-3">{entry.name}</td>
-                <td className="p-3">{entry.phone}</td> {/* Fixed to match filter */}
+                <td className="p-3">{entry.phone}</td>{" "}
+                {/* Fixed to match filter */}
                 <td className="p-3">{entry.designation}</td>
                 <td className="p-3 flex">
-                  <button className="px-2 text-green-500 hover:text-green-600">
+                  <button
+                    className="px-2 text-green-500 hover:text-green-600"
+                    onClick={() => handleView(entry)} // Open modal on click
+                  >
                     <FaEye />
                   </button>
                   <button className="px-2 text-blue-500 hover:text-blue-600">
@@ -183,6 +224,12 @@ const CareerList = () => {
             Next
           </button>
         </div>
+      )}
+
+      {isModalOpen && (
+        <Modal isOpen={isModalOpen} onClose={closeModal}>
+          <DetailsComponent details={details} />
+        </Modal>
       )}
     </div>
   );

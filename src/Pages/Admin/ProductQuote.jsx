@@ -1,16 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FaEdit, FaEye } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import Modal from "../../Components/Dashboard/Modal";
-import FormComponent from "../../Components/Dashboard/FormComponent";
-import { useEffect } from "react";
+import DetailsComponent from "../../Components/Dashboard/DetailsComponent"; // Import the DetailsComponent
 import axios from "axios";
 
 const ProductQuote = () => {
   const [search, setSearch] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [productList, setproductList] = useState([]);
+  const [productList, setProductList] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
+  const [selectedProductQuote, setSelectedProductQuote] = useState(null); // State for selected product quote
+  const [isViewModalOpen, setIsViewModalOpen] = useState(false); // State for view modal visibility
   const itemsPerPage = 10; // Show only 10 items per page
 
   useEffect(() => {
@@ -33,17 +34,17 @@ const ProductQuote = () => {
         );
 
         if (Array.isArray(response.data)) {
-          setproductList(response.data);
+          setProductList(response.data);
         } else {
           console.error("Unexpected API response:", response.data);
-          setproductList([]);
+          setProductList([]);
         }
       } catch (err) {
         console.error(
           "Fetching users failed:",
           err.response?.data || err.message
         );
-        setproductList([]);
+        setProductList([]);
       }
     };
 
@@ -63,6 +64,29 @@ const ProductQuote = () => {
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   );
+
+  // Handle View Function
+  const handleView = (productQuoteData) => {
+    setSelectedProductQuote(productQuoteData); // Set selected product quote data
+    setIsViewModalOpen(true); // Open the view modal
+  };
+
+  // Close View Modal Function
+  const closeViewModal = () => {
+    setIsViewModalOpen(false); // Close the view modal
+    setSelectedProductQuote(null); // Clear selected product quote data
+  };
+
+  // Prepare details for the DetailsComponent
+  const details = selectedProductQuote
+    ? [
+        { label: "Name", value: selectedProductQuote.name },
+        { label: "Email", value: selectedProductQuote.email },
+        { label: "Phone", value: selectedProductQuote.phone },
+        { label: "Product Name", value: selectedProductQuote.productName },
+      ]
+    : [];
+
   return (
     <div className="p-5">
       <h2 className="text-2xl text-sky-900 font-bold mb-4">
@@ -91,7 +115,7 @@ const ProductQuote = () => {
         <tbody>
           {paginatedData.map((product) => (
             <tr
-              key={product.id}
+              key={product._id} // Use _id instead of id
               className="odd:bg-white even:bg-gray-50 border-b"
             >
               <td className="p-3">{product.name}</td>
@@ -99,7 +123,10 @@ const ProductQuote = () => {
               <td className="p-3">{product.phone}</td>
               <td className="p-3">{product.productName}</td>
               <td className="p-3 flex">
-                <button className="px-4 py-2 text-lg text-green-500 rounded hover:text-green-600">
+                <button
+                  className="px-4 py-2 text-lg text-green-500 rounded hover:text-green-600"
+                  onClick={() => handleView(product)} // Open view modal on click
+                >
                   <FaEye />
                 </button>
                 <button className="px-2 py-2 text-lg text-blue-500 rounded hover:text-blue-600">
@@ -113,6 +140,7 @@ const ProductQuote = () => {
           ))}
         </tbody>
       </table>
+
       {/* Pagination Controls */}
       {totalPages > 1 && (
         <div className="mt-4 flex justify-center items-center space-x-4">
@@ -140,6 +168,13 @@ const ProductQuote = () => {
             Next
           </button>
         </div>
+      )}
+
+      {/* View Product Quote Modal */}
+      {isViewModalOpen && (
+        <Modal onClose={closeViewModal}>
+          <DetailsComponent details={details} />
+        </Modal>
       )}
     </div>
   );

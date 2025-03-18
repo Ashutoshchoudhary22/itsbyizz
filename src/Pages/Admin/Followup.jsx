@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Modal from "../../Components/Dashboard/Modal";
 import FormComponent from "../../Components/Dashboard/FormComponent";
+import DetailsComponent from "../../Components/Dashboard/DetailsComponent"; // Import the DetailsComponent
 import { FaEdit, FaEye } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import axios from "axios";
@@ -12,6 +13,8 @@ const Followup = () => {
   const [followList, setFollowList] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [isLoading, setIsLoading] = useState(true); // Loading state
+  const [selectedFollowup, setSelectedFollowup] = useState(null); // State for selected follow-up
+  const [isViewModalOpen, setIsViewModalOpen] = useState(false); // State for view modal visibility
   const itemsPerPage = 10;
 
   useEffect(() => {
@@ -76,14 +79,14 @@ const Followup = () => {
       toast.error("Invalid user ID");
       return;
     }
-  
+
     try {
       const token = localStorage.getItem("user");
       if (!token) {
         toast.error("Authentication token missing");
         return;
       }
-  
+
       // Send DELETE request to backend
       const response = await axios.delete(
         `${import.meta.env.VITE_BACKEND_BASE_URL}/followup/${userId}`,
@@ -93,7 +96,7 @@ const Followup = () => {
           },
         }
       );
-  
+
       // Check if the deletion was successful
       if (response.data.status === "success") {
         // Update frontend state to reflect deletion
@@ -110,7 +113,7 @@ const Followup = () => {
         "Deleting follow-up failed:",
         error.response?.data || error.message
       );
-  
+
       // Use template literals for error message
       toast.error(
         `Failed to delete follow-up: ${
@@ -119,6 +122,37 @@ const Followup = () => {
       );
     }
   };
+
+  // Handle View Function
+  const handleView = (followupData) => {
+    setSelectedFollowup(followupData); // Set selected follow-up data
+    setIsViewModalOpen(true); // Open the view modal
+  };
+
+  // Close View Modal Function
+  const closeViewModal = () => {
+    setIsViewModalOpen(false); // Close the view modal
+    setSelectedFollowup(null); // Clear selected follow-up data
+  };
+
+
+  console.log(selectedFollowup)
+  // Prepare details for the DetailsComponent
+  const details = selectedFollowup
+    ? [
+        { label: "Name", value: selectedFollowup.name },
+        { label: "Mobile", value: selectedFollowup.mobile },
+        { label: "Status", value: selectedFollowup.status },
+        {
+          label: "Latest Remark",
+          value:
+            selectedFollowup.remarks?.length > 0
+              ? selectedFollowup.remarks[selectedFollowup.remarks.length - 1].val
+              : "No remarks",
+        },
+       
+      ]
+    : [];
 
   return (
     <div className="p-5">
@@ -169,7 +203,10 @@ const Followup = () => {
                   </td>
                   <td className="p-3">{fu.status}</td>
                   <td className="p-3 flex">
-                    <button className="px-4 py-2 text-lg text-green-500 rounded hover:text-green-600">
+                    <button
+                      className="px-4 py-2 text-lg text-green-500 rounded hover:text-green-600"
+                      onClick={() => handleView(fu)} // Open view modal on click
+                    >
                       <FaEye />
                     </button>
                     <button className="px-2 py-2 text-lg text-blue-500 rounded hover:text-blue-600">
@@ -218,9 +255,17 @@ const Followup = () => {
         </>
       )}
 
+      {/* Add Follow-up Modal */}
       {isModalOpen && (
         <Modal onClose={() => setIsModalOpen(false)}>
           <FormComponent title="Add Follow-up" />
+        </Modal>
+      )}
+
+      {/* View Follow-up Modal */}
+      {isViewModalOpen && (
+        <Modal onClose={closeViewModal}>
+          <DetailsComponent details={details} />
         </Modal>
       )}
     </div>

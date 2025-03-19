@@ -7,9 +7,11 @@ const EditInquiryForm = ({ data, onSave, onClose }) => {
     name: data?.name || "",
     email: data?.email || "",
     phone: data?.phone || "",
-    message: data?.message || "",
-    status: data?.status || "Pending",
+    requirement: data?.requirement || "",
+   
   });
+
+  const [loading, setLoading] = useState(false); // Loading state
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -18,6 +20,7 @@ const EditInquiryForm = ({ data, onSave, onClose }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true); // Prevent multiple submissions
 
     try {
       const token = localStorage.getItem("user");
@@ -26,9 +29,8 @@ const EditInquiryForm = ({ data, onSave, onClose }) => {
         return;
       }
 
-      // API call to update the inquiry
       const response = await axios.put(
-        `${import.meta.env.VITE_BACKEND_BASE_URL}/inquiry/${data._id}`,
+        `${import.meta.env.VITE_BACKEND_BASE_URL}/quotes/updatequotes/${data._id}`,
         formData,
         {
           headers: {
@@ -39,21 +41,19 @@ const EditInquiryForm = ({ data, onSave, onClose }) => {
       );
 
       toast.success("Inquiry updated successfully!");
-
-      // Pass updated data back to the parent
       onSave(response.data.updatedInquiry);
-      onClose();
+    
     } catch (error) {
       console.error("Error updating inquiry:", error.response?.data || error.message);
       toast.error(`Failed to update inquiry: ${error.response?.data?.message || error.message}`);
+    } finally {
+      setLoading(false); // Reset loading state
     }
   };
 
   return (
     <div className="p-6 max-w-lg mx-auto bg-white shadow-lg rounded-md">
-      <h2 className="text-xl font-semibold text-sky-700 mb-4 border-b pb-2">
-        Edit Inquiry
-      </h2>
+      <h2 className="text-xl font-semibold text-sky-700 mb-4 border-b pb-2">Edit Inquiry</h2>
 
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
@@ -64,6 +64,7 @@ const EditInquiryForm = ({ data, onSave, onClose }) => {
             value={formData.name}
             onChange={handleChange}
             className="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-sky-500"
+          
           />
         </div>
 
@@ -75,6 +76,7 @@ const EditInquiryForm = ({ data, onSave, onClose }) => {
             value={formData.email}
             onChange={handleChange}
             className="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-sky-500"
+            
           />
         </div>
 
@@ -86,46 +88,48 @@ const EditInquiryForm = ({ data, onSave, onClose }) => {
             value={formData.phone}
             onChange={handleChange}
             className="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-sky-500"
+           
           />
         </div>
 
         <div>
-          <label className="block text-gray-700 font-medium">Message</label>
-          <textarea
-            name="message"
-            value={formData.message}
-            onChange={handleChange}
-            className="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-sky-500"
-          />
-        </div>
-
-        <div>
-          <label className="block text-gray-700 font-medium">Status</label>
+          <label className="block text-gray-700 font-medium">Requirement</label>
           <select
-            name="status"
-            value={formData.status}
+            name="requirement"
+            value={formData.requirement}
             onChange={handleChange}
-            className="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-sky-500"
+            className="w-full px-4 py-2 border bg-white rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500"
+          
           >
-            <option value="Pending">Pending</option>
-            <option value="In Progress">In Progress</option>
-            <option value="Completed">Completed</option>
+            <option value="" disabled>Select Your Requirement</option>
+            <option value="static-web-dev">Static Web Development</option>
+            <option value="dynamic-web-dev">Dynamic Web Development</option>
+            <option value="ecom">E-Commerce Development</option>
+            <option value="crm">CRM Development</option>
+            <option value="hrm">HRM Development</option>
+            <option value="digital-marketing">Digital Marketing</option>
+            <option value="software-dev">Software Development</option>
+            <option value="appointment-booking">Appointment Booking Web Dev</option>
+            <option value="online-reputation">Online Reputation Management</option>
           </select>
         </div>
 
+       
         <div className="flex justify-between mt-4">
           <button
             type="button"
             onClick={onClose}
             className="px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600"
+            disabled={loading}
           >
             Cancel
           </button>
           <button
             type="submit"
-            className="px-4 py-2 bg-sky-600 text-white rounded-md hover:bg-sky-700"
+            className={`px-4 py-2 text-white rounded-md ${loading ? "bg-gray-400 cursor-not-allowed" : "bg-sky-600 hover:bg-sky-700"}`}
+            disabled={loading}
           >
-            Save Changes
+            {loading ? "Saving..." : "Save Changes"}
           </button>
         </div>
       </form>

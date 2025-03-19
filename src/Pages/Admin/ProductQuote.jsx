@@ -4,6 +4,7 @@ import { MdDelete } from "react-icons/md";
 import Modal from "../../Components/Dashboard/Modal";
 import DetailsComponent from "../../Components/Dashboard/DetailsComponent"; // Import the DetailsComponent
 import axios from "axios";
+import { toast } from "react-hot-toast";
 
 const ProductQuote = () => {
   const [search, setSearch] = useState("");
@@ -50,6 +51,36 @@ const ProductQuote = () => {
 
     getUsers();
   }, []);
+
+  // Handle Delete Function
+  const handleDelete = async (id) => {
+    try {
+      const token = localStorage.getItem("user");
+      if (!token) {
+        toast.error("Authentication token missing");
+        return;
+      }
+
+      // Send DELETE request to the backend
+      await axios.delete(
+        `${import.meta.env.VITE_BACKEND_BASE_URL}/iot/quote/${id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      // Remove the deleted item from the UI
+      setProductList((prevList) => prevList.filter((item) => item._id !== id));
+
+      toast.success("Quote deleted successfully!");
+    } catch (error) {
+      console.error("Error deleting quote:", error);
+      toast.error("Failed to delete quote");
+    }
+  };
 
   const filteredProducts = productList.filter(
     (product) =>
@@ -129,10 +160,11 @@ const ProductQuote = () => {
                 >
                   <FaEye />
                 </button>
-                <button className="px-2 py-2 text-lg text-blue-500 rounded hover:text-blue-600">
-                  <FaEdit />
-                </button>
-                <button className="px-2 py-2 text-lg text-orange-500 rounded hover:text-orange-600">
+
+                <button
+                  className="px-2 py-2 text-lg text-orange-500 rounded hover:text-orange-600"
+                  onClick={() => handleDelete(product._id)} // Delete the quote
+                >
                   <MdDelete />
                 </button>
               </td>

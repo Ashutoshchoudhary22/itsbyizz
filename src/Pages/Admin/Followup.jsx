@@ -6,6 +6,7 @@ import { FaEdit, FaEye } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import axios from "axios";
 import toast from "react-hot-toast";
+import EditFollowupForm from "../../Components/EditForms/EditFollowupForm";
 
 const Followup = () => {
   const [search, setSearch] = useState("");
@@ -15,6 +16,7 @@ const Followup = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [selectedFollowup, setSelectedFollowup] = useState(null);
   const [isViewModalOpen, setIsViewModalOpen] = useState(false);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const itemsPerPage = 10;
 
   const followupFields = [
@@ -164,6 +166,19 @@ const Followup = () => {
     setSelectedFollowup(null);
   };
 
+  const handleEdit = (followup) => {
+    setSelectedFollowup(followup);
+    setIsEditModalOpen(true);
+  };
+
+  const handleUpdateFollowup = (updatedFollowup) => {
+    setFollowList((prevList) =>
+      prevList.map((item) =>
+        item._id === updatedFollowup._id ? updatedFollowup : item
+      )
+    );
+  };
+
   const filteredFollowups = followList.filter(
     (fu) =>
       fu?.name?.toLowerCase().includes(search.toLowerCase()) ||
@@ -253,7 +268,10 @@ const Followup = () => {
                     >
                       <FaEye />
                     </button>
-                    <button className="px-2 py-2 text-lg text-blue-500 rounded hover:text-blue-600">
+                    <button
+                      onClick={() => handleEdit(fu)}
+                      className="px-2 py-2 text-lg text-blue-500 rounded hover:text-blue-600"
+                    >
                       <FaEdit />
                     </button>
                     <button
@@ -313,6 +331,16 @@ const Followup = () => {
       {isViewModalOpen && (
         <Modal onClose={closeViewModal}>
           <DetailsComponent details={details} />
+        </Modal>
+      )}
+
+      {isEditModalOpen && (
+        <Modal onClose={() => setIsEditModalOpen(false)}>
+          <EditFollowupForm
+            followup={selectedFollowup}
+            onClose={() => setIsEditModalOpen(false)}
+            onUpdate={handleUpdateFollowup}
+          />
         </Modal>
       )}
     </div>

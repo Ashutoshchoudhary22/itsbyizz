@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import WavyScrollText from "../Components/WavyScroll";
 import Modal from "../Components/Dashboard/Modal";
 import { toast } from "react-hot-toast";
@@ -13,37 +14,7 @@ const IotProducts = () => {
     phone: "",
     productName: "",
   });
-
-  // Sample product data
-  const products = [
-    {
-      id: 1,
-      image: "https://via.placeholder.com/150",
-      brand: "Nest",
-      title: "Smart Thermostat",
-      description: "Control your home's temperature from anywhere.",
-      fullDescription:
-        "The Nest Smart Thermostat learns your schedule and programs itself to save energy. Control it from anywhere using your smartphone.",
-    },
-    {
-      id: 2,
-      image: "https://via.placeholder.com/150",
-      brand: "Philips Hue",
-      title: "Smart Light Bulb",
-      description: "Adjust brightness and color with your smartphone.",
-      fullDescription:
-        "Philips Hue smart bulbs let you control your lights remotely, set schedules, and create custom lighting scenes for any occasion.",
-    },
-    {
-      id: 3,
-      image: "https://via.placeholder.com/150",
-      brand: "Ring",
-      title: "Security Camera",
-      description: "Monitor your home 24/7 with high-definition video.",
-      fullDescription:
-        "Ring Security Cameras provide real-time alerts and live video streaming, so you can monitor your home from anywhere.",
-    },
-  ];
+  const [products, setProducts] = useState([]);
 
   // Fields for the quote form
   const quoteFormFields = [
@@ -53,10 +24,50 @@ const IotProducts = () => {
     { name: "productName", label: "Product Name", type: "text" },
   ];
 
+  // Fetch products from the API
+  const fetchProducts = async () => {
+    try {
+      const token = localStorage.getItem("user");
+      if (!token) {
+        console.error("No token found");
+        toast.error("Authentication token missing");
+        return;
+      }
+
+      const response = await axios.get(
+        `${import.meta.env.VITE_BACKEND_BASE_URL}/iot/prodcuts/all`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+
+      if (Array.isArray(response.data)) {
+        setProducts(response.data);
+      } else {
+        console.error("Unexpected API response:", response.data);
+        setProducts([]);
+      }
+    } catch (err) {
+      console.error(
+        "Fetching products failed:",
+        err.response?.data || err.message
+      );
+      toast.error("Failed to fetch products");
+      setProducts([]);
+    }
+  };
+
+  useEffect(() => {
+    fetchProducts();
+  }, []);
+
   // Handle "Get Quote" button click
   const handleGetQuote = (product) => {
     setSelectedProduct(product);
-    setFormData({ ...formData, productName: product.title });
+    setFormData({ ...formData, productName: product.productName });
     setIsQuoteModalOpen(true);
   };
 
@@ -73,11 +84,36 @@ const IotProducts = () => {
   };
 
   // Handle form submission
-  const handleQuoteSubmit = (e) => {
+  const handleQuoteSubmit = async (e) => {
     e.preventDefault();
-    console.log("Quote Request:", formData);
-    setIsQuoteModalOpen(false);
-    toast.success("Quote request submitted successfully!");
+
+    try {
+      const token = localStorage.getItem("user");
+      if (!token) {
+        toast.error("Authentication token missing");
+        return;
+      }
+
+      const response = await axios.post(
+        `${import.meta.env.VITE_BACKEND_BASE_URL}/iot/quote/iot/quote/products`, // Corrected endpoint
+        formData, // Send formData instead of quoteFormFields
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      setIsQuoteModalOpen(false);
+      toast.success("Quote request submitted successfully!");
+      console.log("API Response:", response.data);
+    } catch (error) {
+      const errorMessage =
+        error.response?.data?.message || "Something went wrong.";
+      toast.error(errorMessage);
+      console.error("Error submitting quote:", error);
+    }
   };
 
   // Close Details Modal
@@ -93,19 +129,12 @@ const IotProducts = () => {
           <WavyScrollText highlight="IoT" text="Products" />
         </div>
         <div className="col-span-1 flex justify-center items-center">
-          <img
-            src='/iot.png'
-            alt='iot'
-            className="w-80 h-auto"
-          />
+          <img src="/iot.png" alt="iot" className="w-80 h-auto" />
         </div>
       </div>
 
       <div className="bg-gray-50 p-5">
-      
-    <p className="text-lg font-semibold text-center text-gray-500 mb-8">
-   iot caption
-    </p>
+        
         <div className="grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-6">
           {products.map((product) => (
             <div
@@ -115,18 +144,25 @@ const IotProducts = () => {
               {/* Product Image */}
               <img
                 src={product.image}
-                alt={product.title}
-                className="w-20 h-20 object-cover rounded-full mb-2"
+                alt={product.productName}
+                className="w-20 h-20 object-contain rounded-full mb-2"
               />
 
               {/* Brand Name */}
-              <p className="text-sm text-gray-500 mb-1">{product.brand}</p>
-
-              {/* Product Title */}
-              <h3 className="text-lg font-semibold mb-1">{product.title}</h3>
+              <p className="text-sm text-gray-500 mb-1">
+                Brand: {product.brandName}
+              </p>
+              <p className="text-sm text-gray-500 mb-1">
+                Category: {product.category}
+              </p>
+              <p className="text-sm text-gray-500 mb-1">
+                Product Name: {product.productName}
+              </p>
 
               {/* Product Description */}
-              <p className="text-sm text-gray-600 mb-3">{product.description}</p>
+              <p className="text-sm text-gray-600 mb-3">
+                Description: {product.description}
+              </p>
 
               {/* Buttons */}
               <div className="flex space-x-2">
@@ -194,17 +230,40 @@ const IotProducts = () => {
         <Modal onClose={closeDetailsModal}>
           <div className="p-6">
             <h2 className="text-2xl font-bold mb-4 text-center">
-              {selectedProduct.title}
+              {selectedProduct.productName}
             </h2>
             <div className="space-y-4">
+              {/* Product Image */}
+              <img
+                className="w-50 text-center text-gray-500"
+                src={selectedProduct.image}
+                alt={selectedProduct.productName}
+              />
               {/* Brand Name */}
               <p className="text-sm text-gray-500">
                 <span className="font-semibold">Brand:</span>{" "}
-                {selectedProduct.brand}
+                {selectedProduct.brandName}
               </p>
-
-              {/* Full Description */}
-              <p className="text-gray-600">{selectedProduct.fullDescription}</p>
+              <p className="text-sm text-gray-500">
+                <span className="font-semibold">Category:</span>{" "}
+                {selectedProduct.category}
+              </p>
+              <p className="text-sm text-gray-500">
+                <span className="font-semibold">Subcategory:</span>{" "}
+                {selectedProduct.subcategory}
+              </p>
+              <p className="text-sm text-gray-500">
+                <span className="font-semibold">Product Name:</span>{" "}
+                {selectedProduct.productName}
+              </p>
+              <p className="text-sm text-gray-500">
+                <span className="font-semibold">Specification:</span>{" "}
+                {selectedProduct.specification}
+              </p>
+              <p className="text-sm text-gray-500">
+                <span className="font-semibold">Description:</span>{" "}
+                {selectedProduct.description}
+              </p>
 
               {/* Close Button */}
               <button

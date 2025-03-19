@@ -130,9 +130,7 @@ const Contacts = () => {
                 <button className="px-4 py-2 text-lg text-green-500 rounded hover:text-green-600">
                   <FaEye />
                 </button>
-                <button className="px-2 py-2 text-lg text-blue-500 rounded hover:text-blue-600">
-                  <FaEdit />
-                </button>
+              
                 <button
                   className="px-2 py-2 text-lg text-orange-500 rounded hover:text-orange-600"
                   onClick={() => handleDeleteUser(entry._id)} // Use _id instead of id

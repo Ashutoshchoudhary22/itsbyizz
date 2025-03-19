@@ -5,7 +5,7 @@ import { FaEdit, FaEye } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import Modal from "../../Components/Dashboard/Modal";
 import DetailsComponent from "../../Components/Dashboard/DetailsComponent";
-import FormComponent from "../../Components/Dashboard/FormComponent"; // Import the FormComponent
+import FormComponent from "../../Components/Dashboard/FormComponent";
 
 const Users = () => {
   const [search, setSearch] = useState("");
@@ -13,14 +13,20 @@ const Users = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedUser, setSelectedUser] = useState(null);
   const [isViewModalOpen, setIsViewModalOpen] = useState(false);
-  const [isEditModalOpen, setIsEditModalOpen] = useState(false); // State for edit modal visibility
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const itemsPerPage = 10;
 
   useEffect(() => {
     const getUsers = async () => {
       try {
         const response = await axios.get(
-          `${import.meta.env.VITE_BACKEND_BASE_URL}/user/all-users`
+          `${import.meta.env.VITE_BACKEND_BASE_URL}/user/all-users`,
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("user")}`,
+            },
+          }
         );
         setUserData(response.data);
       } catch (error) {
@@ -28,6 +34,7 @@ const Users = () => {
           "Fetching users failed:",
           error.response?.data || error.message
         );
+        toast.error("Failed to fetch users");
       }
     };
 
@@ -56,7 +63,12 @@ const Users = () => {
 
     try {
       await axios.delete(
-        `${import.meta.env.VITE_BACKEND_BASE_URL}/user/${userId}`
+        `${import.meta.env.VITE_BACKEND_BASE_URL}/user/${userId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("user")}`,
+          },
+        }
       );
       setUserData(userdata.filter((user) => user._id !== userId));
       toast.success("User deleted successfully");
@@ -65,13 +77,13 @@ const Users = () => {
         "Deleting user failed:",
         error.response?.data || error.message
       );
-      alert("Failed to delete user");
+      toast.error("Failed to delete user");
     }
   };
 
   const handleEdit = (userData) => {
-    setSelectedUser(userData); // Set selected user data for editing
-    setIsEditModalOpen(true); // Open the edit modal
+    setSelectedUser(userData);
+    setIsEditModalOpen(true);
   };
 
   const handleView = (e, userData) => {
@@ -82,32 +94,83 @@ const Users = () => {
 
   const closeModal = () => {
     setIsViewModalOpen(false);
-    setIsEditModalOpen(false); // Close both modals
+    setIsEditModalOpen(false);
     setSelectedUser(null);
   };
 
   const handleEditSubmit = async (updatedData) => {
     try {
-      const response = await axios.put(
-        `${import.meta.env.VITE_BACKEND_BASE_URL}/user/${selectedUser._id}`,
-        updatedData
-      );
+      setIsLoading(true);
 
-      // Update the user data in the frontend
-      setUserData((prevData) =>
-        prevData.map((user) =>
-          user._id === selectedUser._id ? { ...user, ...updatedData } : user
-        )
-      );
+      if (updatedData.role) {
+        // Update user role
+        await axios.put(
+          `${import.meta.env.VITE_BACKEND_BASE_URL}/user/edit-role/${
+            selectedUser._id
+          }`,
+          { role: updatedData.role },
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("user")}`,
+            },
+          }
+        );
+        toast.success("User role updated successfully");
+      } else if (updatedData.isBlocked !== undefined) {
+        // Block or unblock user
+        const endpoint =
+          updatedData.isBlocked === "Yes"
+            ? `/user/block-user/${selectedUser._id}`
+            : `/user/unblock-user/${selectedUser._id}`;
 
-      toast.success("User updated successfully");
-      setIsEditModalOpen(false); // Close the edit modal
+        await axios.put(
+          `${import.meta.env.VITE_BACKEND_BASE_URL}${endpoint}`,
+          {},
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("user")}`,
+            },
+          }
+        );
+        toast.success(
+          updatedData.isBlocked === "Yes"
+            ? "User blocked successfully"
+            : "User unblocked successfully"
+        );
+      } else {
+        // Update user details
+        await axios.put(
+          `${import.meta.env.VITE_BACKEND_BASE_URL}/user/edit-user`,
+          updatedData,
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("user")}`,
+            },
+          }
+        );
+        toast.success("User details updated successfully");
+      }
+
+      // Refresh the user list
+      const response = await axios.get(
+        `${import.meta.env.VITE_BACKEND_BASE_URL}/user/all-users`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("user")}`,
+          },
+        }
+      );
+      setUserData(response.data);
+
+      setIsEditModalOpen(false);
     } catch (error) {
       console.error(
         "Updating user failed:",
         error.response?.data || error.message
       );
       toast.error("Failed to update user");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -126,10 +189,31 @@ const Users = () => {
     : [];
 
   const editFields = [
-    { name: "name", label: "Name", type: "text", defaultValue: selectedUser?.name },
-    { name: "email", label: "Email", type: "email", defaultValue: selectedUser?.email },
-    { name: "mobile", label: "Mobile", type: "text", defaultValue: selectedUser?.mobile },
-    { name: "role", label: "Role", type: "text", defaultValue: selectedUser?.role },
+    {
+      name: "name",
+      label: "Name",
+      type: "text",
+      defaultValue: selectedUser?.name,
+    },
+    {
+      name: "email",
+      label: "Email",
+      type: "email",
+      defaultValue: selectedUser?.email,
+    },
+    {
+      name: "mobile",
+      label: "Mobile",
+      type: "text",
+      defaultValue: selectedUser?.mobile,
+    },
+    {
+      name: "role",
+      label: "Role",
+      type: "select",
+      options: ["Admin", "User", "Employee","Refferal","Business","Corporate"],
+      defaultValue: selectedUser?.role,
+    },
     {
       name: "isBlocked",
       label: "Is Blocked",
@@ -151,7 +235,6 @@ const Users = () => {
           onChange={(e) => setSearch(e.target.value)}
         />
       </div>
-
       <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
         <thead className="text-xs text-sky-50 uppercase bg-sky-800 dark:bg-gray-700 dark:text-gray-400">
           <tr>
@@ -204,7 +287,6 @@ const Users = () => {
           )}
         </tbody>
       </table>
-
       {/* Pagination Controls */}
       {totalPages > 1 && (
         <div className="mt-4 flex justify-center items-center space-x-4">
@@ -233,14 +315,12 @@ const Users = () => {
           </button>
         </div>
       )}
-
       {/* View User Modal */}
       {isViewModalOpen && (
         <Modal isOpen={isViewModalOpen} onClose={closeModal}>
           <DetailsComponent details={details} />
         </Modal>
       )}
-
       {/* Edit User Modal */}
       {isEditModalOpen && (
         <Modal isOpen={isEditModalOpen} onClose={closeModal}>
@@ -248,9 +328,10 @@ const Users = () => {
             title="Edit User"
             fields={editFields}
             onSubmit={handleEditSubmit}
+            isLoading={isLoading} // Pass loading state
           />
         </Modal>
-      )}
+      )}{" "}
     </div>
   );
 };

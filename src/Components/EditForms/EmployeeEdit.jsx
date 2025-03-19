@@ -1,6 +1,8 @@
 import React, { useState } from "react";
+import axios from "axios";
+import toast from "react-hot-toast";
 
-const EmployeeEdit = ({ data }) => {
+const EmployeeEdit = ({ data, onSave, onClose }) => {
   const [formData, setFormData] = useState({
     name: data?.name || "",
     email: data?.email || "",
@@ -17,14 +19,51 @@ const EmployeeEdit = ({ data }) => {
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData);
+
+    try {
+      const token = localStorage.getItem("user");
+      if (!token) {
+        toast.error("Authentication token not found. Please log in.");
+        return;
+      }
+
+      // Prepare the payload
+      const payload = {
+        ...formData,
+        isWorking: formData.isWorking === "Yes", // Convert "Yes" to boolean
+      };
+
+      // Make the API call to update the employee
+      const response = await axios.put(
+        `${import.meta.env.VITE_BACKEND_BASE_URL}/employee/${data.employeeId}`,
+        payload,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+    
+
+      // Pass the updated data back to the parent component
+      onSave(response.data.updatedEmployee);
+
+      
+    } catch (error) {
+      console.error("Error updating employee:", error.response?.data || error.message);
+      toast.error(`Failed to update employee: ${error.response?.data?.message || error.message}`);
+    }
   };
 
   return (
-    <div className=" p-6 max-w-lg mx-auto  ">
-      <h2 className="text-xl font-semibold text-sky-700 mb-4 border-b pb-2">Edit Employee</h2>
+    <div className="p-6 max-w-lg mx-auto">
+      <h2 className="text-xl font-semibold text-sky-700 mb-4 border-b pb-2">
+        Edit Employee
+      </h2>
 
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
@@ -57,6 +96,7 @@ const EmployeeEdit = ({ data }) => {
             value={formData.employeeId}
             onChange={handleChange}
             className="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-sky-500"
+            disabled // Employee ID should not be editable
           />
         </div>
 
@@ -106,8 +146,8 @@ const EmployeeEdit = ({ data }) => {
             onChange={handleChange}
             className="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-sky-500"
           >
-            <option>Yes</option>
-            <option>No</option>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
           </select>
         </div>
 
@@ -123,7 +163,13 @@ const EmployeeEdit = ({ data }) => {
         </div>
 
         <div className="flex justify-between mt-4">
-         
+          <button
+            type="button"
+            onClick={onClose}
+            className="px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600"
+          >
+            Cancel
+          </button>
           <button
             type="submit"
             className="px-4 py-2 bg-sky-600 text-white rounded-md hover:bg-sky-700"

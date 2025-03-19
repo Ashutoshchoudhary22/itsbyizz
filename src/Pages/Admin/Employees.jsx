@@ -13,11 +13,10 @@ const Employees = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [employeeList, setEmployeeList] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [selectedEmployee, setSelectedEmployee] = useState(null); // State for selected employee
-  const [isViewModalOpen, setIsViewModalOpen] = useState(false); // State for view modal visibility
+  const [selectedEmployee, setSelectedEmployee] = useState(null);
+  const [isViewModalOpen, setIsViewModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-  const [isEditModalClose,setisEditModalClose] = useState(false);
-  const itemsPerPage = 10; // Show only 10 items per page
+  const itemsPerPage = 10;
 
   const employeeFields = [
     { name: "name", label: "Employee Name", type: "text", required: true },
@@ -42,7 +41,6 @@ const Employees = () => {
     { name: "profile", label: "Profile", type: "file" },
   ];
 
-  // Fetch employees from the backend
   useEffect(() => {
     const getEmployees = async () => {
       try {
@@ -77,7 +75,6 @@ const Employees = () => {
     getEmployees();
   }, []);
 
-  // Handle adding a new employee
   const handleEmployeeAdd = async (formData) => {
     try {
       const token = localStorage.getItem("user");
@@ -85,16 +82,15 @@ const Employees = () => {
         toast.error("Authentication token not found. Please log in.");
         return;
       }
-  
-      // Prepare the payload with all required fields
+
       const employeeData = {
         ...formData,
-        password: "#Deepnap123", // Default password
-        role: "employee", // Default role
-        isWorking: formData.isWorking === "Yes", // Convert "Yes" to boolean true
-        dateOfJoining: new Date(formData.dateOfJoining).toISOString(), // Convert to ISO format
+        password: "#Deepnap123",
+        role: "employee",
+        isWorking: formData.isWorking === "Yes",
+        dateOfJoining: new Date(formData.dateOfJoining).toISOString(),
       };
-  
+
       const response = await axios.post(
         `${import.meta.env.VITE_BACKEND_BASE_URL}/employee`,
         employeeData,
@@ -105,18 +101,16 @@ const Employees = () => {
           },
         }
       );
-  
-      // Update the employee list with the new employee
+
       setEmployeeList([...employeeList, response.data]);
       setIsModalOpen(false);
       toast.success("Employee added successfully");
     } catch (error) {
       console.error("Adding employee failed:", error.response?.data || error.message);
-      toast.error("Failed to add employee" ,error.response?.data || error.message);
+      toast.error(`Failed to add employee: ${error.response?.data?.message || error.message}`);
     }
   };
 
-  // Handle deleting an employee
   const handleDeleteUser = async (userId) => {
     if (!userId) {
       console.error("User ID is undefined or invalid");
@@ -134,34 +128,44 @@ const Employees = () => {
         }
       );
 
-      // Update state to reflect deletion
       setEmployeeList(employeeList.filter((user) => user._id !== userId));
       toast.success("Employee deleted successfully");
     } catch (error) {
       console.error("Deleting employee failed:", error.response?.data || error.message);
-      toast.error("Failed to delete employee" ,error.response?.data || error.message);
+      toast.error(`Failed to delete employee: ${error.response?.data?.message || error.message}`);
     }
   };
 
-  // Handle viewing employee details
   const handleView = (employeeData) => {
     setSelectedEmployee(employeeData);
     setIsViewModalOpen(true);
   };
 
-  // Close the view modal
-  const handleEdit = (empData) =>{
+  const handleEdit = (empData) => {
     setSelectedEmployee(empData);
     setIsEditModalOpen(true);
-  }
+  };
 
-  // Close View Modal Function
   const closeViewModal = () => {
     setIsViewModalOpen(false);
     setSelectedEmployee(null);
   };
 
-  // Filter employees based on search
+  const closeEditModal = () => {
+    setIsEditModalOpen(false);
+    setSelectedEmployee(null);
+  };
+
+  const handleEmployeeEdit = (updatedEmployee) => {
+    setEmployeeList((prevList) =>
+      prevList.map((emp) =>
+        emp._id === updatedEmployee._id ? updatedEmployee : emp
+      )
+    );
+    setIsEditModalOpen(false);
+    toast.success("Employee updated successfully");
+  };
+
   const filteredEmployee = employeeList.filter(
     (emp) =>
       (emp?.name?.toLowerCase() || "").includes(search?.toLowerCase() || "") ||
@@ -170,27 +174,27 @@ const Employees = () => {
       (emp?.phone?.toLowerCase() || "").includes(search?.toLowerCase() || "")
   );
 
-  // Pagination logic
   const totalPages = Math.ceil(filteredEmployee.length / itemsPerPage);
-  const paginatedData = filteredEmployee.slice(
-    (currentPage - 1) * itemsPerPage,
-    currentPage * itemsPerPage
-  );
-  const closeEditModal = () => {
-    setIsEditModalOpen(false);
-    setSelectedEmployee(null);
-  }
+  const paginatedData = filteredEmployee.length > 0
+    ? filteredEmployee.slice(
+        (currentPage - 1) * itemsPerPage,
+        currentPage * itemsPerPage
+      )
+    : [];
 
-  // Prepare details for the DetailsComponent
   const details = selectedEmployee
     ? [
         { label: "Name", value: selectedEmployee.name },
         { label: "Employee ID", value: selectedEmployee.employeeId },
-        { label: "Role", value: selectedEmployee.jobrole},
-        { label: "Mobile", value: selectedEmployee.mobile},
+        { label: "Role", value: selectedEmployee.jobrole },
+        { label: "Mobile", value: selectedEmployee.mobile },
         {
           label: "Joining Date",
-          value: new Date(selectedEmployee.dateOfJoining).toLocaleDateString(),
+          value: new Date(selectedEmployee.dateOfJoining).toLocaleDateString("en-GB", {
+            day: "2-digit",
+            month: "2-digit",
+            year: "numeric",
+          }),
         },
         { label: "Email", value: selectedEmployee.email || "N/A" },
         { label: "Gender", value: selectedEmployee.gender || "N/A" },
@@ -252,8 +256,10 @@ const Employees = () => {
                 >
                   <FaEye />
                 </button>
-                <button className="px-2 py-2 text-lg text-blue-500 rounded hover:text-blue-600"
-                 onClick={() => handleEdit(emp)}>
+                <button
+                  className="px-2 py-2 text-lg text-blue-500 rounded hover:text-blue-600"
+                  onClick={() => handleEdit(emp)}
+                >
                   <FaEdit />
                 </button>
                 <button
@@ -268,7 +274,6 @@ const Employees = () => {
         </tbody>
       </table>
 
-      {/* Pagination Controls */}
       {totalPages > 1 && (
         <div className="mt-4 flex justify-center items-center space-x-4">
           <button
@@ -297,7 +302,6 @@ const Employees = () => {
         </div>
       )}
 
-      {/* Add Employee Modal */}
       {isModalOpen && (
         <Modal onClose={() => setIsModalOpen(false)}>
           <FormComponent
@@ -308,7 +312,6 @@ const Employees = () => {
         </Modal>
       )}
 
-      {/* View Employee Modal */}
       {isViewModalOpen && (
         <Modal onClose={closeViewModal}>
           <DetailsComponent details={details} />
@@ -316,8 +319,8 @@ const Employees = () => {
       )}
 
       {isEditModalOpen && (
-        <Modal onClose={isEditModalClose}>
-          <EmployeeEdit data = {selectedEmployee} />
+        <Modal onClose={closeEditModal}>
+          <EmployeeEdit data={selectedEmployee} onSave={handleEmployeeEdit} />
         </Modal>
       )}
     </div>

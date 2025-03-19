@@ -31,6 +31,10 @@ const Header = () => {
   ];
   const products = [
     {
+      title: "IoT Products",
+      link: "/Iot-products",
+    },
+    {
       title: "Client Relation Management (CRM)",
       link: "https://subscription.deepnapsoftech.com",
     },

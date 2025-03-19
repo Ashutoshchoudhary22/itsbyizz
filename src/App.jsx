@@ -28,6 +28,7 @@ import Refferal from "./Pages/Admin/Refferal";
 import Business from "./Pages/Admin/Business";
 import Corporate from "./Pages/Admin/Corporate";
 import ProductQuote from "./Pages/Admin/ProductQuote";
+import IotProducts from "./Pages/IotProducts";
 
 const App = () => {
   return (
@@ -50,6 +51,7 @@ const App = () => {
           <Route path="/meta/ads" element={<MetaAdds/>} />
           <Route path="/contact-us" element={<Contact/>} />
           <Route path="/career" element={<Career/>}/>
+          <Route path="/Iot-products" element={<IotProducts />} />
         
 
           {/* <Route path="*" element={<PageNotFound />} /> */}

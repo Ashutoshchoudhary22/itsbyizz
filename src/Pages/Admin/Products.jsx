@@ -91,9 +91,11 @@ const Products = () => {
         toast.error("Authentication token not found. Please log in.");
         return;
       }
-
+  
       // Create FormData for file upload
       const data = new FormData();
+  
+      // Append all fields to FormData
       for (const key in formData) {
         if (key === "specification" && typeof formData[key] === "string") {
           // Convert specification to array if it's a string
@@ -101,11 +103,15 @@ const Products = () => {
             key,
             JSON.stringify(formData[key].split("\n").map((spec) => spec.trim()))
           );
+        } else if (key === "image" && formData[key] instanceof File) {
+          // Append the image file
+          data.append(key, formData[key]);
         } else {
+          // Append other fields
           data.append(key, formData[key]);
         }
       }
-
+  
       setIsLoading(true); // Start loading
       const response = await axios.post(
         `${import.meta.env.VITE_BACKEND_BASE_URL}/iot/prodcuts`,
@@ -117,7 +123,7 @@ const Products = () => {
           },
         }
       );
-
+  
       // Update the product list with the new product
       setProductList([...productList, response.data.product]);
       setIsModalOpen(false);
@@ -127,7 +133,9 @@ const Products = () => {
         "Adding product failed:",
         error.response?.data || error.message
       );
-      toast.error("Failed to add product");
+      toast.error(
+        `Failed to add product: ${error.response?.data?.message || error.message}`
+      );
     } finally {
       setIsLoading(false); // Stop loading
     }

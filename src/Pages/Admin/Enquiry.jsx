@@ -5,7 +5,7 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import Modal from "../../Components/Dashboard/Modal";
 import DetailsComponent from "../../Components/Dashboard/DetailsComponent";
-
+import EditInquiryForm from "../../Components/EditForms/EditInquiryForm";
 
 const Enquiry = () => {
   const [search, setSearch] = useState("");
@@ -13,6 +13,9 @@ const Enquiry = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedEnquiry, setSelectedEnquiry] = useState(null); // State for selected enquiry
   const [isModalOpen, setIsModalOpen] = useState(false); // State for modal visibility
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [editEnquiry, setEditEnquiry] = useState(null);
+
   const itemsPerPage = 10; // Show only 10 items per page
 
   useEffect(() => {
@@ -97,6 +100,7 @@ const Enquiry = () => {
   // Handle View Function
   const handleView = (enquiryData) => {
     setSelectedEnquiry(enquiryData); // Set selected enquiry data
+
     setIsModalOpen(true); // Open the modal
   };
 
@@ -104,6 +108,20 @@ const Enquiry = () => {
   const closeModal = () => {
     setIsModalOpen(false); // Close the modal
     setSelectedEnquiry(null); // Clear selected enquiry data
+  };
+  const handleEditClick = (enquiry) => {
+    setEditEnquiry(enquiry);
+    console.log(enquiry);
+    setIsEditModalOpen(true);
+  };
+
+  const handleUpdateEnquiry = (updatedEnquiry) => {
+    setEnquiryList((prevList) =>
+      prevList.map((enq) =>
+        enq?._id === updatedEnquiry?._id ? updatedEnquiry : enq
+      )
+    );
+    setIsEditModalOpen(false);
   };
 
   // Prepare details for the DetailsComponent
@@ -117,6 +135,7 @@ const Enquiry = () => {
         { label: "Mobile", value: selectedEnquiry.phone },
         { label: "Requirement", value: selectedEnquiry.requirement },
         { label: "Email", value: selectedEnquiry.email || "N/A" },
+        { label: "Date", value: selectedEnquiry.date || "N/A" },
       ]
     : [];
 
@@ -165,7 +184,10 @@ const Enquiry = () => {
                 >
                   <FaEye />
                 </button>
-                <button className="px-2 py-2 text-lg text-blue-500 rounded hover:text-blue-600">
+                <button
+                  onClick={() => handleEditClick(entry)}
+                  className="px-2 py-2 text-lg text-blue-500 rounded hover:text-blue-600"
+                >
                   <FaEdit />
                 </button>
                 <button
@@ -212,6 +234,24 @@ const Enquiry = () => {
       {isModalOpen && (
         <Modal isOpen={isModalOpen} onClose={closeModal}>
           <DetailsComponent details={details} />
+        </Modal>
+      )}
+      {isEditModalOpen && (
+        <Modal
+          isOpen={isEditModalOpen}
+          onClose={() => setIsEditModalOpen(false)}
+        >
+          {isEditModalOpen && editEnquiry && (
+            <Modal
+              isOpen={isEditModalOpen}
+              onClose={() => setIsEditModalOpen(false)}
+            >
+              <EditInquiryForm
+                data={editEnquiry}
+                onSave={handleUpdateEnquiry}
+              />
+            </Modal>
+          )}
         </Modal>
       )}
     </div>

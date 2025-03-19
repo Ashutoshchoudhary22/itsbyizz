@@ -6,6 +6,7 @@ import FormComponent from "../../Components/Dashboard/FormComponent";
 import DetailsComponent from "../../Components/Dashboard/DetailsComponent";
 import axios from "axios";
 import { toast } from "react-toastify";
+import EditProductForm from "../../Components/EditForms/EditProductForm";
 
 const Products = () => {
   const [search, setSearch] = useState("");
@@ -15,6 +16,8 @@ const Products = () => {
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [isViewModalOpen, setIsViewModalOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false); // Loading state
+  const [isEditOpen, setIsEditOpen] = useState(false);
+
   const itemsPerPage = 10;
 
   const productFields = [
@@ -43,43 +46,44 @@ const Products = () => {
   ];
 
   // Fetch products from the backend
-  useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const token = localStorage.getItem("user");
-        if (!token) {
-          console.error("No token found");
-          toast.error("Authentication token missing");
-          return;
+
+  const fetchProducts = async () => {
+    try {
+      const token = localStorage.getItem("user");
+      if (!token) {
+        console.error("No token found");
+        toast.error("Authentication token missing");
+        return;
+      }
+
+      const response = await axios.get(
+        `${import.meta.env.VITE_BACKEND_BASE_URL}/iot/prodcuts/all`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+
+            headers: { "Content-Type": "multipart/form-data" },
+          },
         }
+      );
 
-        const response = await axios.get(
-          `${import.meta.env.VITE_BACKEND_BASE_URL}/iot/prodcuts/all`,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-
-              headers: { "Content-Type": "multipart/form-data" },
-            },
-          }
-        );
-
-        if (Array.isArray(response.data)) {
-          setProductList(response.data);
-        } else {
-          console.error("Unexpected API response:", response.data);
-          setProductList([]);
-        }
-      } catch (err) {
-        console.error(
-          "Fetching products failed:",
-          err.response?.data || err.message
-        );
-        toast.error("Failed to fetch products");
+      if (Array.isArray(response.data)) {
+        setProductList(response.data);
+      } else {
+        console.error("Unexpected API response:", response.data);
         setProductList([]);
       }
-    };
+    } catch (err) {
+      console.error(
+        "Fetching products failed:",
+        err.response?.data || err.message
+      );
+      toast.error("Failed to fetch products");
+      setProductList([]);
+    }
+  };
 
+  useEffect(() => {
     fetchProducts();
   }, []);
 
@@ -91,10 +95,10 @@ const Products = () => {
         toast.error("Authentication token not found. Please log in.");
         return;
       }
-  
+
       // Create FormData for file upload
       const data = new FormData();
-  
+
       // Append all fields to FormData
       for (const key in formData) {
         if (key === "specification" && typeof formData[key] === "string") {
@@ -111,7 +115,7 @@ const Products = () => {
           data.append(key, formData[key]);
         }
       }
-  
+
       setIsLoading(true); // Start loading
       const response = await axios.post(
         `${import.meta.env.VITE_BACKEND_BASE_URL}/iot/prodcuts`,
@@ -123,7 +127,7 @@ const Products = () => {
           },
         }
       );
-  
+
       // Update the product list with the new product
       setProductList([...productList, response.data.product]);
       setIsModalOpen(false);
@@ -134,7 +138,9 @@ const Products = () => {
         error.response?.data || error.message
       );
       toast.error(
-        `Failed to add product: ${error.response?.data?.message || error.message}`
+        `Failed to add product: ${
+          error.response?.data?.message || error.message
+        }`
       );
     } finally {
       setIsLoading(false); // Stop loading
@@ -207,6 +213,11 @@ const Products = () => {
     currentPage * itemsPerPage
   );
 
+  const handleEdit = (product) => {
+    setSelectedProduct(product);
+    setIsEditOpen(true);
+  };
+
   // Prepare details for the DetailsComponent
   const details = selectedProduct
     ? [
@@ -269,7 +280,10 @@ const Products = () => {
                 >
                   <FaEye />
                 </button>
-                <button className="px-2 py-2 text-lg text-blue-500 rounded hover:text-blue-600">
+                <button
+                  onClick={() => handleEdit(product)}
+                  className="px-2 py-2 text-lg text-blue-500 rounded hover:text-blue-600"
+                >
                   <FaEdit />
                 </button>
                 <button
@@ -330,6 +344,14 @@ const Products = () => {
         <Modal onClose={closeViewModal}>
           <DetailsComponent details={details} />
         </Modal>
+      )}
+
+      {isEditOpen && (
+        <EditProductForm
+          product={selectedProduct}
+          onClose={() => setIsEditOpen(false)}
+          onUpdate={fetchProducts} // Function to refresh product list
+        />
       )}
     </div>
   );

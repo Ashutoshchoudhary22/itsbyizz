@@ -29,6 +29,8 @@ import Business from "./Pages/Admin/Business";
 import Corporate from "./Pages/Admin/Corporate";
 import ProductQuote from "./Pages/Admin/ProductQuote";
 import IotProducts from "./Pages/IotProducts";
+import Forgotpwd from "./Pages/Forgotpwd";
+import PageNotFound from "./PageNotFound";
 
 
 const App = () => {
@@ -39,6 +41,7 @@ const App = () => {
         {/* Main Layout with Header & Footer */}
         <Route path="/register" element= {<Register />} />
         <Route path="/login" element= {<Login />} />
+        <Route path="/forgot-password" element={<Forgotpwd />} />  
 
         <Route path="/" element={<MainLayout />}>
           <Route index element={<Home />} />
@@ -53,11 +56,11 @@ const App = () => {
           <Route path="/contact-us" element={<Contact/>} />
           <Route path="/career" element={<Career/>}/>
           <Route path="/Iot-products" element={<IotProducts />} />
-        
+               
 
-          {/* <Route path="*" element={<PageNotFound />} /> */}
+         
         </Route>
-
+         <Route path="*" element={<PageNotFound />} />
 
         <Route path="/dashboard" element={<Dashboard />}>
           <Route index element={<Overview />} />
@@ -68,9 +71,9 @@ const App = () => {
           <Route path="products" element={<Products />} />
           <Route path="employees" element={<Employees />} />
           <Route path="followups" element={<Followup />} />
-          <Route path="refferal" element={<Refferal />} />
+          {/* <Route path="refferal" element={<Refferal />} />
           <Route path="business" element={<Business />} />
-          <Route path="corporate" element={<Corporate />} />
+          <Route path="corporate" element={<Corporate />} /> */}
           <Route path="products/quote" element={<ProductQuote/>} />
         </Route>
       </Routes>

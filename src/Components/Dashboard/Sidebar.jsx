@@ -109,11 +109,11 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
             <FiClipboard /> <span>Follow Ups</span>
           </NavLink>
 
-          <NavLink to="refferal" className="flex items-center space-x-2 hover:bg-sky-700 p-3 rounded cursor-pointer"><FiTrendingUp /> <span>Refferal Program</span></NavLink>
+          {/* <NavLink to="refferal" className="flex items-center space-x-2 hover:bg-sky-700 p-3 rounded cursor-pointer"><FiTrendingUp /> <span>Refferal Program</span></NavLink>
          
           <NavLink to="business" className="flex items-center space-x-2 hover:bg-sky-700 p-3 rounded cursor-pointer"><FiDollarSign /> <span>Business</span></NavLink>
 
-          <NavLink to="corporate" className="flex items-center space-x-2 hover:bg-sky-700 p-3 rounded cursor-pointer"><FaBuilding /> <span>Corporate</span></NavLink>
+          <NavLink to="corporate" className="flex items-center space-x-2 hover:bg-sky-700 p-3 rounded cursor-pointer"><FaBuilding /> <span>Corporate</span></NavLink> */}
         </ul>
 
         <button

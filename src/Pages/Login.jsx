@@ -95,6 +95,10 @@ const Login = () => {
             onChange={(e) => setPassword(e.target.value)}
             className="p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
+          <NavLink to='/forgot-password'>
+          <p className="text-sm text-blue-500 underline">Forgot Password?</p>
+          </NavLink>
+         
 
           <div className="flex items-start gap-3 text-sm text-gray-600">
             <input type="checkbox" className="w-5 h-5 mt-1 accent-blue-600" />

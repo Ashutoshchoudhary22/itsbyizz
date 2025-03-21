@@ -211,7 +211,7 @@ const Users = () => {
       name: "role",
       label: "Role",
       type: "select",
-      options: ["Admin", "User", "Employee","Refferal","Business","Corporate"],
+      options: ["admin", "user", "employee","refferal","business","corporate"],
       defaultValue: selectedUser?.role,
     },
     {

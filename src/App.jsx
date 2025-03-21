@@ -31,6 +31,7 @@ import ProductQuote from "./Pages/Admin/ProductQuote";
 import IotProducts from "./Pages/IotProducts";
 import Forgotpwd from "./Pages/Forgotpwd";
 import PageNotFound from "./PageNotFound";
+import ResetPassword from "./Pages/ResetPassword";
 
 
 const App = () => {
@@ -42,6 +43,7 @@ const App = () => {
         <Route path="/register" element= {<Register />} />
         <Route path="/login" element= {<Login />} />
         <Route path="/forgot-password" element={<Forgotpwd />} />  
+        <Route path="/reset-password" element={<ResetPassword />} />  
 
         <Route path="/" element={<MainLayout />}>
           <Route index element={<Home />} />

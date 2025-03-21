@@ -27,18 +27,10 @@ const IotProducts = () => {
   // Fetch products from the API
   const fetchProducts = async () => {
     try {
-      const token = localStorage.getItem("user");
-      if (!token) {
-        console.error("No token found");
-        toast.error("Authentication token missing");
-        return;
-      }
-
       const response = await axios.get(
         `${import.meta.env.VITE_BACKEND_BASE_URL}/iot/prodcuts/all`,
         {
           headers: {
-            Authorization: `Bearer ${token}`,
             "Content-Type": "multipart/form-data",
           },
         }
@@ -88,18 +80,11 @@ const IotProducts = () => {
     e.preventDefault();
 
     try {
-      const token = localStorage.getItem("user");
-      if (!token) {
-        toast.error("Authentication token missing");
-        return;
-      }
-
       const response = await axios.post(
         `${import.meta.env.VITE_BACKEND_BASE_URL}/iot/quote/iot/quote/products`, // Corrected endpoint
         formData, // Send formData instead of quoteFormFields
         {
           headers: {
-            Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
           },
         }
@@ -134,7 +119,6 @@ const IotProducts = () => {
       </div>
 
       <div className="bg-gray-50 p-5">
-        
         <div className="grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-6">
           {products.map((product) => (
             <div

@@ -19,7 +19,7 @@ const ForgotPassword = () => {
 
     try {
       const response = await axios.post(
-        `${import.meta.env.VITE_BACKEND_BASE_URL}/user/forgot-password`,
+        `${import.meta.env.VITE_BACKEND_BASE_URL}/user/forgot-password-token`,
         {
           email,
         }

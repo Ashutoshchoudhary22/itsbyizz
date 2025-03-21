@@ -32,7 +32,12 @@ const ResetPassword = () => {
   // Function to check password strength
   const checkPasswordStrength = (password) => {
     if (password.length < 6) return "Weak";
-    if (password.match(/[A-Z]/) && password.match(/[0-9]/) && password.match(/[@$!%*?&]/)) return "Strong";
+    if (
+      password.match(/[A-Z]/) &&
+      password.match(/[0-9]/) &&
+      password.match(/[@$!%*?&]/)
+    )
+      return "Strong";
     return "Medium";
   };
 
@@ -53,10 +58,16 @@ const ResetPassword = () => {
       return;
     }
 
+    if (passwordStrength === "Weak") {
+      setError("Password is too weak. Please use a stronger password.");
+      setLoading(false);
+      return;
+    }
+
     try {
-      const response = await axios.post(
+      const response = await axios.put(
         `${import.meta.env.VITE_BACKEND_BASE_URL}/user/reset-password/${token}`,
-        { newPassword }
+        { password: newPassword }
       );
 
       toast.success("Password reset successful");
@@ -67,7 +78,9 @@ const ResetPassword = () => {
       }, 3000);
     } catch (err) {
       toast.error("Failed to reset password");
-      setError(err.response?.data?.message || "Failed to reset password. Try again.");
+      setError(
+        err.response?.data?.error || "Failed to reset password. Try again."
+      );
     } finally {
       setLoading(false);
     }
@@ -104,12 +117,20 @@ const ResetPassword = () => {
               onClick={() => setShowPassword(!showPassword)}
               className="absolute right-3 top-1/2 transform -translate-y-1/2"
             >
-              {showPassword ? <FaEyeSlash  size={20} /> : <FaEye  size={20} />}
+              {showPassword ? <FaEyeSlash size={20} /> : <FaEye size={20} />}
             </button>
           </div>
 
           {/* Password Strength Indicator */}
-          <p className={`text-sm ${passwordStrength === "Strong" ? "text-green-500" : passwordStrength === "Medium" ? "text-yellow-500" : "text-red-500"}`}>
+          <p
+            className={`text-sm ${
+              passwordStrength === "Strong"
+                ? "text-green-500"
+                : passwordStrength === "Medium"
+                ? "text-yellow-500"
+                : "text-red-500"
+            }`}
+          >
             {passwordStrength && `Password Strength: ${passwordStrength}`}
           </p>
 
@@ -128,7 +149,11 @@ const ResetPassword = () => {
               onClick={() => setShowConfirmPassword(!showConfirmPassword)}
               className="absolute right-3 top-1/2 transform -translate-y-1/2"
             >
-              {showConfirmPassword ? <FaEyeSlash  size={20} /> : <FaEye  size={20} />}
+              {showConfirmPassword ? (
+                <FaEyeSlash size={20} />
+              ) : (
+                <FaEye size={20} />
+              )}
             </button>
           </div>
 

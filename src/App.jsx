@@ -58,6 +58,7 @@ const App = () => {
           <Route path="/contact-us" element={<Contact/>} />
           <Route path="/career" element={<Career/>}/>
           <Route path="/Iot-products" element={<IotProducts />} />
+          <Route path="/reset-password/:token" element={<ResetPassword/>} />
                
 
          

@@ -17,7 +17,7 @@ import Loop from "../Components/Loop";
 import RevealWrapper from "../Components/RevealWrapper";
 
 const Home = () => {
-  const bookDemoRef = useRef(null); 
+  const bookDemoRef = useRef(null);
 
   const scrollToBookDemo = () => {
     if (bookDemoRef.current) {
@@ -47,31 +47,32 @@ const Home = () => {
 
   return (
     <div>
-      <div className="w-full h-72 grid md:grid-cols-2 gap-2 grid-cols-1 px-5 py-24">
-        <div className="col-span-1">
+      {/* Hero Section */}
+      <div className="w-full h-auto md:h-72 grid md:grid-cols-2 gap-4 px-5 py-12 md:py-24">
+        <div className="col-span-1 flex flex-col justify-center">
           <WavyScrollText
             highlight="Smart IoT & Automation"
             text="for Maximum Efficiency."
           />
         </div>
 
-        <div className="col-span-1">
+        <div className="col-span-1 flex flex-col justify-center">
           <p className="text-gray-200 text-lg p-2">
             ITSYBIZZ delivers smart IoT and real-time automation solutions to
             optimize operations, boost efficiency, and enable data-driven
             decisions. Elevate your industry with our scalable, secure, and
             future-ready technology.
           </p>
-          <div className="flex items-center justify-start gap-3">
+          <div className="flex flex-col md:flex-row items-center justify-start gap-3 mt-4">
             <button
-              onClick={scrollToBookDemo} // Step 2: Call function on click
-              className="text-gray-700 font-semibold flex md:inline-flex px-20 py-2 mt-2 bg-green-400 rounded-full hover:bg-green-500 transition-all ease border border-black items-center hover:text-white"
+              onClick={scrollToBookDemo}
+              className="text-gray-700 font-semibold px-8 py-2 md:px-20 bg-green-400 rounded-full hover:bg-green-500 transition-all ease border border-black hover:text-white"
             >
               <span>Book Demo</span>
             </button>
             <a
               href="#"
-              className="text-gray-50 font-semibold flex md:inline-flex px-20 py-2 mt-2 rounded-full hover:text-green-500 transition-all ease border-2 border-gray-400 items-center hover:border-green-500"
+              className="text-gray-50 font-semibold px-8 py-2 md:px-20 rounded-full hover:text-green-500 transition-all ease border-2 border-gray-400 hover:border-green-500"
             >
               <NavLink to="contact-us">Contact Us</NavLink>
             </a>
@@ -79,16 +80,17 @@ const Home = () => {
         </div>
       </div>
 
-      {/* images slider */}
+      {/* Image Slider */}
       <div className="w-full h-96 flex items-center justify-center">
         <AutoSlider />
       </div>
 
-      <div className="w-full flex items-center justify-center text-white flex-col ">
-        <h2 className="text-4xl mb-3 font-semibold">
+      {/* Stats Section */}
+      <div className="w-full flex items-center justify-center text-white flex-col py-12">
+        <h2 className="text-3xl md:text-4xl mb-3 font-semibold text-center">
           We have 80% active users across the nation
         </h2>
-        <div className="flex w-full items-center justify-center mt-4">
+        <div className="flex flex-col md:flex-row w-full items-center justify-center mt-4 gap-8">
           {content.map((data, index) => (
             <div
               key={index}
@@ -97,7 +99,7 @@ const Home = () => {
               <h1 className="text-4xl font-bold text-green-500">
                 {data.value}+
               </h1>
-              <p className="text-xl text-gray-100 font-semibold">
+              <p className="text-xl text-gray-100 font-semibold text-center">
                 {data.label}
               </p>
             </div>
@@ -105,29 +107,30 @@ const Home = () => {
         </div>
       </div>
 
+      {/* About Section */}
       <div className="w-full mt-20">
         {/* <About /> */}
         {/* <Loop /> */}
       </div>
 
+      {/* Domain List Section */}
       <div className="w-full bg-white">
         <DomainList />
       </div>
 
-      {/* Step 3: Attach ref to BookDemo */}
+      {/* Book Demo Section */}
       <div ref={bookDemoRef}>
-        
-          <BookDemo />
-
+        <BookDemo />
       </div>
 
-      <div className="w-full h-auto py-10 bg-gray-100 flex flex-col items-center justify-center gap-5 ">
-        <h1 className="text-4xl font-bold mt-10 text-center text-gray-600 mb-5">
+      {/* Tech Stack Section */}
+      <div className="w-full h-auto py-10 bg-gray-100 flex flex-col items-center justify-center gap-5">
+        <h1 className="text-3xl md:text-4xl font-bold mt-10 text-center text-gray-600 mb-5">
           Technologies We Use
         </h1>
         <Marquee speed={50} gradient={false}>
           {techStack.map((tech, index) => (
-            <div key={index} className="mx-6 text-7xl">
+            <div key={index} className="mx-6 text-5xl md:text-7xl">
               <tech.icon className={`${tech.color}`} />
             </div>
           ))}

@@ -28,7 +28,7 @@ const Login = () => {
       );
 
       console.log("Login successful:", response.data);
-      localStorage.setItem("user" , response.data.token);
+      localStorage.setItem("user", response.data.token);
       toast.success("Login successful");
       navigate("/dashboard");
     } catch (err) {
@@ -52,32 +52,41 @@ const Login = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-gray-100 relative">
-      <div className="w-full flex items-center justify-start bg-gradient-to-b from-sky-900 to-sky-800 h-96 px-5 py-24">
-        <div className="col-span-1 flex items-center">
-          <div className="w-2/3">
-            <h1 className="text-green-500 text-4xl font-bold">
-              Login into Your Account
-            </h1>
-            <p className="text-white text-2xl">
-              Enter your personal details and start the journey with us
-            </p>
-          </div>
+    <div className="min-h-screen bg-gray-100 flex flex-col items-center ">
+      {/* Header Section */}
+      <div className="w-full flex items-center justify-center sm:justify-between bg-gradient-to-b from-sky-900 to-sky-800 h-72 sm:h-76 px-5 ">
+        <div className="max-w-lg text-center sm:text-left">
+          <h1 className="text-green-500 text-3xl sm:text-4xl font-bold">
+            Login into Your Account
+          </h1>
+          <p className="text-white text-lg sm:text-2xl mt-2">
+            Enter your personal details <br></br> and start the journey with us
+          </p>
         </div>
       </div>
 
-      <div className="w-full md:w-3/5 p-8 absolute right-10 top-1/2 transform -translate-y-1/2 bg-white rounded-lg shadow-lg reveal">
-        <h2 className="text-2xl font-semibold">Sign In</h2>
-        <p className="text-sm text-gray-500">
+      {/* Form Section */}
+      <div className="w-full max-w-md sm:max-w-lg md:max-w-xl lg:max-w-2xl p-6 bg-white rounded-lg shadow-lg -mt-25 sm:-mt-42 ml-0 sm:ml-[20rem]">
+        <h2 className="text-2xl font-semibold text-center sm:text-left">
+          Sign In
+        </h2>
+        <p className="text-sm text-gray-500 text-center sm:text-left mt-2">
           Don't have an account?{" "}
           <Link to="/register" className="text-blue-500 hover:underline">
             Sign up
           </Link>
         </p>
 
-        {error && <p className="text-red-500 text-sm mt-3">{error}</p>}
+        {error && (
+          <p className="text-red-500 text-sm mt-3 text-center sm:text-left">
+            {error}
+          </p>
+        )}
 
-        <form onSubmit={submitHandler} className="mt-6 grid grid-cols-1 gap-6">
+        <form
+          onSubmit={submitHandler}
+          className="mt-6 grid grid-cols-1 gap-4 sm:gap-6"
+        >
           <input
             type="email"
             placeholder="Email"
@@ -85,6 +94,7 @@ const Login = () => {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             className="p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            aria-label="Email"
           />
 
           <input
@@ -94,15 +104,23 @@ const Login = () => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             className="p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            aria-label="Password"
           />
-          <NavLink to='/forgot-password'>
-          <p className="text-sm text-blue-500 underline">Forgot Password?</p>
-          </NavLink>
-         
 
-          <div className="flex items-start gap-3 text-sm text-gray-600">
-            <input type="checkbox" className="w-5 h-5 mt-1 accent-blue-600" />
-            <p>
+          <NavLink
+            to="/forgot-password"
+            className="text-sm text-blue-500 underline text-center sm:text-left"
+          >
+            Forgot Password?
+          </NavLink>
+
+          <div className="flex flex-col lg:flex-row items-center sm:items-start gap-3 text-sm text-gray-600">
+            <input
+              type="checkbox"
+              id="terms"
+              className="w-5 h-5 accent-blue-600"
+            />
+            <label htmlFor="terms" className="text-center sm:text-left">
               I have read and agree to the
               <NavLink
                 to="/terms"
@@ -119,7 +137,7 @@ const Login = () => {
                 Privacy Statement
               </NavLink>
               .
-            </p>
+            </label>
           </div>
 
           <button

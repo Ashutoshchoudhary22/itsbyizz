@@ -1,7 +1,7 @@
-import React, {  useState } from "react";
+import React, { useEffect, useState } from "react";
 import WavyScrollText from "../Components/WavyScroll";
-import RevealWrapper from "../Components/RevealWrapper";
-
+// import RevealWrapper from "../Components/RevealWrapper";
+import ScrollReveal from "scrollreveal";
 const Portfolio = () => {
   const [activeTab, setActiveTab] = useState("B2B");
 
@@ -10,51 +10,67 @@ const Portfolio = () => {
       {
         title: "JHEV Motors",
         img: "https://itsybizz.com/assets/port1-BelGnRC3.png",
+        link: "https://jhevmotors.com/",
       },
       {
         title: "Shivshakti Aluminium",
         img: "https://itsybizz.com/assets/port5-wuzzEP2D.png",
+        link: "https://shivshaktialuminium.com/",
       },
-      { title: "Ksec", img: "https://itsybizz.com/assets/port6-v1YFQOwl.png" },
+      {
+        title: "Ksec",
+        img: "https://itsybizz.com/assets/port6-v1YFQOwl.png",
+       
+      },
       {
         title: "Mic N Melon",
         img: "https://itsybizz.com/assets/port8-uMuYPj1B.png",
+        link: "https://micnmelons.com/",
       },
       {
         title: "Tuindestries",
         img: "https://itsybizz.com/assets/port9-MLYEjASM.png",
+        link: "https://shivshaktialuminium.com/",
       },
       {
         title: "Shiv Art",
         img: "https://itsybizz.com/assets/shivart-Iaowi91I.jpeg",
+        link: "https://shivaarts.com/",
       },
       {
         title: "Tyoharwala",
         img: "https://itsybizz.com/assets/tyor-fvRAlMa7.jpeg",
+        link: "https://shivshaktialuminium.com/",
       },
       {
         title: "Code Seeker",
         img: "https://itsybizz.com/assets/codeseekr-ZJ_dH3vE.jpeg",
+        link: "https://shivshaktialuminium.com/",
       },
       {
         title: "Star Son",
         img: "https://itsybizz.com/assets/starson-QH_7PmrA.jpeg",
+        link: "https://shivshaktialuminium.com/",
       },
       {
         title: "AFS Deals",
         img: "https://itsybizz.com/assets/port2-DcxdaKXH.png",
+        link: "https://shivshaktialuminium.com/",
       },
       {
         title: "Aggarwal Caterer",
         img: "https://itsybizz.com/assets/port4-NNclumCG.png",
+        link: "https://shivshaktialuminium.com/",
       },
       {
         title: "Star Motors",
         img: "https://itsybizz.com/assets/port7-fkHjhbSV.png",
+        link: "https://shivshaktialuminium.com/",
       },
       {
         title: "Kripa Creations",
         img: "https://itsybizz.com/assets/kripa-AMYKLt7o.jpeg",
+        link: "https://shivshaktialuminium.com/",
       },
     ],
     Finance: [
@@ -149,16 +165,25 @@ const Portfolio = () => {
       },
     ],
   };
+  useEffect(() => {
+    const sr = ScrollReveal({
+      duration: 900,
+      origin: "bottom",
+      distance: "50px",
+      easing: "ease-in-out",
+      interval: 300,
+      reset: false, // <-- This is key for re-triggering when in view
+    });
+
+    sr.reveal(".card");
+  }, []);
 
   return (
     <div className="w-full h-auto ">
       {/* Header Section */}
       <div className="w-full h-[480px] relative grid md:grid-cols-2 gap-2 grid-cols-1 px-5 py-24">
         <div className="col-span-1 flex items-center">
-          <WavyScrollText
-            highlight=" Our Products & "
-            text="Solutions"
-          />
+          <WavyScrollText highlight=" Our Products & " text="Solutions" />
         </div>
         <div className="col-span-1 flex justify-center items-center">
           <img
@@ -190,18 +215,22 @@ const Portfolio = () => {
         {/* Product Cards Section */}
         <div className="w-full flex flex-wrap justify-center gap-6 pb-5">
           {products[activeTab].map((product, index) => (
-            <RevealWrapper key={index}>
-              <div className="bg-white shadow-lg rounded-lg p-4  w-62 text-center">
-                <img
-                  src={product.img}
-                  alt={product.title}
-                  className="w-40 h-auto mx-auto"
-                />
-                <h3 className="text-lg font-semibold mt-2 text-gray-800">
-                  {product.title}
-                </h3>
-              </div>
-            </RevealWrapper>
+            <a
+              href={product.link || "#"}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="card bg-white shadow-lg rounded-lg p-4 w-62 text-center card block hover:shadow-xl transition-shadow duration-300"
+              style={{ animationDelay: `${index * 0.9}s` }}
+            >
+              <img
+                src={product.img}
+                alt={product.title}
+                className="tilt-img w-40 h-auto mx-auto"
+              />
+              <h3 className="text-lg font-semibold mt-2 text-gray-800">
+                {product.title}
+              </h3>
+            </a>
           ))}
         </div>
       </div>

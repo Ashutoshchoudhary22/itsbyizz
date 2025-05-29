@@ -74,7 +74,7 @@ const Header = () => {
   }, []);
 
   return (
-    <nav className="flex px-4 md:shadow-lg items-center relative ">
+    <nav className="sticky top-0 bg-sky-900 z-50 flex px-4 md:shadow-lg items-center ">
       {/* Logo */}
       <div className="text-lg text-gray-50 font-bold md:py-0 py-4">
         <Link to="/">ITSYBIZZ</Link>
@@ -132,67 +132,77 @@ const Header = () => {
               openDropdown === "products" ? "block" : "hidden"
             } md:absolute md:top-full md:left-0 md:w-auto bg-white md:shadow-lg md:rounded-b-lg p-2 flex-wrap`}
           >
-            {products.map((item, index) => (
-              <li key={index} className="p-2 hover:bg-sky-100 rounded-lg w-48">
-                {item.external ? (
-                  <a
-                    href={item.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="block text-gray-900 font-normal"
-                  >
-                    {item.title}
-                  </a>
-                ) : (
-                  <NavLink
-                    to={item.link}
-                    className="block text-gray-900 font-normal"
-                    onClick={() => setIsMenuOpen(false)}
-                  >
-                    {item.title}
-                  </NavLink>
-                )}
-              </li>
-            ))}
+          {products.map((item, index) => (
+  <li key={index} className="p-2 hover:bg-sky-100 rounded-lg w-48">
+    {item.external ? (
+      <a
+        href={item.link}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="block text-gray-900 font-normal"
+        onClick={() => setOpenDropdown(null)} // 👈 Close dropdown on click
+      >
+        {item.title}
+      </a>
+    ) : (
+      <NavLink
+        to={item.link}
+        className="block text-gray-900 font-normal"
+        onClick={() => {
+          setOpenDropdown(null); // 👈 Close dropdown on click
+          setIsMenuOpen(false);  // 👈 Optional: also close mobile nav
+        }}
+      >
+        {item.title}
+      </NavLink>
+    )}
+  </li>
+))}
+
           </ul>
         </li>
 
         {/* Development Dropdown */}
-        <li className="relative">
-          <button
-            className="text-gray-50 flex justify-between p-4 items-center hover:text-white space-x-2 w-full md:w-auto"
-            onClick={() => toggleDropdown("development")}
-          >
-            <span>Development</span>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className={`w-3 h-3 fill-current transform transition-transform duration-200 ${
-                openDropdown === "development" ? "rotate-180" : "rotate-0"
-              }`}
-              viewBox="0 0 24 24"
-            >
-              <path d="M0 7.33l2.829-2.83 9.175 9.339 9.167-9.339 2.829 2.83-11.996 12.17z" />
-            </svg>
-          </button>
-          <ul
-            ref={dropdownRef}
-            className={`${
-              openDropdown === "development" ? "block" : "hidden"
-            } md:absolute md:top-full md:left-0 md:w-auto bg-white md:shadow-lg md:rounded-b-lg p-2 flex-wrap`}
-          >
-            {developmentmenu.map((item, index) => (
-              <li key={index} className="p-2 hover:bg-sky-100 rounded-lg w-48">
-                <NavLink
-                  to={item.link}
-                  className="block text-gray-900 font-normal"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  {item.title}
-                </NavLink>
-              </li>
-            ))}
-          </ul>
-        </li>
+       <li className="relative">
+  <button
+    className="text-gray-50 flex justify-between p-4 items-center hover:text-white space-x-2 w-full md:w-auto"
+    onClick={() => toggleDropdown("development")}
+  >
+    <span>Development</span>
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      className={`w-3 h-3 fill-current transform transition-transform duration-200 ${
+        openDropdown === "development" ? "rotate-180" : "rotate-0"
+      }`}
+      viewBox="0 0 24 24"
+    >
+      <path d="M0 7.33l2.829-2.83 9.175 9.339 9.167-9.339 2.829 2.83-11.996 12.17z" />
+    </svg>
+  </button>
+
+  <ul
+    ref={dropdownRef}
+    className={`${
+      openDropdown === "development" ? "block" : "hidden"
+    } md:absolute md:top-full md:left-0 md:w-auto bg-white md:shadow-lg md:rounded-b-lg p-2 flex-wrap`}
+  >
+    {developmentmenu.map((item, index) => (
+      <li key={index} className="p-2 hover:bg-sky-100 rounded-lg w-48">
+        <NavLink
+          to={item.link}
+          className="block text-gray-900 font-normal"
+          onClick={() => {
+            setOpenDropdown(null);     // 👈 Closes the dropdown
+            setIsMenuOpen(false);      // 👈 Optional: Closes mobile menu
+          }}
+        >
+          {item.title}
+        </NavLink>
+      </li>
+    ))}
+  </ul>
+</li>
+
 
         {/* Become Brand Dropdown */}
         <li className="relative">
@@ -218,13 +228,16 @@ const Header = () => {
           >
             {becomeBrand.map((item, index) => (
               <li key={index} className="p-2 hover:bg-sky-100 rounded-lg w-48">
-                <NavLink
-                  to={item.link}
-                  className="block text-gray-900 font-normal"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  {item.title}
-                </NavLink>
+               <NavLink
+          to={item.link}
+          className="block text-gray-900 font-normal"
+          onClick={() => {
+            setOpenDropdown(null);     // 👈 Closes the dropdown
+            setIsMenuOpen(false);      // 👈 Optional: Closes mobile menu
+          }}
+        >
+          {item.title}
+        </NavLink>
               </li>
             ))}
           </ul>

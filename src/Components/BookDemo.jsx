@@ -168,14 +168,11 @@ const BookDemo = () => {
                 Online Reputation Management
               </option>
             </select>
-
-            <button
-              type="submit"
-              disabled={loading}
-              className="text-gray-700 font-semibold px-8 py-2 md:px-20 bg-green-400 rounded-full hover:bg-green-500 transition-all ease border  hover:text-white"
-            >
-              {loading ? "Submitting..." : "Submit Request"}
-            </button>
+ {/* type="submit"
+              disabled={loading} */}
+              <button className="bg-gradient-to-b from-green-600 to-green-400  rounded-lg text-white text-lg font-bold px-8 py-3 shadow-inner shadow-[#ffffff99] drop-shadow-md tracking-wide hover:from-green-700 hover:to-green-400">
+     {loading ? "Submitting..." : "Submit Request"}
+    </button>
           </form>
         </div>
       </div>

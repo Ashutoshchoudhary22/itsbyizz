@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { FaApple, FaAndroid, FaSyncAlt, FaBug, FaWrench } from "react-icons/fa";
-
+import ScrollReveal from "scrollreveal";
 const AppDevelopment = () => {
   const cardsContent = [
     {
@@ -30,6 +30,16 @@ const AppDevelopment = () => {
     },
   ];
 
+  useEffect(() => {
+    ScrollReveal().reveal(".card", {
+      duration: 800, // Animation duration
+      origin: "bottom", // Starts from bottom
+      distance: "50px", // Moves 50px up
+      easing: "ease-in-out",
+      interval: 200, // Stagger effect (one by one)
+      reset: false, // Prevents re-animation when scrolling back
+    });
+  }, []);
   return (
     <div className="w-full py-12 px-5">
       {/* Header Section */}
@@ -41,20 +51,21 @@ const AppDevelopment = () => {
       </p>
 
       {/* Responsive Cards */}
-      <div className="grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-6">
-        {cardsContent.map((card, index) => (
-          <div
-            key={index}
-            className="bg-white p-7 rounded-xl shadow-lg flex flex-col items-center text-center transition-transform duration-300 hover:scale-105"
-          >
-            {card.icon}
-            <h2 className="text-xl font-semibold text-gray-800 mt-4">
-              {card.title}
-            </h2>
-            <p className="text-gray-600 mt-2">{card.description}</p>
-          </div>
-        ))}
-      </div>
+       <div className="grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-6">
+  {cardsContent.map((card, index) => (
+    <div
+      key={index}
+      className={`bg-white p-6 rounded-xl shadow-lg flex flex-col items-center text-center transition-transform duration-300 hover:scale-105 card`}
+      style={{ animationDelay: `${index * 0.9}s` }}
+    >
+      {card.icon} 
+      <h2 className="text-xl font-semibold text-gray-800 mt-4">
+        {card.title}
+      </h2>
+      <p className="text-gray-600 mt-2">{card.description}</p>
+    </div>
+  ))}
+</div>
     </div>
   );
 };

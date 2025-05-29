@@ -32,30 +32,34 @@ const Footer = () => {
         <div className="flex flex-col md:items-start items-center space-y-4 md:space-y-0">
           <h2 className="text-lg font-bold pb-3">Follow Us</h2>
           <div className="flex space-x-4">
-            <a
-              href="https://www.facebook.com/deepnapsoftech"
-              className="p-2 bg-white rounded-full text-sky-800 hover:bg-sky-700 hover:text-white transition"
-            >
-              <FaFacebookF size={20} />
-            </a>
-            <a
-              href="https://x.com/deepnapsoftech"
-              className="p-2 bg-white rounded-full text-sky-800 hover:bg-sky-700 hover:text-white transition"
-            >
-              <FaTwitter size={20} />
-            </a>
-            <a
-              href="https://www.youtube.com/@deepnap_softech"
-              className="p-2 bg-white rounded-full text-sky-800 hover:bg-sky-700 hover:text-white transition"
-            >
-              <FaYoutube size={20} />
-            </a>
-            <a
-              href="https://www.instagram.com/deepnapsoftech/"
-              className="p-2 bg-white rounded-full text-sky-800 hover:bg-sky-700 hover:text-white transition"
-            >
-              <FaInstagram size={20} />
-            </a>
+          <a
+  href="https://www.facebook.com/deepnapsoftech"
+  className="p-2 bg-white rounded-full text-[#1877F2] hover:bg-[#1877F2] hover:text-white transition"
+>
+  <FaFacebookF size={20} />
+</a>
+
+<a
+  href="https://x.com/deepnapsoftech"
+  className="p-2 bg-white rounded-full text-black hover:bg-black hover:text-white transition"
+>
+  <FaTwitter size={20} />
+</a>
+
+<a
+  href="https://www.youtube.com/@deepnap_softech"
+  className="p-2 bg-white rounded-full text-[#FF0000] hover:bg-[#FF0000] hover:text-white transition"
+>
+  <FaYoutube size={20} />
+</a>
+
+<a
+  href="https://www.instagram.com/deepnapsoftech/"
+  className="p-2 bg-white rounded-full text-[#E1306C] hover:bg-gradient-to-bl from-[#BD08B2] to-[#FCC425] hover:text-white transition"
+>
+  <FaInstagram size={20} />
+</a>
+
           </div>
         </div>
 

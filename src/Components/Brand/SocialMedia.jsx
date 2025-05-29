@@ -7,27 +7,27 @@ const SocialMedia = () => {
     {
       title: "Content Creation",
       description: "We craft engaging visuals, videos, and posts for your audience.",
-      icon: <FaPenNib className="w-10 h-10 text-green-500" />,
+      icon: <FaPenNib className="w-12 h-12 text-lime-500 bg-gray-200 rounded-full p-2" />,
     },
     {
       title: "Community Management",
       description: "We interact with followers, respond to messages, and build relationships.",
-      icon: <FaUsers className="w-10 h-10 text-green-500" />,
+      icon: <FaUsers className="w-12 h-12 text-red-500 bg-gray-200 rounded-full p-2" />,
     },
     {
       title: "Social Media Advertising",
       description: "We run targeted ad campaigns to boost visibility and engagement.",
-      icon: <FaBullhorn className="w-10 h-10 text-green-500" />,
+      icon: <FaBullhorn className="w-12 h-12 text-blue-500 bg-gray-200 rounded-full p-2" />,
     },
     {
       title: "Influencer Collaboration",
       description: "We connect brands with influencers to expand reach and credibility.",
-      icon: <FaHandshake className="w-10 h-10 text-green-500" />,
+      icon: <FaHandshake className="w-12 h-12 text-amber-500 bg-gray-200 rounded-full p-2" />,
     },
     {
       title: "Paid Promotions",
       description: "We optimize social media ads to maximize your return on investment.",
-      icon: <FaChartLine className="w-10 h-10 text-green-500" />,
+      icon: <FaChartLine className="w-12 h-12 text-violet-500 bg-gray-200 rounded-full p-2" />,
     },
   ];
 

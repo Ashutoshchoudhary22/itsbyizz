@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, {  useState } from "react";
 import WavyScrollText from "../Components/WavyScroll";
 import RevealWrapper from "../Components/RevealWrapper";
 
@@ -153,19 +153,18 @@ const Portfolio = () => {
   return (
     <div className="w-full h-auto ">
       {/* Header Section */}
-      <div className="w-full  grid md:grid-cols-2 gap-2 grid-cols-1 px-5 py-24">
+      <div className="w-full h-[480px] relative grid md:grid-cols-2 gap-2 grid-cols-1 px-5 py-24">
         <div className="col-span-1 flex items-center">
           <WavyScrollText
-            highlight=" Our Products & 
-              "
+            highlight=" Our Products & "
             text="Solutions"
           />
         </div>
         <div className="col-span-1 flex justify-center items-center">
           <img
-            src="/portfolio.png"
+            src="product.webp"
             alt="Products & Solutions"
-            className="w-80 h-auto"
+            className=" absolute w-[500px] h-[400px]  "
           />
         </div>
       </div>

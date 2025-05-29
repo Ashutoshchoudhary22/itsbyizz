@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useRef } from "react";
 import AutoSlider from "../Components/AutoSlider";
 import About from "../Components/About";
 import DomainList from "../Components/DomainList";
@@ -63,10 +63,10 @@ const Home = () => {
             decisions. Elevate your industry with our scalable, secure, and
             future-ready technology.
           </p>
-          <div className="flex flex-col md:flex-row items-center justify-start gap-3 mt-4">
+          <div className="flex  md:flex-row items-center justify-start gap-3 mt-4">
             <button
               onClick={scrollToBookDemo}
-              className="text-gray-700 font-semibold px-8 py-2 md:px-20 bg-green-400 rounded-full hover:bg-green-500 transition-all ease border border-black hover:text-white"
+              className="text-gray-700 font-semibold px-8 py-2 md:px-20 bg-green-400 rounded-full hover:bg-green-500 transition-all ease border  hover:text-white"
             >
               <span>Book Demo</span>
             </button>

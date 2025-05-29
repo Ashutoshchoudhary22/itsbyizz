@@ -6,27 +6,27 @@ const PublicRelations = () => {
     {
       title: "Media Relations",
       description: "We build strong media connections to ensure positive brand coverage across various platforms.",
-      icon: <FaNewspaper className="w-10 h-10 text-green-500" />,
+      icon: <FaNewspaper className="w-12 h-12 text-red-500 bg-gray-200 rounded-full p-2" />,
     },
     {
       title: "Reputation Management",
       description: "We monitor and enhance your brand’s image, addressing potential issues proactively.",
-      icon: <FaShieldAlt className="w-10 h-10 text-green-500" />,
+      icon: <FaShieldAlt className="w-12 h-12 text-blue-500 bg-gray-200 rounded-full p-2" />,
     },
     {
       title: "Content Creation",
       description: "We craft engaging stories, press releases, and blogs to amplify your brand's presence.",
-      icon: <FaPenNib className="w-10 h-10 text-green-500" />,
+      icon: <FaPenNib className="w-12 h-12 text-orange-500 bg-gray-200 rounded-full p-2" />,
     },
     {
       title: "Thought Leadership",
       description: "We position you as an industry expert through articles, interviews, and expert insights.",
-      icon: <FaBullhorn className="w-10 h-10 text-green-500" />,
+      icon: <FaBullhorn className="w-12 h-12 text-green-500 bg-gray-200 rounded-full p-2" />,
     },
     {
       title: "Event PR",
       description: "We manage event promotions to maximize engagement, media attention, and brand impact.",
-      icon: <FaCalendarCheck className="w-10 h-10 text-green-500" />,
+      icon: <FaCalendarCheck className="w-12 h-12 text-purple-500 bg-gray-200 rounded-full p-2" />,
     },
   ];
 

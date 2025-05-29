@@ -27,7 +27,7 @@ const Development = () => {
     },
     "Software Development": {
       title: "Innovative Software Development for a Smarter Future",
-      image: "software.svg",
+      image: "softwaree.png",
       component: <SoftwareDevelopment />
     },
     "App Development": {
@@ -66,7 +66,7 @@ const Development = () => {
           <img
             src={imageSrc}
             alt={title}
-            className="w-80 h-auto"
+            className="w-100 h-auto max-w-lg md:max-w-2xl lg:max-w-2xl mx-auto"
           />
         </div>
       </div>

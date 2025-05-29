@@ -6,27 +6,27 @@ const InfluenceMarketing = () => {
     {
       title: "Influencer Discovery",
       description: "We find influencers that align with your brand and engage your target audience.",
-      icon: <FaUsers className="w-10 h-10 text-green-500" />,
+      icon: <FaUsers className="w-12 h-12 text-green-500 bg-gray-200 rounded-full p-2" />,
     },
     {
       title: "Campaign Management",
       description: "We plan and manage influencer campaigns to maximize brand impact.",
-      icon: <FaBullhorn className="w-10 h-10 text-green-500" />,
+      icon: <FaBullhorn className="w-12 h-12 text-amber-500 bg-gray-200 rounded-full p-2" />,
     },
     {
       title: "Content Collaboration",
       description: "We create compelling content in collaboration with influencers.",
-      icon: <FaHandshake className="w-10 h-10 text-green-500" />,
+      icon: <FaHandshake className="w-12 h-12 text-purple-500 bg-gray-200 rounded-full p-2" />,
     },
     {
       title: "Social Media Activation",
       description: "We boost brand visibility through influencer-driven social media campaigns.",
-      icon: <FaShareAlt className="w-10 h-10 text-green-500" />,
+      icon: <FaShareAlt className="w-12 h-12 text-rose-500 bg-gray-200 rounded-full p-2" />,
     },
     {
       title: "Influencer Compensation",
       description: "We handle fair and strategic influencer compensation negotiations.",
-      icon: <FaDollarSign className="w-10 h-10 text-green-500" />,
+      icon: <FaDollarSign className="w-12 h-12 text-cyan-500 bg-gray-200 rounded-full p-2" />,
     },
   ];
 

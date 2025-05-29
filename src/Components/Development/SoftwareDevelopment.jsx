@@ -6,32 +6,32 @@ const SoftwareDevelopment = () => {
     {
       title: "Custom Software",
       description: "Tailor-made solutions to align with your business goals and processes.",
-      icon: <FaCode className="w-10 h-10 text-green-500" />,
+      icon: <FaCode className="w-12 h-12 text-blue-500 bg-gray-200 rounded-full p-2" />,
     },
     {
       title: "Mobile App Development",
       description: "Building seamless iOS & Android apps for an engaging user experience.",
-      icon: <FaMobileAlt className="w-10 h-10 text-green-500" />,
+      icon: <FaMobileAlt className="w-12 h-12 text-rose-500 bg-gray-200 rounded-full p-2" />,
     },
     {
       title: "Performance Optimization",
       description: "Enhancing speed and efficiency for a smoother digital experience.",
-      icon: <FaRocket className="w-10 h-10 text-green-500" />,
+      icon: <FaRocket className="w-12 h-12 text-emerald-500 bg-gray-200 rounded-full p-2" />,
     },
     {
       title: "Security & Compliance",
       description: "Protecting user data with advanced security measures and protocols.",
-      icon: <FaLock className="w-10 h-10 text-green-500" />,
+      icon: <FaLock className="w-12 h-12 text-fuchsia-500 bg-gray-200 rounded-full p-2" />,
     },
     {
       title: "Cloud Integration",
       description: "Scalable cloud solutions for improved accessibility and collaboration.",
-      icon: <FaCloud className="w-10 h-10 text-green-500" />,
+      icon: <FaCloud className="w-12 h-12 text-pink-900 bg-gray-200 rounded-full p-2" />,
     },
     {
       title: "API Development",
       description: "Connecting software with third-party applications for seamless automation.",
-      icon: <FaExchangeAlt className="w-10 h-10 text-green-500" />,
+      icon: <FaExchangeAlt className="w-12 h-12 text-amber-500 bg-gray-200 rounded-full p-2" />,
     },
   ];
 

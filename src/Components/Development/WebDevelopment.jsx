@@ -13,31 +13,32 @@ const WebDevelopment = () => {
       title: "Responsive Design",
       description:
         "Our websites adapt seamlessly to desktops, tablets, and smartphones, ensuring a consistent user experience.",
-      icon: <FaGlobe className="w-10 h-10 text-green-500" />,
+      icon: <FaGlobe className="w-12 h-12 text-blue-500 bg-gray-200 rounded-full p-2" />
+,
     },
     {
       title: "Web Application Development",
       description:
         "We create dynamic web applications that streamline operations and enhance user engagement.",
-      icon: <FaLaptopCode className="w-10 h-10 text-green-500" />,
+      icon: <FaLaptopCode className="w-12 h-12 text-green-500 bg-gray-200 rounded-full p-2" />,
     },
     {
       title: "E-commerce Solutions",
       description:
         "Scalable e-commerce platforms designed for seamless shopping experiences and business growth.",
-      icon: <FaShoppingCart className="w-10 h-10 text-green-500" />,
+      icon: <FaShoppingCart className="w-12 h-12 text-red-700 bg-gray-200 rounded-full p-2" />,
     },
     {
       title: "Content Management Systems",
       description:
         "Easily manage and update your website content with our intuitive CMS solutions.",
-      icon: <FaFileAlt className="w-10 h-10 text-green-500" />,
+      icon: <FaFileAlt className="w-12 h-12 text-purple-500 bg-gray-200 rounded-full p-2" />,
     },
     {
       title: "Security",
       description:
         "We implement advanced security measures to protect your website and user data.",
-      icon: <FaShieldAlt className="w-10 h-10 text-green-500" />,
+      icon: <FaShieldAlt className="w-12 h-12 text-orange-500 bg-gray-200 rounded-full p-2" />,
     },
   ];
 

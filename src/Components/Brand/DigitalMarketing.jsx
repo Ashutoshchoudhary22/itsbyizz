@@ -6,27 +6,27 @@ const DigitalMarketing = () => {
     {
       title: "SEO Optimization",
       description: "We improve your website’s visibility with effective on-page and off-page SEO strategies.",
-      icon: <FaSearch className="w-10 h-10 text-green-500" />,
+      icon: <FaSearch className="w-12 h-12 text-red-500 bg-gray-200 rounded-full p-2" />,
     },
     {
       title: "Search Engine Marketing",
       description: "We run targeted PPC campaigns to drive high-quality traffic and maximize conversions.",
-      icon: <FaBullseye className="w-10 h-10 text-green-500" />,
+      icon: <FaBullseye className="w-12 h-12 text-green-500 bg-gray-200 rounded-full p-2" />,
     },
     {
       title: "Content Marketing",
       description: "We create compelling content that educates, engages, and converts your audience.",
-      icon: <FaPenNib className="w-10 h-10 text-green-500" />,
+      icon: <FaPenNib className="w-12 h-12 text-blue-500 bg-gray-200 rounded-full p-2" />,
     },
     {
       title: "Social Media Marketing",
       description: "We manage and optimize social media to boost brand engagement and loyalty.",
-      icon: <FaThumbsUp className="w-10 h-10 text-green-500" />,
+      icon: <FaThumbsUp className="w-12 h-12 text-purple-500 bg-gray-200 rounded-full p-2" />,
     },
     {
       title: "Email Marketing",
       description: "We design and manage email campaigns to nurture leads and drive conversions.",
-      icon: <FaEnvelope className="w-10 h-10 text-green-500" />,
+      icon: <FaEnvelope className="w-12 h-12 text-amber-500 bg-gray-200 rounded-full p-2" />,
     },
   ];
 

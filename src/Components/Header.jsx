@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import { FaRegUserCircle, FaBars, FaTimes } from "react-icons/fa";
 import { Link } from "react-router-dom";
@@ -59,9 +59,22 @@ const Header = () => {
   const toggleDropdown = (dropdown) => {
     setOpenDropdown(openDropdown === dropdown ? null : dropdown);
   };
+  const dropdownRef = useRef(null);
+
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setOpenDropdown(null);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   return (
-    <nav className="flex px-4 md:shadow-lg items-center relative">
+    <nav className="flex px-4 md:shadow-lg items-center relative ">
       {/* Logo */}
       <div className="text-lg text-gray-50 font-bold md:py-0 py-4">
         <Link to="/">ITSYBIZZ</Link>
@@ -73,11 +86,16 @@ const Header = () => {
         onClick={toggleMenu}
         aria-label="Toggle Menu"
       >
-        {isMenuOpen ? <FaTimes className="w-6 h-6" /> : <FaBars className="w-6 h-6" />}
+        {isMenuOpen ? (
+          <FaTimes className="w-6 h-6" />
+        ) : (
+          <FaBars className="w-6 h-6" />
+        )}
       </button>
 
       {/* Navigation Links */}
       <ul
+        ref={dropdownRef}
         className={`${
           isMenuOpen ? "block" : "hidden"
         } md:flex md:px-2 ml-auto md:space-x-2 absolute md:relative top-full left-0 right-0 bg-gray-800 md:bg-transparent z-10`}
@@ -101,7 +119,9 @@ const Header = () => {
             <span>Products</span>
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="w-4 h-4 fill-current pt-1"
+              className={`w-3 h-3 fill-current transform transition-transform duration-200 ${
+                openDropdown === "products"? "rotate-180" : "rotate-0"
+              }`}
               viewBox="0 0 24 24"
             >
               <path d="M0 7.33l2.829-2.83 9.175 9.339 9.167-9.339 2.829 2.83-11.996 12.17z" />
@@ -113,7 +133,7 @@ const Header = () => {
             } md:absolute md:top-full md:left-0 md:w-auto bg-white md:shadow-lg md:rounded-b-lg p-2 flex-wrap`}
           >
             {products.map((item, index) => (
-              <li key={index} className="p-2 hover:bg-gray-100 rounded-lg w-48">
+              <li key={index} className="p-2 hover:bg-sky-100 rounded-lg w-48">
                 {item.external ? (
                   <a
                     href={item.link}
@@ -146,19 +166,22 @@ const Header = () => {
             <span>Development</span>
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="w-4 h-4 fill-current pt-1"
+              className={`w-3 h-3 fill-current transform transition-transform duration-200 ${
+                openDropdown === "development" ? "rotate-180" : "rotate-0"
+              }`}
               viewBox="0 0 24 24"
             >
               <path d="M0 7.33l2.829-2.83 9.175 9.339 9.167-9.339 2.829 2.83-11.996 12.17z" />
             </svg>
           </button>
           <ul
+            ref={dropdownRef}
             className={`${
               openDropdown === "development" ? "block" : "hidden"
             } md:absolute md:top-full md:left-0 md:w-auto bg-white md:shadow-lg md:rounded-b-lg p-2 flex-wrap`}
           >
             {developmentmenu.map((item, index) => (
-              <li key={index} className="p-2 hover:bg-gray-100 rounded-lg w-48">
+              <li key={index} className="p-2 hover:bg-sky-100 rounded-lg w-48">
                 <NavLink
                   to={item.link}
                   className="block text-gray-900 font-normal"
@@ -180,7 +203,9 @@ const Header = () => {
             <span>Become Brand</span>
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="w-4 h-4 fill-current pt-1"
+              className={`w-3 h-3 fill-current transform transition-transform duration-200 ${
+                openDropdown === "becomeBrand" ? "rotate-180" : "rotate-0"
+              }`}
               viewBox="0 0 24 24"
             >
               <path d="M0 7.33l2.829-2.83 9.175 9.339 9.167-9.339 2.829 2.83-11.996 12.17z" />
@@ -192,7 +217,7 @@ const Header = () => {
             } md:absolute md:top-full md:left-0 md:w-auto bg-white md:shadow-lg md:rounded-b-lg p-2 flex-wrap`}
           >
             {becomeBrand.map((item, index) => (
-              <li key={index} className="p-2 hover:bg-gray-100 rounded-lg w-48">
+              <li key={index} className="p-2 hover:bg-sky-100 rounded-lg w-48">
                 <NavLink
                   to={item.link}
                   className="block text-gray-900 font-normal"
@@ -222,14 +247,15 @@ const Header = () => {
             className="text-gray-50 flex items-center p-4 hover:text-white space-x-2"
             onClick={() => toggleDropdown("user")}
           >
-            <FaRegUserCircle className="w-6 h-6" />
+            <FaRegUserCircle className="w-8 h-7" />
           </button>
           <ul
+            ref={dropdownRef}
             className={`${
               openDropdown === "user" ? "block" : "hidden"
             } md:absolute md:top-full md:right-0 md:w-auto bg-white md:shadow-lg md:rounded-b-lg p-2 flex-wrap`}
           >
-            <li className="p-2 hover:bg-gray-100 rounded-lg w-48">
+            <li className="p-2 hover:bg-sky-100 rounded-lg w-48">
               <NavLink
                 to="/register"
                 className="block text-gray-900 font-normal"
@@ -238,7 +264,7 @@ const Header = () => {
                 Register
               </NavLink>
             </li>
-            <li className="p-2 hover:bg-gray-100 rounded-lg w-48">
+            <li className="p-2 hover:bg-sky-100 rounded-lg w-48">
               <NavLink
                 to="/login"
                 className="block text-gray-900 font-normal"

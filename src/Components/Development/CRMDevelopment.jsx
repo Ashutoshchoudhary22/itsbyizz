@@ -6,27 +6,27 @@ const CRMDevelopment = () => {
     {
       title: "CRM Integration",
       description: "Seamless integration with your existing systems for a unified workflow.",
-      icon: <FaSync className="w-10 h-10 text-green-500" />,
+      icon: <FaSync className="w-12 h-12 text-purple-500 bg-gray-200 rounded-full p-2" />,
     },
     {
       title: "CRM Consulting",
       description: "Expert guidance to optimize CRM implementation & customization.",
-      icon: <FaUserTie className="w-10 h-10 text-green-500" />,
+      icon: <FaUserTie className="w-12 h-12 text-green-600 bg-gray-200 rounded-full p-2" />,
     },
     {
       title: "UI & UX Design",
       description: "Intuitive, user-friendly CRM interfaces for better team productivity.",
-      icon: <FaDesktop className="w-10 h-10 text-green-500" />,
+      icon: <FaDesktop className="w-12 h-12 text-orange-500 bg-gray-200 rounded-full p-2" />,
     },
     {
       title: "Data Migration & Analytics",
       description: "Secure data transfer with insights to drive smarter decisions.",
-      icon: <FaDatabase className="w-10 h-10 text-green-500" />,
+      icon: <FaDatabase className="w-12 h-12  text-rose-500 bg-gray-200 rounded-full p-2" />,
     },
     {
       title: "Training & Support",
       description: "Ongoing CRM training & support to maximize efficiency.",
-      icon: <FaChalkboardTeacher className="w-10 h-10 text-green-500" />,
+      icon: <FaChalkboardTeacher className="w-12 h-12 text-yellow-600 bg-gray-200 rounded-full p-2" />,
     },
   ];
 

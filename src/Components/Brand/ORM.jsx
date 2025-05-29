@@ -6,27 +6,27 @@ const ORM = () => {
     {
       title: "Sentiment Analysis",
       description: "We monitor online conversations to gauge public sentiment about your brand.",
-      icon: <FaSmile className="w-10 h-10 text-green-500" />,
+      icon: <FaSmile className="w-12 h-12 text-red-700 bg-gray-200 rounded-full p-2" />,
     },
     {
       title: "Review Management",
       description: "We optimize and respond to reviews to maintain a strong online reputation.",
-      icon: <FaStar className="w-10 h-10 text-green-500" />,
+      icon: <FaStar className="w-12 h-12 text-purple-500 bg-gray-200 rounded-full p-2" />,
     },
     {
       title: "Content Suppression",
       description: "We minimize the visibility of negative content in search results.",
-      icon: <FaShieldAlt className="w-10 h-10 text-green-500" />,
+      icon: <FaShieldAlt className="w-12 h-12 text-lime-500 bg-gray-200 rounded-full p-2" />,
     },
     {
       title: "Brand Monitoring",
       description: "We track brand mentions and quickly address potential reputation issues.",
-      icon: <FaEye className="w-10 h-10 text-green-500" />,
+      icon: <FaEye className="w-12 h-12 text-amber-500 bg-gray-200 rounded-full p-2" />,
     },
     {
       title: "Social Media Reputation",
       description: "We manage your social media presence to keep your brand image positive.",
-      icon: <FaComments className="w-10 h-10 text-green-500" />,
+      icon: <FaComments className="w-12 h-12 text-rose-600 bg-gray-200 rounded-full p-2" />,
     },
   ];
 

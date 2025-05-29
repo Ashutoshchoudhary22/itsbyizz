@@ -6,27 +6,27 @@ const BrandBuilding = () => {
     {
       title: "Brand Identity",
       description: "We design unique logos, color palettes, and typography to define your brand's visual identity.",
-      icon: <FaPalette className="w-10 h-10 text-green-500" />,
+      icon: <FaPalette className="w-12 h-12 text-blue-500 bg-gray-200 rounded-full p-2" />,
     },
     {
       title: "Brand Messaging",
       description: "We craft compelling stories and taglines that resonate with your audience.",
-      icon: <FaBullhorn className="w-10 h-10 text-green-500" />,
+      icon: <FaBullhorn className="w-12 h-12 text-green-500 bg-gray-200 rounded-full p-2" />,
     },
     {
       title: "Brand Guidelines",
       description: "Ensure consistency across platforms with well-defined brand guidelines.",
-      icon: <FaBook className="w-10 h-10 text-green-500" />,
+      icon: <FaBook className="w-12 h-12 text-yellow-500 bg-gray-200 rounded-full p-2" />,
     },
     {
       title: "Digital Presence",
       description: "We optimize websites and social media to enhance your online brand visibility.",
-      icon: <FaGlobe className="w-10 h-10 text-green-500" />,
+      icon: <FaGlobe className="w-12 h-12 text-pink-500 bg-gray-200 rounded-full p-2" />,
     },
     {
       title: "Reputation Management",
       description: "We monitor and improve your brand's image across digital channels.",
-      icon: <FaStar className="w-10 h-10 text-green-500" />,
+      icon: <FaStar className="w-12 h-12 text-red-500 bg-gray-200 rounded-full p-2" />,
     },
   ];
 

@@ -6,27 +6,27 @@ const AppDevelopment = () => {
     {
       title: "iOS Development",
       description: "Crafting sleek and user-friendly apps for iPhone and iPad users.",
-      icon: <FaApple className="w-10 h-10 text-green-500" />,
+      icon: <FaApple className="w-12 h-12 text-rose-600 bg-gray-200 rounded-full p-2" />,
     },
     {
       title: "Android Development",
       description: "Building versatile and functional apps for Android devices.",
-      icon: <FaAndroid className="w-10 h-10 text-green-500" />,
+      icon: <FaAndroid className="w-12 h-12 text-lime-600 bg-gray-200 rounded-full p-2" />,
     },
     {
       title: "Cross-Platform Apps",
       description: "Seamless apps for iOS & Android with reduced development time.",
-      icon: <FaSyncAlt className="w-10 h-10 text-green-500" />,
+      icon: <FaSyncAlt className="w-12 h-12 text-purple-700 bg-gray-200 rounded-full p-2" />,
     },
     {
       title: "App Testing & QA",
       description: "Ensuring flawless performance with rigorous testing & debugging.",
-      icon: <FaBug className="w-10 h-10 text-green-500" />,
+      icon: <FaBug className="w-12 h-12 text-amber-600 bg-gray-200 rounded-full p-2" />,
     },
     {
       title: "Maintenance & Updates",
       description: "Keeping your app up-to-date and running smoothly post-launch.",
-      icon: <FaWrench className="w-10 h-10 text-green-500" />,
+      icon: <FaWrench className="w-12 h-12 text-cyan-500 bg-gray-200 rounded-full p-2" />,
     },
   ];
 

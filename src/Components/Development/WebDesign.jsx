@@ -6,27 +6,27 @@ const WebDesign = () => {
     {
       title: "User Experience (UX)",
       description: "We craft intuitive, user-friendly designs that enhance engagement and satisfaction.",
-      icon: <FaUserAlt className="w-10 h-10 text-green-500" />,
+      icon: <FaUserAlt className="w-12 h-12 text-sky-500 bg-gray-200 rounded-full p-2" />,
     },
     {
       title: "Responsive Design",
       description: "Ensuring flawless performance on all devices, from desktops to mobile screens.",
-      icon: <FaMobileAlt className="w-10 h-10 text-green-500" />,
+      icon: <FaMobileAlt className="w-12 h-12 text-green-600 bg-gray-200 rounded-full p-2" />,
     },
     {
       title: "Content Integration",
       description: "Strategically placing text, images, and media to tell your story effectively.",
-      icon: <FaFileImage className="w-10 h-10 text-green-500" />,
+      icon: <FaFileImage className="w-12 h-12 text-orange-500 bg-gray-200 rounded-full p-2" />,
     },
     {
       title: "Performance Optimization",
       description: "Speeding up your site with advanced techniques for a seamless experience.",
-      icon: <FaRocket className="w-10 h-10 text-green-500" />,
+      icon: <FaRocket className="w-12 h-12 text-purple-700 bg-gray-200 rounded-full p-2" />,
     },
     {
       title: "SEO Best Practices",
       description: "Enhancing visibility with optimized content and search-friendly structures.",
-      icon: <FaSearch className="w-10 h-10 text-green-500" />,
+      icon: <FaSearch className="w-12 h-12 text-orange-700 bg-gray-200 rounded-full p-2" />,
     },
   ];
 

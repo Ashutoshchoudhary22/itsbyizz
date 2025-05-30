@@ -15,9 +15,13 @@
     "@react-three/fiber": "^9.1.0",
     "@tailwindcss/vite": "^4.0.12",
     "axios": "^1.8.2",
+<<<<<<< HEAD
     "framer-motion": "^12.6.2",
     "gsap": "^3.13.0",
     "lucide-react": "^0.486.0",
+=======
+    "framer-motion": "^12.15.0",
+>>>>>>> 5e52d0c735b0397e5ac3d01eba1c37effa33edb9
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-fast-marquee": "^1.6.5",

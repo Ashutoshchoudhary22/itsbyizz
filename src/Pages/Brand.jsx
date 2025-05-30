@@ -23,28 +23,28 @@ const Brand = () => {
     },
     "ORM": {
       title: "Fortifying Reputations and Safeguarding Trust with Expert ORM",
-      image: "orm.png",
-      component: <ORM />
+      image: "https://www.highpulsemedia.com/wp-content/uploads/2020/06/orm.png",
+      component: <ORM/>
     },
     "Public Relations": {
       title: "Shaping Positive Narratives and Building Trust Through Expert Public Relations",
-      image: "software.svg",
-      component: <PublicRelations />
+      image: "pr.png",
+      component: <PublicRelations/>
     },
     "Digital Marketing": {
       title: "Navigating Digital Frontiers with Mastery in Digital Marketing",
       image: "demo.svg",
-      component: <DigitalMarketing />
+      component: <DigitalMarketing/>
     },
     "Influence Marketing": {
       title: "Illuminating Brands through Influencer Marketing Expertise",
       image: "marketing.png",
-      component: <InfluenceMarketing />
+      component: <InfluenceMarketing/>
     },
     "Social Media Presence": {
       title: "Navigating Digital Frontiers with Mastery in Digital Marketing",
       image: "media.png",
-      component: <SocialMedia />
+      component: <SocialMedia/>
     },
   };
 
@@ -62,7 +62,7 @@ const Brand = () => {
   return (
     <div className="w-full h-auto">
       {/* Hero Section */}
-      <div className="w-full grid md:grid-cols-2 gap-2 grid-cols-1 px-5 py-24">
+      <div className="w-full h-[480px] relative  grid md:grid-cols-2 gap-2 grid-cols-1 px-5 py-24">
         <div className="col-span-1 flex items-center">
           <h1 className="text-5xl font-bold">
             <span className="text-green-500">{firstHalf} </span>
@@ -73,7 +73,7 @@ const Brand = () => {
           <img
             src={imageSrc}
             alt={title}
-            className="w-80 h-auto"
+            className="absolute w-[500px] h-[400px]"
           />
         </div>
       </div>

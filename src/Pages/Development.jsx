@@ -27,7 +27,7 @@ const Development = () => {
     },
     "Software Development": {
       title: "Innovative Software Development for a Smarter Future",
-      image: "software.svg",
+      image: "softwaree.png",
       component: <SoftwareDevelopment />
     },
     "App Development": {
@@ -57,7 +57,7 @@ const Development = () => {
   return (
     <div className="w-full h-auto">
       {/* Hero Section */}
-      <div className="w-full grid md:grid-cols-2 gap-2 grid-cols-1 px-5 py-24">
+      <div className="w-full h-[480px] relative grid md:grid-cols-2 gap-2 grid-cols-1 px-5 py-24">
         <div className="col-span-1 flex items-center">
         <WavyScrollText highlight={firstHalf} text={secondHalf} />
           
@@ -66,7 +66,7 @@ const Development = () => {
           <img
             src={imageSrc}
             alt={title}
-            className="w-80 h-auto"
+            className="absolute w-[500px] h-[300px] "
           />
         </div>
       </div>

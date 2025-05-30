@@ -20,7 +20,7 @@ const DomainList = () => {
     { icon: FaClinicMedical, label: "Medical", color: "text-green-800" },
     { icon: RiShoppingBag4Fill, label: "E-commerce", color: "text-purple-800" },
     { icon: FaBookOpenReader, label: "Education", color: "text-sky-600" },
-    { icon: TbPigMoney, label: "Finance", color: "text-stone-900" },
+    { icon: TbPigMoney, label: "Finance", color: "text-pink-500" },
     { icon: FaHospital, label: "Hospital", color: "text-blue-700" },
     { icon: RiHotelFill, label: "Hotel", color: "text-teal-900" },
     { icon: LiaIndustrySolid, label: "Industries", color: "text-rose-900" },
@@ -64,16 +64,22 @@ const DomainList = () => {
     });
   }, []);
   return (
+<<<<<<< HEAD
     <div className="w-full p-4 text-center">
       <h1 className="text-4xl font-bold mt-10 text-gray-600">
         One Platform, Every Industry.
+=======
+    <div className="w-full p-6 text-center">
+      <h1 className="text-3xl font-bold mt-10 text-gray-600">
+        One platform, every industry.
+>>>>>>> 5e52d0c735b0397e5ac3d01eba1c37effa33edb9
       </h1>
       {/* Industry Categories */}
-      <div className="mt-6 flex flex-wrap justify-center gap-6">
+      <div className="mt-6 flex flex-wrap justify-center gap-7">
         {domains.map((domain, index) => (
           <div
             key={index}
-            className="flex items-center space-x-2 border border-gray-200 px-3 py-1 rounded-full shadow-sm hover:shadow-md transition-all duration-200 cursor-pointer hover:bg-green-100 hover:border-green-400"
+            className="flex items-center space-x-3 border border-gray-200 px-2 py-2 rounded-full shadow-sm hover:shadow-md transition-all duration-200 cursor-pointer hover:bg-green-100 hover:border-green-400 pr-4"
           >
             {/* Circular Icon Container */}
             <div className="w-8 h-8 flex items-center justify-center rounded-full bg-gray-200">
@@ -91,7 +97,7 @@ const DomainList = () => {
         {cardData.map((card, index) => (
           <div
             key={index}
-            className="p-5 border card border-gray-300 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 bg-white"
+            className="p-5 border card border-gray-300 rounded-2xl shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 bg-white"
           >
             <div className="flex items-center justify-center w-14 h-14 mt-5 rounded-full bg-green-100 mx-auto">
               <card.icon className="text-2xl text-gray-700" />

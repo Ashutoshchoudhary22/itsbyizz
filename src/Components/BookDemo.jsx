@@ -87,8 +87,8 @@ const BookDemo = () => {
         </div>
 
         {/* Right Side - Book a Demo Form */}
-        <div className="bg-transparent border reveal border-sky-900 shadow-lg rounded-xl p-6 w-full max-w-lg mx-auto">
-          <h2 className="text-2xl font-bold text-gray-100 mb-4 text-center">
+        <div className="bg-transparent border reveal border-sky-900 shadow-xl rounded-xl p-6 w-full max-w-lg mx-auto">
+          <h2 className="text-3xl font-bold text-gray-100 mb-4 text-center">
             Book a Demo
           </h2>
 
@@ -109,7 +109,8 @@ const BookDemo = () => {
               placeholder="Your Name"
               value={formData.name}
               onChange={handleChange}
-              className="w-full px-4 py-2 text-gray-200 border rounded-lg focus:outline-none"
+               style={{ boxShadow: "inset 0 2px 6px rgba(0, 0, 0, 0.7)" }}
+              className="w-full px-4 py-2 text-gray-200 border border-sky-300 inner-shadow  rounded-lg focus:outline-none"
               required
             />
             <input
@@ -118,7 +119,8 @@ const BookDemo = () => {
               placeholder="Your Email"
               value={formData.email}
               onChange={handleChange}
-              className="w-full px-4 py-2 text-gray-200 border rounded-lg focus:outline-none"
+              style={{ boxShadow: "inset 0 2px 6px rgba(0, 0, 0, 0.7)" }}
+              className="w-full px-4 py-2 text-gray-200 border border-sky-300 rounded-lg focus:outline-none"
               required
             />
             <input
@@ -127,7 +129,8 @@ const BookDemo = () => {
               placeholder="Your Phone"
               value={formData.phone}
               onChange={handleChange}
-              className="w-full px-4 py-2 text-gray-200 border rounded-lg focus:outline-none"
+              style={{ boxShadow: "inset 0 2px 6px rgba(0, 0, 0, 0.7)" }}
+              className="w-full px-4 py-2 text-gray-200 border border-sky-300 rounded-lg focus:outline-none"
               required
             />
             <input
@@ -136,14 +139,16 @@ const BookDemo = () => {
               placeholder="Your City"
               value={formData.city}
               onChange={handleChange}
-              className="w-full px-4 py-2 text-gray-200 border rounded-lg focus:outline-none"
+              style={{ boxShadow: "inset 0 2px 6px rgba(0, 0, 0, 0.7)" }}
+              className="w-full px-4 py-2 text-gray-200 border border-sky-300 rounded-lg focus:outline-none"
               required
             />
             <select
               name="requirement"
               value={formData.requirement}
               onChange={handleChange}
-              className="w-full px-4 py-2 text-gray-200 border bg-sky-800 rounded-lg focus:outline-none"
+              style={{ boxShadow: "inset 0 2px 6px rgba(0, 0, 0, 0.7)" }}
+              className="w-full px-4 py-2 text-gray-200 border border-sky-300 bg-sky-800 rounded-lg focus:outline-none"
               required
             >
               <option value="" disabled>
@@ -163,14 +168,11 @@ const BookDemo = () => {
                 Online Reputation Management
               </option>
             </select>
-
-            <button
-              type="submit"
-              disabled={loading}
-              className="w-full bg-green-600 hover:bg-green-700 text-gray-50 py-2 rounded-full font-semibold transition-all"
-            >
-              {loading ? "Submitting..." : "Submit Request"}
-            </button>
+ {/* type="submit"
+              disabled={loading} */}
+              <button className="bg-gradient-to-b from-green-600 to-green-400  rounded-lg text-white text-lg font-bold px-8 py-3 shadow-inner shadow-[#ffffff99] drop-shadow-md tracking-wide hover:from-green-700 hover:to-green-400">
+     {loading ? "Submitting..." : "Submit Request"}
+    </button>
           </form>
         </div>
       </div>

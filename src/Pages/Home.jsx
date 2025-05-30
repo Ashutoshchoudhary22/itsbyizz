@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useRef } from "react";
 import AutoSlider from "../Components/AutoSlider";
 import About from "../Components/About";
 import DomainList from "../Components/DomainList";
@@ -65,11 +65,18 @@ const Home = () => {
             specialize in Brand Building and delivering Ready-to-Use Software like
             CRM, HRM, and Production Automation Suites (B2B & B2C).
           </p>
+<<<<<<< HEAD
 
           <div className="flex flex-col sm:flex-row items-center justify-start gap-4 mt-6">
             <button
               onClick={scrollToBookDemo}
               className="text-gray-700 font-semibold px-8 py-2 bg-green-400 rounded-full hover:bg-green-500 transition-all ease border border-black hover:text-white w-full sm:w-auto"
+=======
+          <div className="flex  md:flex-row items-center justify-start gap-3 mt-4">
+            <button
+              onClick={scrollToBookDemo}
+              className="text-gray-700 font-semibold px-8 py-2 md:px-20 bg-green-400 rounded-full hover:bg-green-500 transition-all ease border  hover:text-white"
+>>>>>>> 5e52d0c735b0397e5ac3d01eba1c37effa33edb9
             >
               Book Demo
             </button>

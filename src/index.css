@@ -19,6 +19,7 @@
     }
 }
 
+<<<<<<< HEAD
   /* Add this to your global CSS file */
 .scrollbar-hide::-webkit-scrollbar {
     display: none;
@@ -43,4 +44,21 @@
 
 .noscroll {
   overflow: hidden;
+=======
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.card:hover .tilt-img {
+  transform: rotateY(10deg) rotateX(20deg);
+  transition: transform 0.3s ease;
+  transform-style: preserve-3d;
+>>>>>>> 5e52d0c735b0397e5ac3d01eba1c37effa33edb9
 }

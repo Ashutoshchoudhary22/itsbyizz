@@ -38,7 +38,7 @@ const GoogleAds = () => {
   ];
   return (
     <div className="w-full py-12 px-5">
-      {/* Header Section */}
+    
       <h1 className="text-4xl font-bold text-center text-gray-700 mb-2">
         Google Ads
       </h1>
@@ -47,7 +47,6 @@ const GoogleAds = () => {
         leads, and sales.
       </p>
 
-      {/* Responsive Cards */}
       <div className="grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-6">
         {cardsContent.map((card, index) => (
           <RevealWrapper key={index}>

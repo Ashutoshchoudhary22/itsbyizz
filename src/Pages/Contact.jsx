@@ -64,7 +64,7 @@ const Contact = () => {
 
     setLoading(true);
     setMessage("");
-   
+
 
     try {
       const response = await axios.post(
@@ -90,7 +90,7 @@ const Contact = () => {
     {
       title: "Address",
       description:
-        "5E/12BP, Block E, New Industrial Twp 5, New Industrial Town, Faridabad, Haryana 121001",
+        "Plot No. 121B, 2nd floor, Sector-31, HSIIDC, Faridabad, Haryana 121003",
       icon: <FaRegFileCode className="w-10 h-10 text-green-500" />,
     },
     {
@@ -131,8 +131,8 @@ const Contact = () => {
       <div className="w-full flex items-center justify-start bg-gradient-to-b from-sky-900 to-sky-800 h-96 px-5 ">
         <div>
           <h1 className="text-4xl font-bold text-green-500">Contact Us</h1>
-          <p className="text-lg mt-3 opacity-90 text-white">
-            Get in touch with us for any inquiries or collaborations
+          <p className="text-lg mt-3 opacity-90 text-white font-semibold">
+            Your goals matter to us. Whether you're starting a new venture, need custom solutions,<br/> or simply have a question—we're here to listen, collaborate, and build something remarkable together. <br/>Let's start the conversation today
           </p>
         </div>
       </div>

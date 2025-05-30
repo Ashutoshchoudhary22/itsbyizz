@@ -64,9 +64,15 @@ const DomainList = () => {
     });
   }, []);
   return (
+<<<<<<< HEAD
+    <div className="w-full p-4 text-center">
+      <h1 className="text-4xl font-bold mt-10 text-gray-600">
+        One Platform, Every Industry.
+=======
     <div className="w-full p-6 text-center">
       <h1 className="text-3xl font-bold mt-10 text-gray-600">
         One platform, every industry.
+>>>>>>> 5e52d0c735b0397e5ac3d01eba1c37effa33edb9
       </h1>
       {/* Industry Categories */}
       <div className="mt-6 flex flex-wrap justify-center gap-7">

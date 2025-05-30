@@ -3,7 +3,6 @@ import ScrollReveal from "scrollreveal";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import axios from "axios";
 import toast from "react-hot-toast";
-import { Navigate } from "react-router-dom";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -21,10 +20,7 @@ const Login = () => {
     try {
       const response = await axios.post(
         `${import.meta.env.VITE_BACKEND_BASE_URL}/user/admin-login`,
-        {
-          email,
-          password,
-        }
+        { email, password }
       );
 
       console.log("Login successful:", response.data);
@@ -52,105 +48,95 @@ const Login = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-gray-100 flex flex-col items-center ">
+    <div className="min-h-screen bg-gray-100 flex flex-col">
       {/* Header Section */}
-      <div className="w-full flex items-center justify-center sm:justify-between bg-gradient-to-b from-sky-900 to-sky-800 h-72 sm:h-76 px-5 ">
-        <div className="max-w-lg text-center sm:text-left">
-          <h1 className="text-green-500 text-3xl sm:text-4xl font-bold">
-            Login into Your Account
+      <div className="bg-gradient-to-r from-sky-900 via-sky-800 to-sky-900 w-full h-72 flex items-center justify-center px-4">
+        <div className="text-center text-white max-w-2xl reveal">
+          <h1 className="text-4xl font-bold text-green-400 mb-2">
+            Login to Your Account
           </h1>
-          <p className="text-white text-lg sm:text-2xl mt-2">
-            Enter your personal details <br></br> and start the journey with us
+          <p className="text-lg">
+            Enter your personal details and start your journey with us
           </p>
         </div>
       </div>
 
       {/* Form Section */}
-      <div className="w-full max-w-md sm:max-w-lg md:max-w-xl lg:max-w-2xl p-6 bg-white rounded-lg shadow-lg -mt-25 sm:-mt-42 ml-0 sm:ml-[20rem]">
-        <h2 className="text-2xl font-semibold text-center sm:text-left">
-          Sign In
-        </h2>
-        <p className="text-sm text-gray-500 text-center sm:text-left mt-2">
-          Don't have an account?{" "}
-          <Link to="/register" className="text-blue-500 hover:underline">
-            Sign up
-          </Link>
-        </p>
-
-        {error && (
-          <p className="text-red-500 text-sm mt-3 text-center sm:text-left">
-            {error}
+      <div className="flex justify-center px-4 -mt-24 mb-10">
+        <div className="bg-white p-8 rounded-xl shadow-2xl w-full max-w-md reveal">
+          <h2 className="text-2xl font-bold text-gray-800 mb-2">Sign In</h2>
+          <p className="text-sm text-gray-500 mb-4">
+            Don’t have an account?{" "}
+            <Link to="/register" className="text-blue-600 hover:underline font-medium">
+              Sign up
+            </Link>
           </p>
-        )}
 
-        <form
-          onSubmit={submitHandler}
-          className="mt-6 grid grid-cols-1 gap-4 sm:gap-6"
-        >
-          <input
-            type="email"
-            placeholder="Email"
-            required
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-            aria-label="Email"
-          />
+          {error && (
+            <p className="text-red-500 text-sm mb-4">{error}</p>
+          )}
 
-          <input
-            type="password"
-            placeholder="Password"
-            required
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            className="p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-            aria-label="Password"
-          />
+          <form onSubmit={submitHandler} className="space-y-5">
+            <div>
+              <input
+                type="email"
+                placeholder="Email"
+                required
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="w-full px-4 py-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
 
-          <NavLink
-            to="/forgot-password"
-            className="text-sm text-blue-500 underline text-center sm:text-left"
-          >
-            Forgot Password?
-          </NavLink>
+            <div>
+              <input
+                type="password"
+                placeholder="Password"
+                required
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="w-full px-4 py-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
 
-          <div className="flex flex-col lg:flex-row items-center sm:items-start gap-3 text-sm text-gray-600">
-            <input
-              type="checkbox"
-              id="terms"
-              className="w-5 h-5 accent-blue-600"
-            />
-            <label htmlFor="terms" className="text-center sm:text-left">
-              I have read and agree to the
-              <NavLink
-                to="/terms"
-                className="text-green-600 font-medium hover:underline px-1"
-              >
-                Terms of Use
+            <div className="text-right">
+              <NavLink to="/forgot-password" className="text-sm text-blue-600 hover:underline">
+                Forgot Password?
               </NavLink>
-              and understand my personal information is processed in accordance
-              with the
-              <NavLink
-                to="/policy"
-                className="text-green-600 font-medium hover:underline px-1"
-              >
-                Privacy Statement
-              </NavLink>
-              .
-            </label>
-          </div>
+            </div>
 
-          <button
-            type="submit"
-            className="w-full hover:bg-green-700 text-white py-3 rounded-lg font-semibold text-lg shadow-md bg-green-600 transition-all duration-300"
-            disabled={loading}
-          >
-            {loading ? "Signing In..." : "Sign In"}
-          </button>
-        </form>
+            <div className="flex items-start space-x-3 text-sm text-gray-600">
+              <input type="checkbox" id="terms" className="mt-1 accent-blue-600" />
+              <label htmlFor="terms">
+                I agree to the{" "}
+                <NavLink to="/terms" className="text-green-600 hover:underline font-medium">
+                  Terms of Use
+                </NavLink>{" "}
+                and{" "}
+                <NavLink to="/policy" className="text-green-600 hover:underline font-medium">
+                  Privacy Policy
+                </NavLink>
+                .
+              </label>
+            </div>
+
+            <button
+              type="submit"
+              disabled={loading}
+              className={`w-full text-white py-3 rounded-lg font-semibold text-lg shadow-md transition-all duration-300 ${
+                loading
+                  ? "bg-green-400 cursor-not-allowed"
+                  : "bg-green-600 hover:bg-green-700"
+              }`}
+            >
+              {loading ? "Signing In..." : "Sign In"}
+            </button>
+          </form>
+        </div>
       </div>
     </div>
   );
 };
 
 export default Login;
+

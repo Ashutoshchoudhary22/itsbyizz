@@ -73,6 +73,12 @@ const Portfolio = () => {
         link: "https://shivshaktialuminium.com/",
       },
     ],
+    B2C: [
+      {
+        title: "Krishna Labels",
+        img: "https://itsybizz.com/assets/finance2-CMQ71K8o.jpeg",
+      },
+    ],
     Finance: [
       {
         title: "GR-Finance",
@@ -95,6 +101,11 @@ const Portfolio = () => {
       {
         title: "Tyoharwala",
         img: "https://itsybizz.com/assets/tyor-fvRAlMa7.jpeg",
+      },
+      {
+        title: "KFS Fitness",
+        img: "https://itsybizz.com/assets/port2-DcxdaKXH.png",
+        
       },
     ],
     Hospital: [
@@ -181,10 +192,25 @@ const Portfolio = () => {
   return (
     <div className="w-full h-auto ">
       {/* Header Section */}
+<<<<<<< HEAD
+      <div className="w-full  grid md:grid-cols-2 gap-2 grid-cols-1 px-5 py-24">
+      <div className="flex space-x-2 items-center">
+      <WavyScrollText
+  highlight=" Our Products & "
+  text="Our Work Speaks Louder Than Words : Explore&nbsp;Our&nbsp;Digital&nbsp;Creations"
+/>
+
+
+
+
+</div>
+
+=======
       <div className="w-full h-[480px] relative grid md:grid-cols-2 gap-2 grid-cols-1 px-5 py-24">
         <div className="col-span-1 flex items-center">
           <WavyScrollText highlight=" Our Products & " text="Solutions" />
         </div>
+>>>>>>> 5e52d0c735b0397e5ac3d01eba1c37effa33edb9
         <div className="col-span-1 flex justify-center items-center">
           <img
             src="product.webp"

@@ -33,7 +33,7 @@ const EmailM = () => {
 
     return (
       <div className="w-full py-12 px-5">
-        {/* Header Section */}
+    
         <h1 className="text-4xl font-bold text-center text-gray-700 mb-2">
           Email Marketing
         </h1>
@@ -41,7 +41,6 @@ const EmailM = () => {
           We create impactful email campaigns to engage, nurture, and convert your audience.
         </p>
 
-        {/* Responsive Cards */}
         <div className="grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-6">
           {emailServices.map((service, index) => (
             <RevealWrapper  key={index}>

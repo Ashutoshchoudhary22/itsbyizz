@@ -13,8 +13,8 @@ import { FaHtml5, FaCss3 } from "react-icons/fa6";
 import Marquee from "react-fast-marquee";
 import WavyScrollText from "../Components/WavyScroll";
 import { NavLink } from "react-router-dom";
-import Loop from "../Components/Loop";
 import RevealWrapper from "../Components/RevealWrapper";
+import Slider from "./Slider";
 
 const Home = () => {
   const bookDemoRef = useRef(null);
@@ -32,7 +32,7 @@ const Home = () => {
   ];
 
   const techStack = [
-    { icon: FaHtml5, color: "text-orange-600" },
+    { icon: FaHtml5, color: "text-orange-600" }, 
     { icon: FaCss3, color: "text-blue-600" },
     { icon: TbBrandJavascript, color: "text-yellow-500" },
     { icon: DiNodejs, color: "text-green-600" },
@@ -44,53 +44,55 @@ const Home = () => {
     { icon: FaPhp, color: "text-indigo-700" },
     { icon: RiTailwindCssFill, color: "text-blue-500" },
   ];
-
+  
   return (
-    <div>
+    <div className="w-full">
       {/* Hero Section */}
-      <div className="w-full h-auto md:h-72 grid md:grid-cols-2 gap-4 px-5 py-12 md:py-24">
-        <div className="col-span-1 flex flex-col justify-center">
+      <div className="w-full max-w-screen-xl mx-auto px-4 py-12 md:py-16 grid gap-8 md:grid-cols-2">
+        <div className="flex flex-col justify-center">
           <WavyScrollText
-            highlight="Smart IoT & Automation"
-            text="for Maximum Efficiency."
+            highlight="ITSYBIZZ – Powered by Deepnap Softech,"
+            text="Smart Digital Solutions in Software"
           />
         </div>
 
-        <div className="col-span-1 flex flex-col justify-center">
-          <p className="text-gray-200 text-lg p-2">
-            ITSYBIZZ delivers smart IoT and real-time automation solutions to
-            optimize operations, boost efficiency, and enable data-driven
-            decisions. Elevate your industry with our scalable, secure, and
-            future-ready technology.
+        <div className="flex flex-col justify-center">
+          <p className="text-gray-200 text-base md:text-lg p-2">
+            ITSYBIZZ, powered by Deepnap Softech, is a leading digital solutions
+            company offering a wide range of services including Software
+            Development, Mobile App Development, Website Development, AI,
+            Blockchain Development, Game Development, and IoT Solutions. We also
+            specialize in Brand Building and delivering Ready-to-Use Software like
+            CRM, HRM, and Production Automation Suites (B2B & B2C).
           </p>
-          <div className="flex flex-col md:flex-row items-center justify-start gap-3 mt-4">
+
+          <div className="flex flex-col sm:flex-row items-center justify-start gap-4 mt-6">
             <button
               onClick={scrollToBookDemo}
-              className="text-gray-700 font-semibold px-8 py-2 md:px-20 bg-green-400 rounded-full hover:bg-green-500 transition-all ease border border-black hover:text-white"
+              className="text-gray-700 font-semibold px-8 py-2 bg-green-400 rounded-full hover:bg-green-500 transition-all ease border border-black hover:text-white w-full sm:w-auto"
             >
-              <span>Book Demo</span>
+              Book Demo
             </button>
-            <a
-              href="#"
-              className="text-gray-50 font-semibold px-8 py-2 md:px-20 rounded-full hover:text-green-500 transition-all ease border-2 border-gray-400 hover:border-green-500"
-            >
-              <NavLink to="contact-us">Contact Us</NavLink>
-            </a>
+            <NavLink to="/contact-us">
+              <span className="text-gray-50 font-semibold px-8 py-2 rounded-full hover:text-green-500 transition-all ease border-2 border-gray-400 hover:border-green-500 w-full sm:w-auto inline-block text-center">
+                Contact Us
+              </span>
+            </NavLink>
           </div>
         </div>
       </div>
 
       {/* Image Slider */}
-      <div className="w-full h-96 flex items-center justify-center">
+      <div className="w-full max-w-screen-xl mx-auto px-4">
         <AutoSlider />
       </div>
 
       {/* Stats Section */}
-      <div className="w-full flex items-center justify-center text-white flex-col py-12">
-        <h2 className="text-3xl md:text-4xl mb-3 font-semibold text-center">
+      <div className="w-full max-w-screen-xl mx-auto flex items-center justify-center text-white flex-col px-4 py-12">
+        <h2 className="text-2xl md:text-4xl mb-6 font-semibold text-center">
           We have 80% active users across the nation
         </h2>
-        <div className="flex flex-col md:flex-row w-full items-center justify-center mt-4 gap-8">
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-8">
           {content.map((data, index) => (
             <div
               key={index}
@@ -99,7 +101,7 @@ const Home = () => {
               <h1 className="text-4xl font-bold text-green-500">
                 {data.value}+
               </h1>
-              <p className="text-xl text-gray-100 font-semibold text-center">
+              <p className="text-lg text-gray-100 font-semibold text-center">
                 {data.label}
               </p>
             </div>
@@ -107,8 +109,13 @@ const Home = () => {
         </div>
       </div>
 
+      {/* Slider Section */}
+      <div className="w-full max-w-screen-xl mx-auto px-4">
+        <Slider />
+      </div>
+
       {/* About Section */}
-      <div className="w-full mt-20">
+      <div className="w-full mt-20 max-w-screen-xl mx-auto px-4">
         {/* <About /> */}
         {/* <Loop /> */}
       </div>
@@ -124,13 +131,13 @@ const Home = () => {
       </div>
 
       {/* Tech Stack Section */}
-      <div className="w-full h-auto py-10 bg-gray-100 flex flex-col items-center justify-center gap-5">
-        <h1 className="text-3xl md:text-4xl font-bold mt-10 text-center text-gray-600 mb-5">
+      <div className="w-full py-12 bg-gray-100 flex flex-col items-center justify-center gap-6 px-4">
+        <h1 className="text-2xl md:text-4xl font-bold text-center text-gray-600">
           Technologies We Use
         </h1>
         <Marquee speed={50} gradient={false}>
           {techStack.map((tech, index) => (
-            <div key={index} className="mx-6 text-5xl md:text-7xl">
+            <div key={index} className="mx-4 text-4xl md:text-6xl">
               <tech.icon className={`${tech.color}`} />
             </div>
           ))}

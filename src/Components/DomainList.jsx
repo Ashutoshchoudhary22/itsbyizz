@@ -66,7 +66,7 @@ const DomainList = () => {
   return (
     <div className="w-full p-4 text-center">
       <h1 className="text-4xl font-bold mt-10 text-gray-600">
-        One platform, every industry.
+        One Platform, Every Industry.
       </h1>
       {/* Industry Categories */}
       <div className="mt-6 flex flex-wrap justify-center gap-6">

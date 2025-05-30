@@ -22,22 +22,22 @@ const Development = () => {
   // Custom heading and image mapping
   const contentMap = {
     "Meta Ads": {
-      title: "Maximize Your Reach with Meta  Ads",
+      title: "Maximize Your Business Reach and Drive Results with Powerful Meta Ads Campaign",
       image: "meta.svg",
       component: <Ads />
     },
     "Google Ads": {
-      title: "Maximize Your Reach with Google Ads",
+      title: "Maximize Your Visibility, Conversions, and Growth with Strategic Google Ads Campaigns",
       image: "ads.svg",
       component: <GoogleAds />
     },
     "Email Marketing": {
-      title: "Engage Your Audience with Email Marketing",
+      title: "Engage Your Audience, Nurture Leads, and Boost Conversions with Strategic Email Marketing",
       image: "email.svg",
       component: <EmailM />
     },
     "Content Marketing": {
-      title: "Engage Your Audience with Content Marketing",
+      title: "Engage Your Audience, Build Trust, and Drive Conversions with Powerful Content Marketing Strategies",
       image: "content.svg",
       component: <Marketing />
     },

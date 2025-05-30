@@ -1,6 +1,13 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./Pages/Home";
+import Slider from "./Pages/Slider"
+import It from "./Pages/task/It"
+import Secuirity from "./Pages/task/Secuirity"
+import HumanResource from "./Pages/task/HumanResource"
+import CRM from "./Pages/task/Crm"
+import AppDev from "./Pages/task/AppDev"
+import Finance from "./Pages/task/Finance"
 import MainLayout from "./Components/MainLayout";
 import Portfolio from "./Pages/Portfolio";
 import Development from "./Pages/Development";
@@ -35,6 +42,9 @@ import ResetPassword from "./Pages/ResetPassword";
 
 
 const App = () => {
+
+
+  
   return (
     <Router>
       <Toaster position="top-right" reverseOrder={false} />
@@ -47,6 +57,13 @@ const App = () => {
 
         <Route path="/" element={<MainLayout />}>
           <Route index element={<Home />} />
+          <Route path="/slider" element={<Slider />}/>
+          <Route path="/it" element={<It />}/>
+          <Route path="/secuirity" element={<Secuirity />}/>
+          <Route path="/human" element={<HumanResource />}/>
+          <Route path="/crm" element={<CRM/>}/>
+          <Route path="/appdev" element={<AppDev />}/>
+          <Route path="/finance" element={<Finance />}/>
           <Route path="portfolio" element={<Portfolio />} />
           <Route path="development" element={<Development />} />
           <Route path="digitalmarketing" element={<DigitalMarketing />} />
@@ -74,9 +91,6 @@ const App = () => {
           <Route path="products" element={<Products />} />
           <Route path="employees" element={<Employees />} />
           <Route path="followups" element={<Followup />} />
-          {/* <Route path="refferal" element={<Refferal />} />
-          <Route path="business" element={<Business />} />
-          <Route path="corporate" element={<Corporate />} /> */}
           <Route path="products/quote" element={<ProductQuote/>} />
         </Route>
       </Routes>

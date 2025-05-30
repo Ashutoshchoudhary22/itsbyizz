@@ -17,7 +17,7 @@ const Brand = () => {
   // Custom heading and image mapping
   const contentMap = {
     "Brand Building": {
-      title: " Crafting Legacies Through Brand Building Mastery",
+      title: " Crafting Legacies Through Brand Building Mastery, Brand Beyond Boundaries",
       image: "brand.png",
       component: <BrandBuilding />
     },

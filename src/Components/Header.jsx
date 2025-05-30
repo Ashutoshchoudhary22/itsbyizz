@@ -1,19 +1,20 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { NavLink } from "react-router-dom";
 import { FaRegUserCircle, FaBars, FaTimes } from "react-icons/fa";
-import { Link } from "react-router-dom";
 
 const Header = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false); // State for mobile menu toggle
-  const [openDropdown, setOpenDropdown] = useState(null); // State for dropdown menus
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [openDropdown, setOpenDropdown] = useState(null);
 
-  const developmentmenu = [
+  const productsRef = useRef(null);
+  const developmentRef = useRef(null);
+  const becomeBrandRef = useRef(null);
+  const userRef = useRef(null);
+
+  const developmentMenu = [
     { title: "Web Development", link: "/development?title=Web%20Development" },
     { title: "Web Design", link: "/development?title=Web%20Design" },
-    {
-      title: "Software Development",
-      link: "/development?title=Software%20Development",
-    },
+    { title: "Software Development", link: "/development?title=Software%20Development" },
     { title: "App Development", link: "/development?title=App%20Development" },
     { title: "CRM Development", link: "/development?title=CRM%20Development" },
   ];
@@ -23,230 +24,138 @@ const Header = () => {
     { title: "ORM", link: "/brand?title=ORM" },
     { title: "Public Relations", link: "/brand?title=Public%20Relations" },
     { title: "Digital Marketing", link: "/brand?title=Digital%20Marketing" },
-    {
-      title: "Influence Marketing",
-      link: "/brand?title=Influence%20Marketing",
-    },
-    {
-      title: "Social Media Presence",
-      link: "/brand?title=Social%20Media%20Presence",
-    },
+    { title: "Influence Marketing", link: "/brand?title=Influence%20Marketing" },
+    { title: "Social Media Presence", link: "/brand?title=Social%20Media%20Presence" },
   ];
 
   const products = [
-    {
-      title: "IoT Products",
-      link: "/Iot-products",
-    },
-    {
-      title: "Client Relation Management (CRM)",
-      link: "https://subscription.deepnapsoftech.com",
-      external: true,
-    },
-    {
-      title: "Human Resource Management (HRM)",
-      link: "https://hr.deepmart.shop",
-      external: true,
-    },
+    { title: "IoT Products", link: "/Iot-products" },
+    { title: "Client Relation Management (CRM)", link: "https://subscription.deepnapsoftech.com", external: true },
+    { title: "Human Resource Management (HRM)", link: "https://hr.deepmart.shop", external: true },
   ];
 
-  // Toggle mobile menu
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
-  // Toggle dropdown menus
   const toggleDropdown = (dropdown) => {
     setOpenDropdown(openDropdown === dropdown ? null : dropdown);
   };
 
-  return (
-    <nav className="flex px-4 md:shadow-lg items-center relative">
-      {/* Logo */}
-      <div className="text-lg text-gray-50 font-bold md:py-0 py-4">
-        <Link to="/">ITSYBIZZ</Link>
-      </div>
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        productsRef.current && !productsRef.current.contains(event.target) &&
+        developmentRef.current && !developmentRef.current.contains(event.target) &&
+        becomeBrandRef.current && !becomeBrandRef.current.contains(event.target) &&
+        userRef.current && !userRef.current.contains(event.target)
+      ) {
+        setOpenDropdown(null);
+      }
+    };
 
-      {/* Hamburger Menu for Mobile */}
-      <button
-        className="md:hidden ml-auto text-gray-50 p-4 focus:outline-none"
-        onClick={toggleMenu}
-        aria-label="Toggle Menu"
-      >
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
+  return (
+    <nav className="flex flex-wrap font-semibold items-center h-20 justify-between px-4 py-2 md:py-0 shadow-lg bg-sky-900 relative z-50">
+      
+      <div className="text-lg text-white font-medium">
+        <NavLink to="/" onClick={() => { setIsMenuOpen(false); setOpenDropdown(null); }}>
+          <img src="./logo.png" alt="Logo" className="h-12 object-contain" />
+        </NavLink>
+      </div>
+      
+      <button className="md:hidden text-white p-2 ml-auto" onClick={toggleMenu}>
         {isMenuOpen ? <FaTimes className="w-6 h-6" /> : <FaBars className="w-6 h-6" />}
       </button>
 
-      {/* Navigation Links */}
-      <ul
-        className={`${
-          isMenuOpen ? "block" : "hidden"
-        } md:flex md:px-2 ml-auto md:space-x-2 absolute md:relative top-full left-0 right-0 bg-gray-800 md:bg-transparent z-10`}
-      >
+      <ul className={`${isMenuOpen ? "block" : "hidden"} w-full md:w-auto md:flex md:items-center md:space-x-4 mt-2 md:mt-0`}>
         <li>
-          <NavLink
-            to="/"
-            className="text-gray-50 flex md:inline-flex p-4 items-center hover:text-white"
-            onClick={() => setIsMenuOpen(false)}
-          >
-            <span>Home</span>
-          </NavLink>
+          <NavLink to="/" className="block px-4 py-2 text-white hover:text-gray-300" onClick={() => setIsMenuOpen(false)}>Home</NavLink>
         </li>
-
-        {/* Products Dropdown */}
-        <li className="relative">
+        
+        <li className="relative group" ref={productsRef}>
           <button
-            className="text-gray-50 flex md:inline-flex p-4 items-center space-x-2 hover:text-white w-full md:w-auto"
-            onClick={() => toggleDropdown("products")}
+            onClick={() => {
+              if (window.innerWidth < 768) toggleDropdown("products");
+            }}
+            className="flex items-center px-4 py-2 text-white hover:text-gray-300"
           >
-            <span>Products</span>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="w-4 h-4 fill-current pt-1"
-              viewBox="0 0 24 24"
-            >
-              <path d="M0 7.33l2.829-2.83 9.175 9.339 9.167-9.339 2.829 2.83-11.996 12.17z" />
-            </svg>
+            Products
           </button>
-          <ul
-            className={`${
-              openDropdown === "products" ? "block" : "hidden"
-            } md:absolute md:top-full md:left-0 md:w-auto bg-white md:shadow-lg md:rounded-b-lg p-2 flex-wrap`}
-          >
+          <ul className={`${openDropdown === "products" ? "block" : "hidden"} group-hover:block md:absolute md:left-0 bg-white text-black shadow-lg rounded-lg p-2 w-56 z-50`}>
             {products.map((item, index) => (
-              <li key={index} className="p-2 hover:bg-gray-100 rounded-lg w-48">
+              <li key={index} className="p-2 hover:bg-gray-100 rounded">
                 {item.external ? (
-                  <a
-                    href={item.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="block text-gray-900 font-normal"
-                  >
-                    {item.title}
-                  </a>
+                  <a href={item.link} target="_blank" rel="noopener noreferrer" className="block">{item.title}</a>
                 ) : (
-                  <NavLink
-                    to={item.link}
-                    className="block text-gray-900 font-normal"
-                    onClick={() => setIsMenuOpen(false)}
-                  >
-                    {item.title}
-                  </NavLink>
+                  <NavLink to={item.link} className="block">{item.title}</NavLink>
                 )}
               </li>
             ))}
           </ul>
         </li>
-
-        {/* Development Dropdown */}
-        <li className="relative">
+        
+        <li className="relative group" ref={developmentRef}>
           <button
-            className="text-gray-50 flex justify-between p-4 items-center hover:text-white space-x-2 w-full md:w-auto"
-            onClick={() => toggleDropdown("development")}
+            onClick={() => {
+              if (window.innerWidth < 768) toggleDropdown("development");
+            }}
+            className="flex items-center px-4 py-2 text-white hover:text-gray-300"
           >
-            <span>Development</span>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="w-4 h-4 fill-current pt-1"
-              viewBox="0 0 24 24"
-            >
-              <path d="M0 7.33l2.829-2.83 9.175 9.339 9.167-9.339 2.829 2.83-11.996 12.17z" />
-            </svg>
+            Development
           </button>
-          <ul
-            className={`${
-              openDropdown === "development" ? "block" : "hidden"
-            } md:absolute md:top-full md:left-0 md:w-auto bg-white md:shadow-lg md:rounded-b-lg p-2 flex-wrap`}
-          >
-            {developmentmenu.map((item, index) => (
-              <li key={index} className="p-2 hover:bg-gray-100 rounded-lg w-48">
-                <NavLink
-                  to={item.link}
-                  className="block text-gray-900 font-normal"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  {item.title}
-                </NavLink>
+          <ul className={`${openDropdown === "development" ? "block" : "hidden"} group-hover:block md:absolute md:left-0 bg-white text-black shadow-lg rounded-lg p-2 w-56 z-50`}>
+            {developmentMenu.map((item, index) => (
+              <li key={index} className="p-2 hover:bg-gray-100 rounded">
+                <NavLink to={item.link} className="block">{item.title}</NavLink>
               </li>
             ))}
           </ul>
         </li>
-
-        {/* Become Brand Dropdown */}
-        <li className="relative">
+        
+        <li className="relative group" ref={becomeBrandRef}>
           <button
-            className="text-gray-50 flex justify-between md:inline-flex p-4 items-center hover:text-white space-x-2 w-full md:w-auto"
-            onClick={() => toggleDropdown("becomeBrand")}
+            onClick={() => {
+              if (window.innerWidth < 768) toggleDropdown("becomeBrand");
+            }}
+            className="flex items-center px-4 py-2 text-white hover:text-gray-300"
           >
-            <span>Become Brand</span>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="w-4 h-4 fill-current pt-1"
-              viewBox="0 0 24 24"
-            >
-              <path d="M0 7.33l2.829-2.83 9.175 9.339 9.167-9.339 2.829 2.83-11.996 12.17z" />
-            </svg>
+            Become Brand
           </button>
-          <ul
-            className={`${
-              openDropdown === "becomeBrand" ? "block" : "hidden"
-            } md:absolute md:top-full md:left-0 md:w-auto bg-white md:shadow-lg md:rounded-b-lg p-2 flex-wrap`}
-          >
+          <ul className={`${openDropdown === "becomeBrand" ? "block" : "hidden"} group-hover:block md:absolute md:left-0 bg-white text-black shadow-lg rounded-lg p-2 w-56 z-50`}>
             {becomeBrand.map((item, index) => (
-              <li key={index} className="p-2 hover:bg-gray-100 rounded-lg w-48">
-                <NavLink
-                  to={item.link}
-                  className="block text-gray-900 font-normal"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  {item.title}
-                </NavLink>
+              <li key={index} className="p-2 hover:bg-gray-100 rounded">
+                <NavLink to={item.link} className="block">{item.title}</NavLink>
               </li>
             ))}
           </ul>
         </li>
 
-        {/* Portfolio Link */}
         <li>
-          <NavLink
-            to="/portfolio"
-            className="text-gray-50 flex md:inline-flex p-4 items-center hover:text-white"
-            onClick={() => setIsMenuOpen(false)}
-          >
-            <span>Portfolio</span>
-          </NavLink>
+          <NavLink to="/portfolio" className="block px-4 py-2 text-white hover:text-gray-300" onClick={() => setIsMenuOpen(false)}>Portfolio</NavLink>
         </li>
 
-        {/* User Dropdown */}
-        <li className="relative">
+        <li>
+          <NavLink to="/Contact-us" className="block px-4 py-2 text-white hover:text-gray-300" onClick={() => setIsMenuOpen(false)}>Contact Us</NavLink>
+        </li>
+        
+        <li className="relative group" ref={userRef}>
           <button
-            className="text-gray-50 flex items-center p-4 hover:text-white space-x-2"
-            onClick={() => toggleDropdown("user")}
+            onClick={() => {
+              if (window.innerWidth < 768) toggleDropdown("user");
+            }}
+            className="flex items-center px-4 py-2 text-white hover:text-gray-300"
           >
             <FaRegUserCircle className="w-6 h-6" />
           </button>
-          <ul
-            className={`${
-              openDropdown === "user" ? "block" : "hidden"
-            } md:absolute md:top-full md:right-0 md:w-auto bg-white md:shadow-lg md:rounded-b-lg p-2 flex-wrap`}
-          >
-            <li className="p-2 hover:bg-gray-100 rounded-lg w-48">
-              <NavLink
-                to="/register"
-                className="block text-gray-900 font-normal"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Register
-              </NavLink>
-            </li>
-            <li className="p-2 hover:bg-gray-100 rounded-lg w-48">
-              <NavLink
-                to="/login"
-                className="block text-gray-900 font-normal"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Login
-              </NavLink>
-            </li>
+          <ul className={`${openDropdown === "user" ? "block" : "hidden"} group-hover:block md:absolute md:right-0 bg-white text-black shadow-lg rounded-lg p-2 w-48 z-50`}>
+            <li><NavLink to="/register" className="block px-2 py-1 hover:bg-gray-100 rounded">Register</NavLink></li>
+            <li><NavLink to="/login" className="block px-2 py-1 hover:bg-gray-100 rounded">Login</NavLink></li>
           </ul>
         </li>
       </ul>

@@ -130,7 +130,7 @@ const Footer = () => {
 
       {/* Copyright Section */}
       <div className="border-t mt-10 border-white pt-4 text-center text-sm text-gray-300">
-        © {new Date().getFullYear()} ITSYBIZZ. All rights reserved.
+        © {new Date().getFullYear()} ITSYBIZZ. Powered by Deepnap Softech. All rights reserved.
       </div>
     </div>
   );

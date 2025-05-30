@@ -19,3 +19,28 @@
     }
 }
 
+  /* Add this to your global CSS file */
+.scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  
+
+  /* Hide spinner for Chrome, Safari, Edge, Opera */
+.no-spinner::-webkit-outer-spin-button,
+.no-spinner::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Hide spinner for Firefox */
+.no-spinner[type='number'] {
+  -moz-appearance: textfield;
+}
+
+.noscroll {
+  overflow: hidden;
+}

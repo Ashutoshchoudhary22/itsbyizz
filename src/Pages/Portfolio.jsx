@@ -57,6 +57,12 @@ const Portfolio = () => {
         img: "https://itsybizz.com/assets/kripa-AMYKLt7o.jpeg",
       },
     ],
+    B2C: [
+      {
+        title: "Krishna Labels",
+        img: "https://itsybizz.com/assets/finance2-CMQ71K8o.jpeg",
+      },
+    ],
     Finance: [
       {
         title: "GR-Finance",
@@ -79,6 +85,11 @@ const Portfolio = () => {
       {
         title: "Tyoharwala",
         img: "https://itsybizz.com/assets/tyor-fvRAlMa7.jpeg",
+      },
+      {
+        title: "KFS Fitness",
+        img: "https://itsybizz.com/assets/port2-DcxdaKXH.png",
+        
       },
     ],
     Hospital: [
@@ -154,13 +165,17 @@ const Portfolio = () => {
     <div className="w-full h-auto ">
       {/* Header Section */}
       <div className="w-full  grid md:grid-cols-2 gap-2 grid-cols-1 px-5 py-24">
-        <div className="col-span-1 flex items-center">
-          <WavyScrollText
-            highlight=" Our Products & 
-              "
-            text="Solutions"
-          />
-        </div>
+      <div className="flex space-x-2 items-center">
+      <WavyScrollText
+  highlight=" Our Products & "
+  text="Our Work Speaks Louder Than Words : Explore&nbsp;Our&nbsp;Digital&nbsp;Creations"
+/>
+
+
+
+
+</div>
+
         <div className="col-span-1 flex justify-center items-center">
           <img
             src="/portfolio.png"

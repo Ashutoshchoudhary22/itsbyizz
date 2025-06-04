@@ -3,7 +3,9 @@ import { FaCircleUser } from "react-icons/fa6";
 import { FiMenu, FiX } from "react-icons/fi";
 import { IoNotifications } from "react-icons/io5";
 
+
 const Header = ({toggleSidebar}) => {
+  
   return (
     <div className="sticky top-0 bg-gradient-to-tl from-sky-800 to-sky-900 text-white p-3 shadow-md ">
       <div className="flex items-center justify-between">
@@ -19,6 +21,7 @@ const Header = ({toggleSidebar}) => {
        
         <div className="flex items-center gap-4 mr-4">
           <IoNotifications size={25} className="text-white" />
+
           <FaCircleUser   size={28} className="text-white" />
         </div> 
       </div>

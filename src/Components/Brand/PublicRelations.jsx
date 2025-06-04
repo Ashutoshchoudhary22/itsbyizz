@@ -1,51 +1,10 @@
-<<<<<<< HEAD
-import React from "react";
-import {
-  FaNewspaper,
-  FaShieldAlt,
-  FaPenNib,
-  FaBullhorn,
-  FaCalendarCheck,
-} from "react-icons/fa";
-
-=======
 import React, { useEffect } from "react";
 import { FaNewspaper, FaShieldAlt, FaPenNib, FaBullhorn, FaCalendarCheck } from "react-icons/fa";
 import ScrollReveal from "scrollreveal";
->>>>>>> 5e52d0c735b0397e5ac3d01eba1c37effa33edb9
 const PublicRelations = () => {
   const cardsContent = [
     {
       title: "Media Relations",
-<<<<<<< HEAD
-      description:
-        "We build strong media connections to ensure positive brand coverage across various platforms.",
-      icon: <FaNewspaper className="w-10 h-10 text-green-500" />,
-    },
-    {
-      title: "Reputation Management",
-      description:
-        "We monitor and enhance your brand’s image, addressing potential issues proactively.",
-      icon: <FaShieldAlt className="w-10 h-10 text-green-500" />,
-    },
-    {
-      title: "Content Creation",
-      description:
-        "We craft engaging stories, press releases, and blogs to amplify your brand's presence.",
-      icon: <FaPenNib className="w-10 h-10 text-green-500" />,
-    },
-    {
-      title: "Thought Leadership",
-      description:
-        "We position you as an industry expert through articles, interviews, and expert insights.",
-      icon: <FaBullhorn className="w-10 h-10 text-green-500" />,
-    },
-    {
-      title: "Event PR",
-      description:
-        "We manage event promotions to maximize engagement, media attention, and brand impact.",
-      icon: <FaCalendarCheck className="w-10 h-10 text-green-500" />,
-=======
       description: "We build strong media connections to ensure positive brand coverage across various platforms.",
       icon: <FaNewspaper className="w-12 h-12 text-red-500 bg-gray-200 rounded-full p-2" />,
     },
@@ -68,7 +27,6 @@ const PublicRelations = () => {
       title: "Event PR",
       description: "We manage event promotions to maximize engagement, media attention, and brand impact.",
       icon: <FaCalendarCheck className="w-12 h-12 text-purple-500 bg-gray-200 rounded-full p-2" />,
->>>>>>> 5e52d0c735b0397e5ac3d01eba1c37effa33edb9
     },
   ];
 useEffect(() => {
@@ -106,12 +64,8 @@ useEffect(() => {
         {cardsContent.map((card, index) => (
           <div
             key={index}
-<<<<<<< HEAD
-            className="bg-white p-6 rounded-2xl shadow-md flex flex-col items-center text-center hover:shadow-xl hover:scale-105 transition-transform duration-300"
-=======
             className={`bg-white p-6 rounded-xl shadow-lg flex flex-col items-center text-center transition-transform duration-300 hover:scale-105 card`}
             style={{ animationDelay: `${index * 0.9}s` }}
->>>>>>> 5e52d0c735b0397e5ac3d01eba1c37effa33edb9
           >
             <div className="bg-green-100 rounded-full p-4 mb-4">
               {card.icon}

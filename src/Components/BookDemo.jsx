@@ -87,7 +87,7 @@ const BookDemo = () => {
         </div>
 
         {/* Right Side - Book a Demo Form */}
-        <div className="bg-transparent border reveal border-sky-900 shadow-xl rounded-xl p-6 w-full max-w-lg mx-auto">
+        <div className="bg-transparent border-1 reveal border-sky-800 shadow-xl rounded-xl p-6 w-full max-w-lg mx-auto">
           <h2 className="text-3xl font-bold text-gray-100 mb-4 text-center">
             Book a Demo
           </h2>

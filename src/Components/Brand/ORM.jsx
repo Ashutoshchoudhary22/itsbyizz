@@ -1,51 +1,10 @@
-<<<<<<< HEAD
-import React from "react";
-import {
-  FaSmile,
-  FaStar,
-  FaEye,
-  FaShieldAlt,
-  FaComments,
-} from "react-icons/fa";
-
-=======
 import React, { useEffect } from "react";
 import { FaSmile, FaStar, FaEye, FaShieldAlt, FaComments } from "react-icons/fa";
 import ScrollReveal from "scrollreveal";
->>>>>>> 5e52d0c735b0397e5ac3d01eba1c37effa33edb9
 const ORM = () => {
   const cardsContent = [
     {
       title: "Sentiment Analysis",
-<<<<<<< HEAD
-      description:
-        "We monitor online conversations to gauge public sentiment about your brand.",
-      icon: <FaSmile className="w-10 h-10 text-green-500" />,
-    },
-    {
-      title: "Review Management",
-      description:
-        "We optimize and respond to reviews to maintain a strong online reputation.",
-      icon: <FaStar className="w-10 h-10 text-green-500" />,
-    },
-    {
-      title: "Content Suppression",
-      description:
-        "We minimize the visibility of negative content in search results.",
-      icon: <FaShieldAlt className="w-10 h-10 text-green-500" />,
-    },
-    {
-      title: "Brand Monitoring",
-      description:
-        "We track brand mentions and quickly address potential reputation issues.",
-      icon: <FaEye className="w-10 h-10 text-green-500" />,
-    },
-    {
-      title: "Social Media Reputation",
-      description:
-        "We manage your social media presence to keep your brand image positive.",
-      icon: <FaComments className="w-10 h-10 text-green-500" />,
-=======
       description: "We monitor online conversations to gauge public sentiment about your brand.",
       icon: <FaSmile className="w-12 h-12 text-red-700 bg-gray-200 rounded-full p-2" />,
     },
@@ -68,7 +27,6 @@ const ORM = () => {
       title: "Social Media Reputation",
       description: "We manage your social media presence to keep your brand image positive.",
       icon: <FaComments className="w-12 h-12 text-rose-600 bg-gray-200 rounded-full p-2" />,
->>>>>>> 5e52d0c735b0397e5ac3d01eba1c37effa33edb9
     },
   ];
 
@@ -107,12 +65,8 @@ const ORM = () => {
         {cardsContent.map((card, index) => (
           <div
             key={index}
-<<<<<<< HEAD
-            className="bg-white p-6 rounded-2xl shadow-md flex flex-col items-center text-center hover:shadow-xl hover:scale-105 transition-transform duration-300"
-=======
             className={`bg-white p-6 rounded-xl shadow-lg flex flex-col items-center text-center transition-transform duration-300 hover:scale-105 card`}
             style={{ animationDelay: `${index * 0.9}s` }}
->>>>>>> 5e52d0c735b0397e5ac3d01eba1c37effa33edb9
           >
             <div className="bg-green-100 rounded-full p-4 mb-4">
               {card.icon}

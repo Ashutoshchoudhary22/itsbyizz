@@ -1,9 +1,5 @@
-<<<<<<< HEAD
-import React, { useState, useEffect, useRef } from "react";
-=======
 import React, { useState, useRef, useEffect } from "react";
->>>>>>> 5e52d0c735b0397e5ac3d01eba1c37effa33edb9
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { FaRegUserCircle, FaBars, FaTimes } from "react-icons/fa";
 
 const Header = () => {
@@ -59,40 +55,6 @@ const Header = () => {
     };
   }, []);
 
-<<<<<<< HEAD
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (
-        productsRef.current && !productsRef.current.contains(event.target) &&
-        developmentRef.current && !developmentRef.current.contains(event.target) &&
-        becomeBrandRef.current && !becomeBrandRef.current.contains(event.target) &&
-        userRef.current && !userRef.current.contains(event.target)
-      ) {
-        setOpenDropdown(null);
-      }
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
-
-  return (
-    <nav className="flex flex-wrap font-semibold items-center h-20 justify-between px-4 py-2 md:py-0 shadow-lg bg-sky-900 relative z-50">
-      
-      <div className="text-lg text-white font-medium">
-        <NavLink to="/" onClick={() => { setIsMenuOpen(false); setOpenDropdown(null); }}>
-          <img src="./logo.png" alt="Logo" className="h-12 object-contain" />
-        </NavLink>
-      </div>
-      
-      <button className="md:hidden text-white p-2 ml-auto" onClick={toggleMenu}>
-        {isMenuOpen ? <FaTimes className="w-6 h-6" /> : <FaBars className="w-6 h-6" />}
-      </button>
-
-      <ul className={`${isMenuOpen ? "block" : "hidden"} w-full md:w-auto md:flex md:items-center md:space-x-4 mt-2 md:mt-0`}>
-=======
   return (
     <nav className="sticky top-0 bg-sky-900 z-50 flex px-4 md:shadow-lg items-center ">
       {/* Logo */}
@@ -120,7 +82,6 @@ const Header = () => {
           isMenuOpen ? "block" : "hidden"
         } md:flex md:px-2 ml-auto md:space-x-2 absolute md:relative top-full left-0 right-0 bg-gray-800 md:bg-transparent z-10`}
       >
->>>>>>> 5e52d0c735b0397e5ac3d01eba1c37effa33edb9
         <li>
           <NavLink to="/" className="block px-4 py-2 text-white hover:text-gray-300" onClick={() => setIsMenuOpen(false)}>Home</NavLink>
         </li>
@@ -132,42 +93,6 @@ const Header = () => {
             }}
             className="flex items-center px-4 py-2 text-white hover:text-gray-300"
           >
-<<<<<<< HEAD
-            Products
-          </button>
-          <ul className={`${openDropdown === "products" ? "block" : "hidden"} group-hover:block md:absolute md:left-0 bg-white text-black shadow-lg rounded-lg p-2 w-56 z-50`}>
-            {products.map((item, index) => (
-              <li key={index} className="p-2 hover:bg-gray-100 rounded">
-                {item.external ? (
-                  <a href={item.link} target="_blank" rel="noopener noreferrer" className="block">{item.title}</a>
-                ) : (
-                  <NavLink to={item.link} className="block">{item.title}</NavLink>
-                )}
-              </li>
-            ))}
-          </ul>
-        </li>
-        
-        <li className="relative group" ref={developmentRef}>
-          <button
-            onClick={() => {
-              if (window.innerWidth < 768) toggleDropdown("development");
-            }}
-            className="flex items-center px-4 py-2 text-white hover:text-gray-300"
-          >
-            Development
-          </button>
-          <ul className={`${openDropdown === "development" ? "block" : "hidden"} group-hover:block md:absolute md:left-0 bg-white text-black shadow-lg rounded-lg p-2 w-56 z-50`}>
-            {developmentMenu.map((item, index) => (
-              <li key={index} className="p-2 hover:bg-gray-100 rounded">
-                <NavLink to={item.link} className="block">{item.title}</NavLink>
-              </li>
-            ))}
-          </ul>
-        </li>
-        
-        <li className="relative group" ref={becomeBrandRef}>
-=======
             <span>Products</span>
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -238,7 +163,7 @@ const Header = () => {
       openDropdown === "development" ? "block" : "hidden"
     } md:absolute md:top-full md:left-0 md:w-auto bg-white md:shadow-lg md:rounded-b-lg p-2 flex-wrap`}
   >
-    {developmentmenu.map((item, index) => (
+    {developmentMenu.map((item, index) => (
       <li key={index} className="p-2 hover:bg-sky-100 rounded-lg w-48">
         <NavLink
           to={item.link}
@@ -258,16 +183,12 @@ const Header = () => {
 
         {/* Become Brand Dropdown */}
         <li className="relative">
->>>>>>> 5e52d0c735b0397e5ac3d01eba1c37effa33edb9
           <button
             onClick={() => {
               if (window.innerWidth < 768) toggleDropdown("becomeBrand");
             }}
             className="flex items-center px-4 py-2 text-white hover:text-gray-300"
           >
-<<<<<<< HEAD
-            Become Brand
-=======
             <span>Become Brand</span>
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -278,14 +199,9 @@ const Header = () => {
             >
               <path d="M0 7.33l2.829-2.83 9.175 9.339 9.167-9.339 2.829 2.83-11.996 12.17z" />
             </svg>
->>>>>>> 5e52d0c735b0397e5ac3d01eba1c37effa33edb9
           </button>
           <ul className={`${openDropdown === "becomeBrand" ? "block" : "hidden"} group-hover:block md:absolute md:left-0 bg-white text-black shadow-lg rounded-lg p-2 w-56 z-50`}>
             {becomeBrand.map((item, index) => (
-<<<<<<< HEAD
-              <li key={index} className="p-2 hover:bg-gray-100 rounded">
-                <NavLink to={item.link} className="block">{item.title}</NavLink>
-=======
               <li key={index} className="p-2 hover:bg-sky-100 rounded-lg w-48">
                <NavLink
           to={item.link}
@@ -297,7 +213,6 @@ const Header = () => {
         >
           {item.title}
         </NavLink>
->>>>>>> 5e52d0c735b0397e5ac3d01eba1c37effa33edb9
               </li>
             ))}
           </ul>
@@ -320,11 +235,6 @@ const Header = () => {
           >
             <FaRegUserCircle className="w-8 h-7" />
           </button>
-<<<<<<< HEAD
-          <ul className={`${openDropdown === "user" ? "block" : "hidden"} group-hover:block md:absolute md:right-0 bg-white text-black shadow-lg rounded-lg p-2 w-48 z-50`}>
-            <li><NavLink to="/register" className="block px-2 py-1 hover:bg-gray-100 rounded">Register</NavLink></li>
-            <li><NavLink to="/login" className="block px-2 py-1 hover:bg-gray-100 rounded">Login</NavLink></li>
-=======
           <ul
             ref={dropdownRef}
             className={`${
@@ -349,7 +259,6 @@ const Header = () => {
                 Login
               </NavLink>
             </li>
->>>>>>> 5e52d0c735b0397e5ac3d01eba1c37effa33edb9
           </ul>
         </li>
       </ul>

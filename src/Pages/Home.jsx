@@ -47,7 +47,7 @@ const Home = () => {
   
   return (
     <div className="w-full">
-      {/* Hero Section */}
+    
       <div className="w-full max-w-screen-xl mx-auto px-4 py-12 md:py-16 grid gap-8 md:grid-cols-2">
         <div className="flex flex-col justify-center">
           <WavyScrollText
@@ -65,20 +65,12 @@ const Home = () => {
             specialize in Brand Building and delivering Ready-to-Use Software like
             CRM, HRM, and Production Automation Suites (B2B & B2C).
           </p>
-<<<<<<< HEAD
-
-          <div className="flex flex-col sm:flex-row items-center justify-start gap-4 mt-6">
-            <button
-              onClick={scrollToBookDemo}
-              className="text-gray-700 font-semibold px-8 py-2 bg-green-400 rounded-full hover:bg-green-500 transition-all ease border border-black hover:text-white w-full sm:w-auto"
-=======
           <div className="flex  md:flex-row items-center justify-start gap-3 mt-4">
             <button
               onClick={scrollToBookDemo}
               className="text-gray-700 font-semibold px-8 py-2 md:px-20 bg-green-400 rounded-full hover:bg-green-500 transition-all ease border  hover:text-white"
->>>>>>> 5e52d0c735b0397e5ac3d01eba1c37effa33edb9
             >
-              Book Demo
+              Book a Demo
             </button>
             <NavLink to="/contact-us">
               <span className="text-gray-50 font-semibold px-8 py-2 rounded-full hover:text-green-500 transition-all ease border-2 border-gray-400 hover:border-green-500 w-full sm:w-auto inline-block text-center">
@@ -89,12 +81,12 @@ const Home = () => {
         </div>
       </div>
 
-      {/* Image Slider */}
+ 
       <div className="w-full max-w-screen-xl mx-auto px-4">
         <AutoSlider />
       </div>
 
-      {/* Stats Section */}
+   
       <div className="w-full max-w-screen-xl mx-auto flex items-center justify-center text-white flex-col px-4 py-12">
         <h2 className="text-2xl md:text-4xl mb-6 font-semibold text-center">
           We have 80% active users across the nation

@@ -1,51 +1,10 @@
-<<<<<<< HEAD
-import React from "react";
-import {
-  FaUsers,
-  FaBullhorn,
-  FaHandshake,
-  FaShareAlt,
-  FaDollarSign,
-} from "react-icons/fa";
-
-=======
 import React, { useEffect } from "react";
 import { FaUsers, FaBullhorn, FaHandshake, FaShareAlt, FaDollarSign } from "react-icons/fa";
 import ScrollReveal from "scrollreveal";
->>>>>>> 5e52d0c735b0397e5ac3d01eba1c37effa33edb9
 const InfluenceMarketing = () => {
   const cardsContent = [
     {
       title: "Influencer Discovery",
-<<<<<<< HEAD
-      description:
-        "We find influencers that align with your brand and engage your target audience.",
-      icon: <FaUsers className="w-10 h-10 text-green-500" />,
-    },
-    {
-      title: "Campaign Management",
-      description:
-        "We plan and manage influencer campaigns to maximize brand impact.",
-      icon: <FaBullhorn className="w-10 h-10 text-green-500" />,
-    },
-    {
-      title: "Content Collaboration",
-      description:
-        "We create compelling content in collaboration with influencers.",
-      icon: <FaHandshake className="w-10 h-10 text-green-500" />,
-    },
-    {
-      title: "Social Media Activation",
-      description:
-        "We boost brand visibility through influencer-driven social media campaigns.",
-      icon: <FaShareAlt className="w-10 h-10 text-green-500" />,
-    },
-    {
-      title: "Influencer Compensation",
-      description:
-        "We handle fair and strategic influencer compensation negotiations.",
-      icon: <FaDollarSign className="w-10 h-10 text-green-500" />,
-=======
       description: "We find influencers that align with your brand and engage your target audience.",
       icon: <FaUsers className="w-12 h-12 text-green-500 bg-gray-200 rounded-full p-2" />,
     },
@@ -68,7 +27,6 @@ const InfluenceMarketing = () => {
       title: "Influencer Compensation",
       description: "We handle fair and strategic influencer compensation negotiations.",
       icon: <FaDollarSign className="w-12 h-12 text-cyan-500 bg-gray-200 rounded-full p-2" />,
->>>>>>> 5e52d0c735b0397e5ac3d01eba1c37effa33edb9
     },
   ];
 useEffect(() => {
@@ -106,12 +64,8 @@ useEffect(() => {
         {cardsContent.map((card, index) => (
           <div
             key={index}
-<<<<<<< HEAD
-            className="bg-white p-6 rounded-2xl shadow-md flex flex-col items-center text-center hover:shadow-xl hover:scale-105 transition-transform duration-300"
-=======
             className={`bg-white p-6 rounded-xl shadow-lg flex flex-col items-center text-center transition-transform duration-300 hover:scale-105 card`}
             style={{ animationDelay: `${index * 0.9}s` }}
->>>>>>> 5e52d0c735b0397e5ac3d01eba1c37effa33edb9
           >
             <div className="bg-green-100 rounded-full p-4 mb-4">
               {card.icon}

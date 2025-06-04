@@ -25,85 +25,91 @@ gsap.registerPlugin(ScrollTrigger);
 
 const TabBar = () => {
   const [activeModal, setActiveModal] = useState(null);
-
   gsap.set(".fade-in-content", { opacity: 1 });
 
- useGSAP(() => {
-  // Trigger to fade-in content & animations once
-  ScrollTrigger.create({
-    trigger: ".draw-path",
-    
-  
-    onEnter: () => {
-      gsap.to(".fade-in-content", { opacity: 1, duration: 1.5 });
-      gsap.from("#img1,#img2,#img-text1,#img-text2", {
-        opacity: 0,
-        scale: 0.8,
-        duration: 1,
-        delay: 1,
-        ease: "power2.out",
-      });
-      gsap.from("#first-text", {
-        y: -40,
-        opacity: 0,
-        duration: 1,
-        ease: "power2.out",
-      });
-      gsap.from("#text-2", {
-        opacity: 0,
-        scale: 0.8,
-        duration: 1,
-        delay: 1,
-        ease: "power2.out",
-      });
-      gsap.from("#first-cercle", {
-        x: -100,
-        duration: 1,
-        opacity: 0,
-      });
-      gsap.from("#sec-cercle", {
-        x: 100,
-        duration: 1,
-        opacity: 0,
-      });
-      gsap.from("#third-cercle", {
-        x: -100,
-        duration: 1,
-        opacity: 0,
-      });
-      gsap.from("#fourth-cercle", {
-        x: 100,
-        duration: 1,
-        opacity: 0,
-      });
-      gsap.from("#five-cercle", {
-        y: 100,
-        duration: 1,
-        opacity: 0,
-      });
-      gsap.from("#six-cercle", {
-        y: 100,
-        duration: 1,
-        opacity: 0,
-      });
-    },
-  });
+  useGSAP(() => {
+    ScrollTrigger.create({
+      trigger: ".draw-path ",
+      start: "top 30%",
+      end: "top 0%",
+      scrub: true,
 
-  // Draw path animation once
-  gsap.fromTo(
-    ".draw-path path",
-    { strokeDashoffset: 1000 },
-    {
-      strokeDashoffset: 0,
-      duration: 2,
-      ease: "power3.inOut",
-      scrollTrigger: {
-        trigger: ".draw-path",
-       
+      // markers:true,
+      onEnter: () => {
+        gsap.to(".fade-in-content", { opacity: 1, duration: 1.5 });
+        gsap.from("#img1,#img2,#img-text1,#img-text2", {
+          opacity: 0,
+          scale: 0.8,
+          duration: 1,
+          delay: 1,
+          ease: "power2.out"
+        });
+        gsap.from("#first-text", {
+          y: -40,
+          opacity: 0,
+          duration: 1,
+          ease: "power2.out"
+        });
+        gsap.from("#text-2", {
+          opacity: 0,
+          scale: 0.8,
+          duration: 1,
+          delay: 1,
+          ease: "power2.out"
+        });
+        gsap.from("#first-cercle", {
+          x: -100,
+          duration: 1,
+          opacity: 0
+        })
+        gsap.from("#sec-cercle", {
+          x: 100,
+          duration: 1,
+          opacity: 0
+        })
+        gsap.from("#third-cercle", {
+          x: -100,
+          duration: 1,
+          opacity: 0
+        })
+        gsap.from("#fourth-cercle", {
+          x: 100,
+          duration: 1,
+          opacity: 0
+        })
+        gsap.from("#five-cercle", {
+          y: 100,
+          duration: 1,
+          opacity: 0
+        })
+        gsap.from("#six-cercle", {
+          y: 100,
+          duration: 1,
+          opacity: 0
+        })
+
       },
-    }
-  );
-}, []);
+      onLeaveBack: () => {
+        gsap.to(".fade-in-content", { opacity: 0, duration: 0.3 });
+      }
+    });
+
+    gsap.fromTo(
+      ".draw-path path",
+      { strokeDashoffset: 1000 },
+      {
+        strokeDashoffset: 0,
+        duration: 4,
+        ease: "power3.inOut",
+        scrollTrigger: {
+          trigger: ".draw-path",
+          start: "top 40%",
+          end: "top 0%",
+          scrub: true
+        }
+      }
+    );
+  }, []);
 
 
   useEffect(() => {

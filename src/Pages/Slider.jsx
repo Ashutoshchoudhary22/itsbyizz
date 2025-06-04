@@ -14,14 +14,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 
 gsap.registerPlugin(ScrollTrigger);
-// const categories = [
-//   { name: "IT", component: <It /> },
-//   { name: "Security", component: <Security /> },
-//   { name: "Human Resources", component: <HumanResource /> },
-//   { name: "CRM", component: <CRM /> },
-//   { name: "App Development", component: <AppDevelopment /> },
-//   { name: "Finance & Supply Chain", component: <Finance /> },
-// ];
+
 
 const TabBar = () => {
   const [activeModal, setActiveModal] = useState(null);
@@ -31,7 +24,7 @@ const TabBar = () => {
   useGSAP(() => {
     ScrollTrigger.create({
       trigger: ".draw-path ",
-      start: "top 30%",
+      start: "top 40%",
       end: "top 0%",
       scrub: true,
 
@@ -113,9 +106,9 @@ const TabBar = () => {
   }, []);
 
 
+
   useEffect(() => {
     const element = document.querySelector(".draw-path");
-
     const handleScroll = () => {
       const rect = element.getBoundingClientRect();
       const inView =
@@ -128,7 +121,6 @@ const TabBar = () => {
         element.classList.remove("animate");
       }
     };
-
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -141,10 +133,12 @@ const TabBar = () => {
       <div className="pt-5 pb-16"></div>
       <svg
         width="100%"
+        height="60vh"
         viewBox="50 10 100 100"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
-        className="draw-path  h-[77vh] max-[600px]:h-[24vh]"
+        className="draw-path max-[800px]:h-[24vh] "
+
         preserveAspectRatio="xMidYMid meet"
       >
         <defs>
@@ -171,7 +165,7 @@ const TabBar = () => {
       <div className="fade-in-content  opacity-0 transition-opacity duration-200">
         <div
           id="all-cercle"
-          className="absolute top-[100px] w-full px-10 mb-10 text-white text-center "
+          className="absolute  md:top-[120px] top-[100px] w-full px-10 mb-10 text-white text-center"
         >
           <div className="flex justify-around  md:pt-1">
             <button
@@ -179,11 +173,11 @@ const TabBar = () => {
               id="first-cercle"
               className="flex flex-col items-center space-y-2"
             >
-                  <p className=" text-[12px] md:text-sm">IT</p>
+              <p className=" text-[12px] md:text-sm">IT</p>
               <div className="w-[25px] h-[25px] md:w-[50px] md:h-[50px] rounded-full flex items-center justify-center bg-white/50">
                 <div className=" w-[15px] h-[15px] md:w-[30px] md:h-[30px] rounded-full bg-white border border-white"></div>
               </div>
-          
+
             </button>
 
             <button
@@ -191,11 +185,11 @@ const TabBar = () => {
               id="sec-cercle"
               className="flex flex-col items-center space-y-2 pt-2 md:pt-1 pl-10 md:pl-1"
             >
-               <p className=" text-[12px] md:text-sm">CRM</p>
+              <p className=" text-[12px] md:text-sm">CRM</p>
               <div className="w-[22px] h-[22px] md:w-[50px] md:h-[50px] rounded-full flex items-center justify-center bg-white/50">
                 <div className="w-[12px] h-[12px] md:w-[30px] md:h-[30px]  rounded-full bg-white border border-white"></div>
               </div>
-             
+
             </button>
           </div>
 
@@ -208,7 +202,7 @@ const TabBar = () => {
               <div className="w-[22px] h-[22px] md:w-[50px] md:h-[50px] rounded-full flex items-center justify-center bg-white/50">
                 <div className="w-[12px] h-[12px] md:w-[30px] md:h-[30px]  rounded-full bg-white border border-white"></div>
               </div>
-              <p className=" text-[12px] md:text-sm">Security &<br/> Risk</p>
+              <p className=" text-[12px] md:text-sm">Security &<br /> Risk</p>
             </button>
 
             <button
@@ -219,7 +213,7 @@ const TabBar = () => {
               <div className="w-[22px] h-[22px] md:w-[50px] md:h-[50px] rounded-full flex items-center justify-center bg-white/50">
                 <div className="w-[12px] h-[12px] md:w-[30px] md:h-[30px] rounded-full bg-white border border-white"></div>
               </div>
-              <p className=" text-[10px] md:text-sm">Finance<br/>& Supply</p>
+              <p className=" text-[10px] md:text-sm">Finance<br />& Supply</p>
             </button>
           </div>
 
@@ -249,57 +243,62 @@ const TabBar = () => {
         </div>
 
         <div className="absolute w-full text-center top-2 md:-top-5">
-    <h1 className="text-[18px] sm:text-[22px] md:text-[40px] font-bold text-white leading-tight">
-      <span className="text-[#62D84E]">The AI platform</span> <br />
-      <span className="text-[20px] md:text-[25px]">for business transformation</span>
-    </h1>
-  </div>
+          <h1 className="text-[18px] sm:text-[22px] md:text-[40px] font-bold text-white leading-tight">
+            <span className="text-[#62D84E]">The AI platform</span> <br />
+            <span className="text-[20px] md:text-[25px]">for business transformation</span>
+          </h1>
+        </div>
         <div
           id="first-container"
-          className="  absolute top-[12rem] md:top-[16rem] max-[600px]:left-2 left-[40rem] transform -translate-x-1/2 w-[60%]"
+          className="absolute top-[12rem] md:top-[16rem] hidden md:block left-1/2 transform -translate-x-1/2 w-[90%] md:w-[70%] lg:w-[60%]"
         >
-          <div className="flex justify-between items-center">
-            <div>
+          <div className="flex flex-col md:flex-row justify-between items-center gap-6  ">
+
+            <div className="flex flex-col items-center">
               <img
                 id="img1"
                 src="/menLogo.avif"
                 alt="Employees"
-                className="w-[200px]  max-[600px]:hidden"
+                className="w-[120px] md:w-[160px] lg:w-[200px]"
               />
               <div
                 id="img-text1"
-                className="relative left-40 md:left-0  md:top-[-35px] mx-auto  w-22 md:w-fit px-4 py-1 border border-blue-500 bg-blue-900 rounded-full text-white text-[12px] md:text-[16px]"
+                className="mt-2 md:mt-[-20px] px-4 py-1 border border-blue-500 bg-blue-900 rounded-full text-white text-[12px] md:text-[16px]"
               >
                 Employees
               </div>
             </div>
-            <div className="relative -top-3 left-1 max-[600px]:hidden ">
+
+
+            <div className="text-center">
               <p
                 id="text-2"
-                className="text-stroke text-[40px] text-center font-extrabold leading-tight"
+                className="text-stroke text-[32px] md:text-[40px] font-extrabold leading-tight"
               >
-                <span className="text-[60px] ">AI</span>
+                <span className="text-[48px] md:text-[60px]">AI</span>
                 <br />
                 AGENTS
               </p>
             </div>
 
-            <div>
+
+            <div className="flex flex-col items-center">
               <img
                 id="img2"
                 src="/womenLogo.avif"
                 alt="Customers"
-                className="w-[200px]  max-[600px]:hidden "
+                className="w-[120px] md:w-[160px] lg:w-[200px]"
               />
               <div
                 id="img-text2"
-                className="relative left-56 md:left-0 md:top-[-35px] mx-auto w-22 md:w-fit px-4 py-1 border border-blue-500 bg-blue-900 rounded-full text-white text-[12px] md:text-[16px]"
+                className="mt-2 md:mt-[-20px] px-4 py-1 border border-blue-500 bg-blue-900 rounded-full text-white text-[12px] md:text-[16px]"
               >
                 Customers
               </div>
             </div>
           </div>
         </div>
+
       </div>
 
       <AnimatePresence>

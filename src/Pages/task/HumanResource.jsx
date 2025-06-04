@@ -15,7 +15,7 @@ const It = ({ show, onClose }) => {
       className={`${show ? "visible" : "invisible"
         } fixed top-0 left-0 w-full h-full bg-black/50 backdrop-blur-sm flex justify-center items-center z-50`}
     >
-      <div className="relative flex flex-col lg:flex-row justify-between items-start mx-4 sm:mx-8 lg:mx-16 rounded-lg sm:px-6 lg:px-10 py-8 gap-8 bg-gradient-to-r from-[#27725c] to-[#1bb392] shadow-2xl max-w-6xl w-full">
+      <div className="relative flex flex-col lg:flex-row justify-between items-start mx-4 sm:mx-8 lg:mx-16 rounded-lg sm:px-6 lg:px-10 py-8 gap-8 bg-gradient-to-r from-[#27725c] to-[#1bb392] shadow-2xl w-[85%] max-w-2xl lg:max-w-6xl max-h-[90vh]">
 
         <button
           onClick={onClose}
@@ -24,7 +24,7 @@ const It = ({ show, onClose }) => {
         >
           <IoClose size={28} />
         </button>
-        <div className="w-full lg:w-2/3">
+        <div className="w-full lg:w-2/3 p-4">
 
           <motion.p
             className="text-white text-2xl sm:text-3xl lg:text-4xl font-extrabold leading-snug font-serif mb-4"
@@ -32,11 +32,11 @@ const It = ({ show, onClose }) => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, ease: "easeOut" }}
           >
-            ⚙️ Empower Your Workforce with ServiceNow AI
+          Empower Your Workforce with ServiceNow AI
           </motion.p>
 
           <p className="text-white mb-4 text-sm sm:text-base font-medium">
-            Boost employee satisfaction and efficiency with AI-powered self-service. ServiceNow AI enables employees to find answers instantly, streamline workplace tasks, and focus on career growth—enhancing productivity and engagement.
+            Boost employee satisfaction and efficiency with AI-powered self-service. 
           </p>
 
           <button className="mb-6 text-gray-700 font-semibold px-6 sm:px-10 py-2 bg-green-400 rounded-full hover:bg-green-500 transition-all border border-black hover:text-white">
@@ -63,7 +63,7 @@ const It = ({ show, onClose }) => {
             ))}
           </div>
         </div>
-        <div className="w-full lg:w-1/3 flex justify-center">
+        <div className="w-full lg:w-1/3 relative -top-10 md:-top-0 flex justify-center">
           <IncidentCard3 />
         </div>
       </div>

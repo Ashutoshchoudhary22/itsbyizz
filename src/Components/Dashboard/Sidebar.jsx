@@ -1,4 +1,5 @@
 import React from "react";
+
 import {
   FiMenu,
   FiX,
@@ -20,109 +21,136 @@ import { FaBuilding } from "react-icons/fa";
 import { NavLink, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 
-const Sidebar = ({ isOpen, toggleSidebar }) => {
+const Sidebar = ({ toggleSidebar, isOpen }) => {
   const navigate = useNavigate();
 
   const handlelogout = () => {
     localStorage.removeItem("user");
-    toast.success('Logout successfully.')
-    navigate('/');
-  }
+    toast.success("Logout successfully.");
+    navigate("/");
+  };
 
   return (
     <aside
-      className={`fixed inset-y-0 left-0 z-50 w-64 bg-gradient-to-b from-sky-900 to-sky-800 text-white transform ${
+      className={`sidebar-scroll fixed inset-y-0 left-0 z-50 w-64 bg-gradient-to-b from-sky-900 to-sky-800 text-white transform ${
         isOpen ? "translate-x-0" : "-translate-x-64"
       } transition-transform duration-300 ease-in-out md:relative md:translate-x-0 md:w-64`}
     >
-      <div className="p-5 flex justify-between items-center md:hidden">
-        <h2 className="text-xl font-bold">ITSYBIZZ</h2>
-        <button
-          onClick={toggleSidebar}
-          className="text-white focus:outline-none"
-        >
-          <FiX size={24} />
-        </button>
-      </div>
-      <nav className="p-5">
-        <ul className="space-y-4">
-          <NavLink
-            to="/dashboard"
-            className="flex items-center space-x-2 p-3 hover:bg-sky-700 rounded cursor-pointer"
-          >
-            <FiHome /> <span>Dashboard</span>
-          </NavLink>
+      <div className="h-screen sidebar-scroll">
+        <nav className="p-3 ">
+          <div className=" flex items-center justify-between font-bold text-xl mb-10 ml-5">
+            <h1>ITSYBIZZ</h1>
+            <button className="md:hidden text-white" onClick={toggleSidebar}>
+              {isOpen ? <FiX size={24} /> : <FiMenu size={24} />}
+            </button>
+          </div>
+          <ul className="space-y-4">
+            <NavLink
+              to="/dashboard"
+              onClick={() => {
+                if (window.innerWidth < 768) toggleSidebar();
+              }}
+              className="flex items-center text-lg font-semibold space-x-2  p-2 hover:bg-sky-950 rounded-xl cursor-pointer"
+            >
+              <FiHome /> <span>Dashboard</span>
+            </NavLink>
 
-          <NavLink
-            to="users"
-            className="flex items-center space-x-2 hover:bg-sky-700 p-3 rounded cursor-pointer"
-          >
-            <FiUsers /> <span>Users</span>
-          </NavLink>
+            <NavLink
+              to="users"
+              onClick={() => {
+                if (window.innerWidth < 768) toggleSidebar();
+              }}
+              className="flex items-center  text-lg font-semibold space-x-2 hover:bg-sky-950 p-2 rounded-xl cursor-pointer"
+            >
+              <FiUsers /> <span>Users</span>
+            </NavLink>
 
-          <NavLink
-            to="career"
-            className="flex items-center space-x-2 hover:bg-sky-700 p-3 rounded cursor-pointer"
-          >
-            <FiBriefcase /> <span>Career</span>
-          </NavLink>
+            <NavLink
+              to="career"
+              onClick={() => {
+                if (window.innerWidth < 768) toggleSidebar();
+              }}
+              className="flex items-center  text-lg font-semibold space-x-2  hover:bg-sky-950 p-2 rounded-xl cursor-pointer"
+            >
+              <FiBriefcase /> <span>Career</span>
+            </NavLink>
 
-          <NavLink
-            to="enquiry"
-            className="flex items-center space-x-2 hover:bg-sky-700 p-3 rounded cursor-pointer"
-          >
-            <FiMessageCircle /> <span>Enquiry</span>
-          </NavLink>
+            <NavLink
+              to="enquiry"
+              onClick={() => {
+                if (window.innerWidth < 768) toggleSidebar();
+              }}
+              className="flex items-center  text-lg font-semibold  space-x-2 hover:bg-sky-950 p-2 rounded-xl cursor-pointer"
+            >
+              <FiMessageCircle /> <span>Enquiry</span>
+            </NavLink>
 
-          <NavLink
-            to="contact-list"
-            className="flex items-center space-x-2 hover:bg-sky-700 p-3 rounded cursor-pointer"
-          >
-            <FiPhone /> <span>Contact</span>
-          </NavLink>
+            <NavLink
+              to="contact-list"
+              onClick={() => {
+                if (window.innerWidth < 768) toggleSidebar();
+              }}
+              className="flex items-center  text-lg font-semibold  space-x-2 hover:bg-sky-950 p-3 rounded-xl cursor-pointer"
+            >
+              <FiPhone /> <span>Contact</span>
+            </NavLink>
 
-          <NavLink
-            to="products"
-            className="flex items-center space-x-2 hover:bg-sky-700 p-3 rounded cursor-pointer"
-          >
-            <FiPackage /> <span>IOT Products</span>
-          </NavLink>
+            <NavLink
+              onClick={() => {
+                if (window.innerWidth < 768) toggleSidebar();
+              }}
+              to="products"
+              className="flex items-center  text-lg font-semibold  space-x-2 hover:bg-sky-950 p-3 rounded-xl cursor-pointer"
+            >
+              <FiPackage /> <span>IOT Products</span>
+            </NavLink>
 
-          <NavLink
-            to="products/quote"
-            className="flex items-center space-x-2 hover:bg-sky-700 p-3 rounded cursor-pointer"
-          >
-            <FiClipboard /> <span>IOT Products Quote</span>
-          </NavLink>
+            <NavLink
+              to="products/quote"
+              onClick={() => {
+                if (window.innerWidth < 768) toggleSidebar();
+              }}
+              className="flex items-center  text-lg font-semibold  space-x-2 hover:bg-sky-950 p-3 rounded-xl cursor-pointer"
+            >
+              <FiClipboard /> <span>IOT Products Quote</span>
+            </NavLink>
 
-          <NavLink
-            to="employees"
-            className="flex items-center space-x-2 hover:bg-sky-700 p-3 rounded cursor-pointer"
-          >
-            <FiUserCheck /> <span>Employee</span>
-          </NavLink>
+            <NavLink
+              to="employees"
+              onClick={() => {
+                if (window.innerWidth < 768) toggleSidebar();
+              }}
+              className="flex items-center  text-lg font-semibold  space-x-2 hover:bg-sky-950 p-3 rounded-xl cursor-pointer"
+            >
+              <FiUserCheck /> <span>Employee</span>
+            </NavLink>
 
-          <NavLink
-            to="followups"
-            className="flex items-center space-x-2 hover:bg-sky-700 p-3 rounded cursor-pointer"
-          >
-            <FiClipboard /> <span>Follow Ups</span>
-          </NavLink>
+            <NavLink
+              to="followups"
+              onClick={() => {
+                if (window.innerWidth < 768) toggleSidebar();
+              }}
+              className="flex items-center  text-lg font-semibold  space-x-2 hover:bg-sky-950 p-3 rounded-xl cursor-pointer"
+            >
+              <FiClipboard /> <span>Follow Ups</span>
+            </NavLink>
 
-          {/* <NavLink to="refferal" className="flex items-center space-x-2 hover:bg-sky-700 p-3 rounded cursor-pointer"><FiTrendingUp /> <span>Refferal Program</span></NavLink>
+            {/* <NavLink to="refferal" className="flex items-center space-x-2 hover:bg-sky-700 p-3 rounded cursor-pointer"><FiTrendingUp /> <span>Refferal Program</span></NavLink>
          
           <NavLink to="business" className="flex items-center space-x-2 hover:bg-sky-700 p-3 rounded cursor-pointer"><FiDollarSign /> <span>Business</span></NavLink>
 
           <NavLink to="corporate" className="flex items-center space-x-2 hover:bg-sky-700 p-3 rounded cursor-pointer"><FaBuilding /> <span>Corporate</span></NavLink> */}
-        </ul>
+          </ul>
 
-        <button
-          className="w-full hover:bg-white hover:text-sky-800 transition-all ease-in rounded font-semibold shadow border border-white mt-5 text-center p-2"
-          onClick={handlelogout}
-        >
-          Logout
-        </button>
-      </nav>
+          <button
+            className="w-full  hover:text-sky-800 transition-all ease-in  mt-5 text-center p-2
+           bg-gradient-to-b from-sky-700 to-sky-400  rounded-lg text-white text-lg font-bold px-8 py-3 shadow-inner shadow-[#ffffff99] drop-shadow-md tracking-wide hover:from-sky-600 hover:to-sky-400"
+            onClick={handlelogout}
+          >
+            Logout
+          </button>
+        </nav>
+      </div>
     </aside>
   );
 };

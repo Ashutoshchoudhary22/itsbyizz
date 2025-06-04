@@ -64,7 +64,7 @@ const Footer = () => {
         </div>
 
         {/* Links Section */}
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-10 text-center md:text-left mt-6 md:mt-0">
+        <div className="grid grid-cols-3 md:grid-cols-3 gap-10 text-center md:text-left mt-8 md:mt-0">
           {/* Quick Links */}
           <div>
             <h2 className="text-lg font-bold">Quick Links</h2>

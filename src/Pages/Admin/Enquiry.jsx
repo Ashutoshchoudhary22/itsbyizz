@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { FaEdit, FaEye } from "react-icons/fa";
-import { MdDelete } from "react-icons/md";
+import { FaEdit, FaEye, FaSearch } from "react-icons/fa";
+import { MdDelete, MdViewModule } from "react-icons/md";
 import axios from "axios";
 import toast from "react-hot-toast";
 import Modal from "../../Components/Dashboard/Modal";
@@ -17,6 +17,8 @@ const Enquiry = () => {
   const [editEnquiry, setEditEnquiry] = useState(null);
 
   const itemsPerPage = 10; // Show only 10 items per page
+
+const [searchBy, setSearchBy] = useState("name");
 
   useEffect(() => {
     const getUsers = async () => {
@@ -56,13 +58,11 @@ const Enquiry = () => {
   }, []);
 
   // Filtered data based on search query
-  const filteredEnquiry = enquiryList.filter(
-    (entry) =>
-      entry?.date?.includes(search) ||
-      entry?.name?.toLowerCase().includes(search.toLowerCase()) ||
-      entry?.mobile?.includes(search) ||
-      entry?.requirement?.toLowerCase().includes(search.toLowerCase())
-  );
+  
+  const filteredEnquiry = enquiryList.filter((user) => {
+  const value = user[searchBy]?.toString().toLowerCase() || "";
+  return value.includes(search.toLowerCase());
+});
 
   // Pagination logic
   const totalPages = Math.ceil(filteredEnquiry.length / itemsPerPage);
@@ -140,32 +140,54 @@ const Enquiry = () => {
     : [];
 
   return (
-    <div className="p-5">
-      <h2 className="text-2xl text-sky-900 font-bold mb-4">Enquiry Requests</h2>
-      <div className="mb-4 float-end">
-        <input
-          type="text"
-          placeholder="Search... "
-          className="p-2 border border-gray-200 rounded"
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-        />
+    <div className="p-2">
+    <div className="w-full flex flex-col md:flex-row items-start md:items-center justify-between gap-4 mb-5">
+
+        <h2 className="text-xl md:text-3xl text-sky-900 font-bold ">Enquiry request</h2>
+         <div className="w-xl max-w-[360px] max-h-12 border border-gray-300 rounded shadow-sm  px-3 py-2  flex items-center justify-end gap-3 bg-white">
+          {/* Search Icon */}
+          <FaSearch className="text-gray-500" />
+
+          {/* Input */}
+          <input
+            type="text"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            placeholder={`Search by ${searchBy}`}
+            className="flex outline-none text-sm text-gray-800 placeholder-gray-400"
+          />
+
+          {/* Dropdown (stubbed) */}
+          <select
+            value={searchBy}
+            onChange={(e) => setSearchBy(e.target.value)}
+            className="text-sm bg-transparent text-gray-700 outline-none"
+          >
+            <option value="name">by name</option>
+            <option value="requirement">by requirement</option>
+            <option value="mobile">by mobile</option>
+            
+          </select>
+
+          {/* Grid Icon */}
+          <MdViewModule className="text-gray-700 text-xl cursor-pointer" />
+        </div>
       </div>
-      <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-        <thead className="text-xs text-sky-50 uppercase bg-sky-800 dark:bg-gray-700 dark:text-gray-400">
+      <div className="table-scroll max-h-[calc(100vh-200px)] rounded shadow">
+      <table className="w-full text-sm text-left rtl:text-right text-gray-600"><thead className="text-xs  uppercase bg-gray-100 text-gray-800 bg-gradient-to-b from-gray-100 to-gray-100  rounded-lg   font-bold px-8 py-4 shadow-inner shadow-[#ffffff99] drop-shadow-md tracking-wide ">
           <tr>
-            <th className="px-6 py-3">Date</th>
-            <th className="px-6 py-3">Name</th>
-            <th className="px-6 py-3">Mobile</th>
-            <th className="px-6 py-3">Requirement</th>
-            <th className="px-6 py-3">Actions</th>
+            <th className="px-6 py-4">Date</th>
+            <th className="px-6 py-4">Name</th>
+            <th className="px-6 py-4">Mobile</th>
+            <th className="px-6 py-4">Requirement</th>
+            <th className="px-6 py-4">Actions</th>
           </tr>
         </thead>
         <tbody>
           {paginatedData.map((entry) => (
             <tr
               key={entry._id} // Use _id instead of id
-              className="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700 border-gray-200"
+              className="odd:bg-white  even:bg-gray-100  border-b  border-gray-200"
             >
               <td className="p-3 font-semibold">
                 {new Date(entry.date).toLocaleDateString("en-GB", {
@@ -191,7 +213,7 @@ const Enquiry = () => {
                   <FaEdit />
                 </button>
                 <button
-                  className="px-2 py-2 text-lg text-orange-500 rounded hover:text-orange-600"
+                  className="px-2 py-2 text-lg text-red-500 rounded hover:text-red-600"
                   onClick={() => handleDeleteUser(entry._id)} // Use _id instead of id
                 >
                   <MdDelete />
@@ -201,7 +223,7 @@ const Enquiry = () => {
           ))}
         </tbody>
       </table>
-
+</div>
       {/* Pagination Controls */}
       {totalPages > 1 && (
         <div className="mt-4 flex justify-center items-center space-x-4">

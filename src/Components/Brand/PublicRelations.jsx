@@ -1,44 +1,76 @@
 import React, { useEffect } from "react";
-import { FaNewspaper, FaShieldAlt, FaPenNib, FaBullhorn, FaCalendarCheck } from "react-icons/fa";
+import {
+  FaNewspaper,
+  FaShieldAlt,
+  FaPenNib,
+  FaBullhorn,
+  FaCalendarCheck,
+} from "react-icons/fa";
 import ScrollReveal from "scrollreveal";
+
 const PublicRelations = () => {
   const cardsContent = [
     {
       title: "Media Relations",
-      description: "We build strong media connections to ensure positive brand coverage across various platforms.",
-      icon: <FaNewspaper className="w-12 h-12 text-red-500 bg-gray-200 rounded-full p-2" />,
+      description:
+        "We build strong media connections to ensure positive brand coverage across various platforms.",
+      icon: (
+        <FaNewspaper className="w-12 h-12 text-red-500 bg-gray-200 rounded-full p-2" />
+      ),
     },
     {
       title: "Reputation Management",
-      description: "We monitor and enhance your brand’s image, addressing potential issues proactively.",
-      icon: <FaShieldAlt className="w-12 h-12 text-blue-500 bg-gray-200 rounded-full p-2" />,
+      description:
+        "We monitor and enhance your brand’s image, addressing potential issues proactively.",
+      icon: (
+        <FaShieldAlt className="w-12 h-12 text-blue-500 bg-gray-200 rounded-full p-2" />
+      ),
     },
     {
       title: "Content Creation",
-      description: "We craft engaging stories, press releases, and blogs to amplify your brand's presence.",
-      icon: <FaPenNib className="w-12 h-12 text-orange-500 bg-gray-200 rounded-full p-2" />,
+      description:
+        "We craft engaging stories, press releases, and blogs to amplify your brand's presence.",
+      icon: (
+        <FaPenNib className="w-12 h-12 text-orange-500 bg-gray-200 rounded-full p-2" />
+      ),
     },
     {
       title: "Thought Leadership",
-      description: "We position you as an industry expert through articles, interviews, and expert insights.",
-      icon: <FaBullhorn className="w-12 h-12 text-green-500 bg-gray-200 rounded-full p-2" />,
+      description:
+        "We position you as an industry expert through articles, interviews, and expert insights.",
+      icon: (
+        <FaBullhorn className="w-12 h-12 text-green-500 bg-gray-200 rounded-full p-2" />
+      ),
     },
     {
       title: "Event PR",
-      description: "We manage event promotions to maximize engagement, media attention, and brand impact.",
-      icon: <FaCalendarCheck className="w-12 h-12 text-purple-500 bg-gray-200 rounded-full p-2" />,
+      description:
+        "We manage event promotions to maximize engagement, media attention, and brand impact.",
+      icon: (
+        <FaCalendarCheck className="w-12 h-12 text-purple-500 bg-gray-200 rounded-full p-2" />
+      ),
+    },
+    {
+      title: "Crisis Communication", // ✅ New Card
+      description:
+        "We develop immediate response strategies to manage communication during challenging situations and safeguard brand trust.",
+      icon: (
+        <FaShieldAlt className="w-12 h-12 text-teal-500 bg-gray-200 rounded-full p-2" />
+      ),
     },
   ];
-useEffect(() => {
+
+  useEffect(() => {
     ScrollReveal().reveal(".card", {
-      duration: 800, // Animation duration
-      origin: "bottom", // Starts from bottom
-      distance: "50px", // Moves 50px up
+      duration: 800,
+      origin: "bottom",
+      distance: "50px",
       easing: "ease-in-out",
-      interval: 200, // Stagger effect (one by one)
-      reset: false, // Prevents re-animation when scrolling back
+      interval: 200,
+      reset: false,
     });
   }, []);
+
   return (
     <div className="w-full py-12 px-5 bg-gray-50 relative overflow-hidden">
       {/* Background Effects */}
@@ -64,15 +96,13 @@ useEffect(() => {
         {cardsContent.map((card, index) => (
           <div
             key={index}
-            className={`bg-white p-6 rounded-xl shadow-lg flex flex-col items-center text-center transition-transform duration-300 hover:scale-105 card`}
+            className="bg-white p-6 rounded-xl shadow-lg flex flex-col items-center text-center transition-transform duration-300 hover:scale-105 card"
             style={{ animationDelay: `${index * 0.9}s` }}
           >
-            <div className="bg-green-100 rounded-full p-4 mb-4">
-              {card.icon}
-            </div>
-            <h3 className="text-xl font-semibold text-gray-800">
+            {card.icon}
+            <h2 className="text-xl font-semibold text-gray-800 mt-4">
               {card.title}
-            </h3>
+            </h2>
             <p className="text-gray-600 mt-2">{card.description}</p>
           </div>
         ))}
@@ -82,4 +112,3 @@ useEffect(() => {
 };
 
 export default PublicRelations;
-

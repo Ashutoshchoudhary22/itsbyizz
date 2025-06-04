@@ -146,7 +146,7 @@ const Overview = () => {
   }, []);
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 p-5">
+    <div className="grid grid-cols-1 md:grid-cols-3 w-[360px] md:w-5xl h-12 md:h-10  gap-6 p-3 md:p-5">
       {stats.map((stat, index) => (
         <div
           key={index}

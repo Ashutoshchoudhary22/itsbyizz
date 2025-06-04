@@ -39,7 +39,7 @@ import IotProducts from "./Pages/IotProducts";
 import Forgotpwd from "./Pages/Forgotpwd";
 import PageNotFound from "./PageNotFound";
 import ResetPassword from "./Pages/ResetPassword";
-
+import './index.css';
 
 const App = () => {
 

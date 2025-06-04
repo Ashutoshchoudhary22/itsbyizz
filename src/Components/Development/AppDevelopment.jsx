@@ -1,6 +1,14 @@
 import React, { useEffect } from "react";
-import { FaApple, FaAndroid, FaSyncAlt, FaBug, FaWrench } from "react-icons/fa";
+import {
+  FaApple,
+  FaAndroid,
+  FaSyncAlt,
+  FaBug,
+  FaWrench,
+  FaPencilRuler, // New icon
+} from "react-icons/fa";
 import ScrollReveal from "scrollreveal";
+
 const AppDevelopment = () => {
   const cardsContent = [
     {
@@ -28,18 +36,24 @@ const AppDevelopment = () => {
       description: "Keeping your app up-to-date and running smoothly post-launch.",
       icon: <FaWrench className="w-12 h-12 text-cyan-500 bg-gray-200 rounded-full p-2" />,
     },
+    {
+      title: "UI/UX Design",
+      description: "Designing engaging interfaces and user flows for a premium experience.",
+      icon: <FaPencilRuler className="w-12 h-12 text-indigo-500 bg-gray-200 rounded-full p-2" />,
+    },
   ];
 
   useEffect(() => {
     ScrollReveal().reveal(".card", {
-      duration: 800, // Animation duration
-      origin: "bottom", // Starts from bottom
-      distance: "50px", // Moves 50px up
+      duration: 800,
+      origin: "bottom",
+      distance: "50px",
       easing: "ease-in-out",
-      interval: 200, // Stagger effect (one by one)
-      reset: false, // Prevents re-animation when scrolling back
+      interval: 200,
+      reset: false,
     });
   }, []);
+
   return (
     <div className="relative w-full py-16 px-6 bg-gradient-to-b from-white to-gray-50 overflow-hidden">
       {/* Background Blobs */}
@@ -47,24 +61,24 @@ const AppDevelopment = () => {
       <div className="absolute -bottom-20 -right-20 w-96 h-96 bg-green-200 rounded-full opacity-20 z-0 animate-pulse"></div>
 
       {/* Responsive Cards */}
+    
        <div className="grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-6">
-  {cardsContent.map((card, index) => (
-    <div
-      key={index}
-      className={`bg-white p-6 rounded-xl shadow-lg flex flex-col items-center text-center transition-transform duration-300 hover:scale-105 card`}
-      style={{ animationDelay: `${index * 0.9}s` }}
-    >
-      {card.icon} 
-      <h2 className="text-xl font-semibold text-gray-800 mt-4">
-        {card.title}
-      </h2>
-      <p className="text-gray-600 mt-2">{card.description}</p>
-    </div>
-  ))}
-</div>
+        {cardsContent.map((card, index) => (
+          <div
+            key={index}
+            className="bg-white p-6 rounded-xl shadow-lg flex flex-col items-center text-center transition-transform duration-300 hover:scale-105 card"
+            style={{ animationDelay: `${index * 0.9}s` }}
+          >
+            {card.icon}
+            <h2 className="text-xl font-semibold text-gray-800 mt-4">
+              {card.title}
+            </h2>
+            <p className="text-gray-600 mt-2">{card.description}</p>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
 
 export default AppDevelopment;
-

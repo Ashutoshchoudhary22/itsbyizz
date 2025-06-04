@@ -1,17 +1,15 @@
 import React, { useState, useRef, useEffect } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { FaRegUserCircle, FaBars, FaTimes } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState(null);
-
-  const productsRef = useRef(null);
-  const developmentRef = useRef(null);
-  const becomeBrandRef = useRef(null);
-  const userRef = useRef(null);
-
-  const developmentMenu = [
+  const dropdownRef = useRef(null);
+ const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
+  const menuRef = useRef(null);
+  const developmentmenu = [
     { title: "Web Development", link: "/development?title=Web%20Development" },
     { title: "Web Design", link: "/development?title=Web%20Design" },
     { title: "Software Development", link: "/development?title=Software%20Development" },
@@ -38,10 +36,13 @@ const Header = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
-  const toggleDropdown = (dropdown) => {
-    setOpenDropdown(openDropdown === dropdown ? null : dropdown);
-  };
-  const dropdownRef = useRef(null);
+const toggleDropdown = (dropdown) => {
+  if (openDropdown === dropdown) {
+    setOpenDropdown(null);
+  } else {
+    setOpenDropdown(dropdown);
+  }
+};
 
   useEffect(() => {
     function handleClickOutside(event) {
@@ -50,217 +51,254 @@ const Header = () => {
       }
     }
     document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+   useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (menuRef.current && !menuRef.current.contains(event.target)) {
+        setIsUserMenuOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, []);
+  }, []); 
 
   return (
-    <nav className="sticky top-0 bg-sky-900 z-50 flex px-4 md:shadow-lg items-center ">
-      {/* Logo */}
-      <div className="text-lg text-gray-50 font-bold md:py-0 py-4">
-        <Link to="/">ITSYBIZZ</Link>
+    <nav className="sticky top-0 bg-sky-900 z-50 flex md:px-4 py-1 md:shadow-lg items-center">
+      <div className="relative bottom-2 h-16 w-44">
+        <Link to="/">
+          <img
+            src="itsybizz.png"
+            alt="Logo"
+            className="absolute top-1/2 left-1/2 h-32 w-52 -translate-x-1/2 -translate-y-1/2 z-50 pointer-events-none"
+          />
+        </Link>
       </div>
 
-      {/* Hamburger Menu for Mobile */}
       <button
         className="md:hidden ml-auto text-gray-50 p-4 focus:outline-none"
         onClick={toggleMenu}
         aria-label="Toggle Menu"
       >
-        {isMenuOpen ? (
-          <FaTimes className="w-6 h-6" />
-        ) : (
-          <FaBars className="w-6 h-6" />
-        )}
+        {isMenuOpen ? <FaTimes className="w-6 h-6" /> : <FaBars className="w-6 h-6" />}
       </button>
 
-      {/* Navigation Links */}
       <ul
         ref={dropdownRef}
         className={`${
           isMenuOpen ? "block" : "hidden"
-        } md:flex md:px-2 ml-auto md:space-x-2 absolute md:relative top-full left-0 right-0 bg-gray-800 md:bg-transparent z-10`}
+        } md:flex md:px-2 ml-auto md:space-x-2 absolute md:relative top-full left-0 right-0 bg-sky-950 md:bg-transparent z-10 text-white`}
       >
         <li>
-          <NavLink to="/" className="block px-4 py-2 text-white hover:text-gray-300" onClick={() => setIsMenuOpen(false)}>Home</NavLink>
-        </li>
-        
-        <li className="relative group" ref={productsRef}>
-          <button
+          <NavLink
+            to="/"
             onClick={() => {
-              if (window.innerWidth < 768) toggleDropdown("products");
+              setOpenDropdown(null);
+              setIsMenuOpen(false);
             }}
-            className="flex items-center px-4 py-2 text-white hover:text-gray-300"
+            className="text-gray-50 flex md:inline-flex p-4 items-center hover:text-white"
           >
-            <span>Products</span>
+            <span className="text-xl font-semibold">Home</span>
+          </NavLink>
+        </li>
+
+        {/* Products Dropdown */}
+        <li className="relative">
+          <div
+            className="text-gray-50 flex p-4 items-center justify-between hover:text-white cursor-pointer w-full"
+            onClick={() => toggleDropdown("products")}
+            onMouseEnter={()=>setOpenDropdown("products")}
+            //  onMouseLeave={() => setOpenDropdown(null)}
+          >
+            <span className="text-xl font-semibold">Products</span>
             <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className={`w-3 h-3 fill-current transform transition-transform duration-200 ${
-                openDropdown === "products"? "rotate-180" : "rotate-0"
-              }`}
+              className={`w-3 h-3 transition-transform ml-1 mt-[2px] ${openDropdown === "products" ? "rotate-180" : ""}`}
               viewBox="0 0 24 24"
+              fill="currentColor"
             >
               <path d="M0 7.33l2.829-2.83 9.175 9.339 9.167-9.339 2.829 2.83-11.996 12.17z" />
             </svg>
-          </button>
-          <ul
-            className={`${
-              openDropdown === "products" ? "block" : "hidden"
-            } md:absolute md:top-full md:left-0 md:w-auto bg-white md:shadow-lg md:rounded-b-lg p-2 flex-wrap`}
-          >
-          {products.map((item, index) => (
-  <li key={index} className="p-2 hover:bg-sky-100 rounded-lg w-48">
-    {item.external ? (
-      <a
-        href={item.link}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="block text-gray-900 font-normal"
-        onClick={() => setOpenDropdown(null)} // 👈 Close dropdown on click
-      >
-        {item.title}
-      </a>
-    ) : (
-      <NavLink
-        to={item.link}
-        className="block text-gray-900 font-normal"
-        onClick={() => {
-          setOpenDropdown(null); // 👈 Close dropdown on click
-          setIsMenuOpen(false);  // 👈 Optional: also close mobile nav
-        }}
-      >
-        {item.title}
-      </NavLink>
-    )}
-  </li>
-))}
+          </div>
+          {openDropdown === "products" && (
+          <ul className="md:absolute bg-white rounded-md md:rounded-lg p-2 w-[410px] md:w-44 shadow-xl flex flex-col z-50">
 
-          </ul>
+              {products.map((item, index) => (
+                <li
+                  key={index}
+                  className={`p-2 hover:bg-sky-100 rounded-md ${
+                    index !== products.length - 1 ? "border-b border-gray-300" : ""
+                  }`}
+                >
+                  {item.external ? (
+                    <a
+                      href={item.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={() => {
+                        setOpenDropdown(null);
+                        setIsMenuOpen(false);
+                      }}
+                      className="block text-gray-900 font-medium"
+                    >
+                      {item.title}
+                    </a>
+                  ) : (
+                    <NavLink
+                      to={item.link}
+                      onClick={() => {
+                        setOpenDropdown(null);
+                        setIsMenuOpen(false);
+                      }}
+                      className="block text-gray-900 font-medium"
+                    >
+                      {item.title}
+                    </NavLink>
+                  )}
+                </li>
+              ))}
+            </ul>
+          )}
         </li>
 
         {/* Development Dropdown */}
-       <li className="relative">
-  <button
-    className="text-gray-50 flex justify-between p-4 items-center hover:text-white space-x-2 w-full md:w-auto"
-    onClick={() => toggleDropdown("development")}
-  >
-    <span>Development</span>
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      className={`w-3 h-3 fill-current transform transition-transform duration-200 ${
-        openDropdown === "development" ? "rotate-180" : "rotate-0"
-      }`}
-      viewBox="0 0 24 24"
-    >
-      <path d="M0 7.33l2.829-2.83 9.175 9.339 9.167-9.339 2.829 2.83-11.996 12.17z" />
-    </svg>
-  </button>
-
-  <ul
-    ref={dropdownRef}
-    className={`${
-      openDropdown === "development" ? "block" : "hidden"
-    } md:absolute md:top-full md:left-0 md:w-auto bg-white md:shadow-lg md:rounded-b-lg p-2 flex-wrap`}
-  >
-    {developmentMenu.map((item, index) => (
-      <li key={index} className="p-2 hover:bg-sky-100 rounded-lg w-48">
-        <NavLink
-          to={item.link}
-          className="block text-gray-900 font-normal"
-          onClick={() => {
-            setOpenDropdown(null);     // 👈 Closes the dropdown
-            setIsMenuOpen(false);      // 👈 Optional: Closes mobile menu
-          }}
-        >
-          {item.title}
-        </NavLink>
-      </li>
-    ))}
-  </ul>
-</li>
-
-
-        {/* Become Brand Dropdown */}
         <li className="relative">
-          <button
-            onClick={() => {
-              if (window.innerWidth < 768) toggleDropdown("becomeBrand");
-            }}
-            className="flex items-center px-4 py-2 text-white hover:text-gray-300"
+          <div
+            className="text-gray-50 flex p-4 items-center justify-between hover:text-white cursor-pointer w-full"
+            onClick={() => toggleDropdown("development")}
+            onMouseEnter={()=>setOpenDropdown("development")}
+            //  onMouseLeave={() => setOpenDropdown(null)}
           >
-            <span>Become Brand</span>
+            <span className="text-xl font-semibold">Development</span>
             <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className={`w-3 h-3 fill-current transform transition-transform duration-200 ${
-                openDropdown === "becomeBrand" ? "rotate-180" : "rotate-0"
-              }`}
+              className={`w-3 h-3 text-white transition-transform ml-1 mt-[2px] ${openDropdown === "development" ? "rotate-180" : ""}`}
               viewBox="0 0 24 24"
+              fill="currentColor"
             >
               <path d="M0 7.33l2.829-2.83 9.175 9.339 9.167-9.339 2.829 2.83-11.996 12.17z" />
             </svg>
-          </button>
-          <ul className={`${openDropdown === "becomeBrand" ? "block" : "hidden"} group-hover:block md:absolute md:left-0 bg-white text-black shadow-lg rounded-lg p-2 w-56 z-50`}>
-            {becomeBrand.map((item, index) => (
-              <li key={index} className="p-2 hover:bg-sky-100 rounded-lg w-48">
-               <NavLink
-          to={item.link}
-          className="block text-gray-900 font-normal"
-          onClick={() => {
-            setOpenDropdown(null);     // 👈 Closes the dropdown
-            setIsMenuOpen(false);      // 👈 Optional: Closes mobile menu
-          }}
-        >
-          {item.title}
-        </NavLink>
-              </li>
-            ))}
-          </ul>
+          </div>
+          {openDropdown === "development" && (
+            <ul className="md:absolute bg-white rounded-lg p-2 w-[410px] md:w-44 shadow-xl flex flex-col z-50">
+              {developmentmenu.map((item, index) => (
+                <li
+                  key={index}
+                  className={`p-2 hover:bg-sky-100 rounded-md ${
+                    index !== developmentmenu.length - 1 ? "border-b border-gray-300" : ""
+                  }`}
+                >
+                  <NavLink
+                    to={item.link}
+                    onClick={() => {
+                      setOpenDropdown(null);
+                      setIsMenuOpen(false);
+                    }}
+                    className="block text-gray-900 font-medium"
+                  >
+                    {item.title}
+                  </NavLink>
+                </li>
+              ))}
+            </ul>
+          )}
         </li>
 
-        <li>
-          <NavLink to="/portfolio" className="block px-4 py-2 text-white hover:text-gray-300" onClick={() => setIsMenuOpen(false)}>Portfolio</NavLink>
+        {/* Become Brand Dropdown */}
+        <li className="relative">
+          <div
+            className="text-gray-50 flex p-4 items-center justify-between hover:text-white cursor-pointer w-full"
+            onClick={() => toggleDropdown("brand")}
+            onMouseEnter={()=>setOpenDropdown("brand")}
+            //  onMouseLeave={() => setOpenDropdown(null)}
+          >
+            <span className="text-xl font-semibold">Become Brand</span>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className={`w-3 h-3 text-white transition-transform ml-1 mt-[2px] ${openDropdown === "brand" ? "rotate-180" : ""}`}
+              viewBox="0 0 24 24"
+              fill="currentColor"
+            >
+              <path d="M0 7.33l2.829-2.83 9.175 9.339 9.167-9.339 2.829 2.83-11.996 12.17z" />
+            </svg>
+          </div>
+          {openDropdown === "brand" && (
+            <ul className="md:absolute bg-white rounded-lg p-2 w-[410px] md:w-44 shadow-xl flex flex-col z-50">
+              {becomeBrand.map((item, index) => (
+                <li
+                  key={index}
+                  className={`p-2 hover:bg-sky-100 rounded-md ${
+                    index !== becomeBrand.length - 1 ? "border-b border-gray-300" : ""
+                  }`}
+                >
+                  <NavLink
+                    to={item.link}
+                    onClick={() => {
+                      setOpenDropdown(null);
+                      setIsMenuOpen(false);
+                    }}
+                    className="block text-gray-900 font-medium"
+                  >
+                    {item.title}
+                  </NavLink>
+                </li>
+              ))}
+            </ul>
+          )}
         </li>
 
+        {/* Portfolio Link */}
         <li>
-          <NavLink to="/Contact-us" className="block px-4 py-2 text-white hover:text-gray-300" onClick={() => setIsMenuOpen(false)}>Contact Us</NavLink>
-        </li>
-        
-        <li className="relative group" ref={userRef}>
-          <button
+          <NavLink
+            to="/portfolio"
             onClick={() => {
-              if (window.innerWidth < 768) toggleDropdown("user");
+              setOpenDropdown(null);
+              setIsMenuOpen(false);
             }}
-            className="flex items-center px-4 py-2 text-white hover:text-gray-300"
+            className="text-gray-50 flex md:inline-flex p-4 items-center hover:text-white"
           >
-            <FaRegUserCircle className="w-8 h-7" />
-          </button>
-          <ul
-            ref={dropdownRef}
-            className={`${
-              openDropdown === "user" ? "block" : "hidden"
-            } md:absolute md:top-full md:right-0 md:w-auto bg-white md:shadow-lg md:rounded-b-lg p-2 flex-wrap`}
-          >
-            <li className="p-2 hover:bg-sky-100 rounded-lg w-48">
-              <NavLink
-                to="/register"
-                className="block text-gray-900 font-normal"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Register
-              </NavLink>
-            </li>
-            <li className="p-2 hover:bg-sky-100 rounded-lg w-48">
-              <NavLink
-                to="/login"
-                className="block text-gray-900 font-normal"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Login
-              </NavLink>
-            </li>
-          </ul>
+            <span className="text-xl font-semibold">Portfolio</span>
+          </NavLink>
         </li>
+
+        {/* User Dropdown */}
+        <li className="relative" ref={menuRef}>
+      <div
+        className="text-gray-50 flex items-center p-4 space-x-2 hover:text-white cursor-pointer"
+        onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
+        // onMouseEnter={()=>setOpenDropdown("")}
+        //      onMouseLeave={() => setOpenDropdown(null)}
+      >
+        <FaRegUserCircle className="w-8 h-7" />
+      </div>
+
+      {isUserMenuOpen && (
+        <ul className="absolute top-full right-0 w-full md:w-36 bg-white shadow-xl rounded-lg p-3 flex flex-col z-50 transition-all duration-300">
+          {[
+            { title: "Register", link: "/register" },
+            { title: "Login", link: "/login" },
+          ].map((item, index, arr) => (
+            <li
+              key={index}
+              className={`p-2 hover:bg-sky-100 rounded-md ${
+                index !== arr.length - 1 ? "border-b border-gray-300" : ""
+              }`}
+            >
+              <NavLink
+                to={item.link}
+                onClick={() => {
+                  setIsUserMenuOpen(false);
+                }}
+                className="block text-gray-900 font-medium"
+              >
+                {item.title}
+              </NavLink>
+            </li>
+          ))}
+        </ul>
+      )}
+    </li>
       </ul>
     </nav>
   );

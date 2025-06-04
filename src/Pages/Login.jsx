@@ -51,7 +51,7 @@ const Login = () => {
     <div className="min-h-screen bg-gray-100 flex flex-col">
       {/* Header Section */}
       <div className="bg-gradient-to-r from-sky-900 via-sky-800 to-sky-900 w-full h-72 flex items-center justify-center px-4">
-        <div className="text-center text-white max-w-2xl reveal">
+        <div className="text-left md:pr- text-white max-w-2xl reveal">
           <h1 className="text-4xl font-bold text-green-400 mb-2">
             Login to Your Account
           </h1>
@@ -62,7 +62,7 @@ const Login = () => {
       </div>
 
       {/* Form Section */}
-      <div className="flex justify-center px-4 -mt-24 mb-10">
+      <div className="flex justify-center px-4 -mt-20 mb-10">
         <div className="bg-white p-8 rounded-xl shadow-2xl w-full max-w-md reveal">
           <h2 className="text-2xl font-bold text-gray-800 mb-2">Sign In</h2>
           <p className="text-sm text-gray-500 mb-4">

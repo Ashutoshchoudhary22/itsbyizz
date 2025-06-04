@@ -7,7 +7,7 @@ import PublicRelations from "../Components/Brand/PublicRelations";
 import DigitalMarketing from "../Components/Brand/DigitalMarketing";
 import InfluenceMarketing from "../Components/Brand/InfluenceMarketing";
 import SocialMedia from "../Components/Brand/SocialMedia";
-
+import WavyScrollText from "../Components/WavyScroll";
 const Brand = () => {
   // Extract query parameter
   const location = useLocation();
@@ -17,7 +17,7 @@ const Brand = () => {
   // Custom heading and image mapping
   const contentMap = {
     "Brand Building": {
-      title: " Crafting Legacies Through Brand Building Mastery, Brand Beyond Boundaries",
+      title: " Crafting Legacies Through Brand Building Mastery.",
       image: "brand.png",
       component: <BrandBuilding />
     },
@@ -28,7 +28,7 @@ const Brand = () => {
     },
     "Public Relations": {
       title: "Shaping Positive Narratives and Building Trust Through Expert Public Relations",
-      image: "pr.png",
+      image: "https://static.vecteezy.com/system/resources/previews/010/872/401/non_2x/3d-business-partnership-illustration-png.png",
       component: <PublicRelations/>
     },
     "Digital Marketing": {
@@ -60,32 +60,31 @@ const Brand = () => {
   const secondHalf = words.slice(halfIndex).join(" ");
 
   return (
-    <div className="w-full h-auto">
-      {/* Hero Section */}
-      <div className="w-full h-[480px] relative  grid md:grid-cols-2 gap-2 grid-cols-1 px-5 py-24">
-        <div className="col-span-1 flex items-center">
-          <h1 className="text-5xl font-bold">
-            <span className="text-green-500">{firstHalf} </span>
-            <span className="text-white text-4xl">{secondHalf}</span>
-          </h1>
-        </div>
-        <div className="col-span-1 flex justify-center items-center">
-          <img
-            src={imageSrc}
-            alt={title}
-            className="absolute w-[500px] h-[400px]"
-          />
+  <div className="w-full h-auto">
+    {/* Hero Section */}
+    <div className="w-full relative grid grid-cols-1 md:grid-cols-2 gap-4 px-4 md:px-10 py-10 md:py-24">
+      <div className="flex items-center justify-center md:justify-start">
+        <div className="text-sm md:text-3xl lg:text-4xl font-semibold leading-snug">
+          <WavyScrollText highlight={firstHalf} text={secondHalf} />
         </div>
       </div>
 
-      {/* Services Section */}
-      <div className="bg-gray-50 p-5">
-       
-        {SelectedComponent}
+      <div className="flex justify-center items-center mt-6 md:mt-0">
+        <img
+          src={imageSrc}
+          alt={title}
+          className="w-[400px] h-[200px] md:w-[500px] md:h-[300px] object-contain"
+        />
       </div>
-
     </div>
-  );
+
+    {/* Services Section */}
+    <div className="bg-gray-50 p-5 md:p-8">
+      {SelectedComponent}
+    </div>
+  </div>
+);
+
 };
 
 export default Brand;

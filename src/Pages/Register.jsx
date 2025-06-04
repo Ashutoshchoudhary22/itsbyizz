@@ -56,101 +56,87 @@ const Register = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-sky-100 via-white to-sky-100 flex flex-col items-center px-4 py-10">
-      {/* Header Section */}
-      <div className="w-full max-w-6xl flex flex-col sm:flex-row items-center justify-between bg-gradient-to-br from-sky-900 to-sky-700 text-white rounded-2xl shadow-lg px-8 py-12 mb-10">
-        <div className="reveal w-full sm:w-1/2 text-center sm:text-left">
-          <h1 className="text-green-400 text-4xl sm:text-5xl font-bold leading-tight">
-            Create Your Account
-          </h1>
-          <p className="text-xl sm:text-2xl mt-4">
-            Join us and start your journey today!
-          </p>
-        </div>
-        <div className="hidden sm:block w-1/2 text-right">
-          <img src="https://cdni.iconscout.com/illustration/premium/thumb/sign-up-illustration-download-in-svg-png-gif-file-formats--new-user-registering-log-register-form-maggy-pack-design-development-illustrations-4097209.png" alt="Register" className="w-full max-w-sm mx-auto" />
-        </div>
-      </div>
+     <div className="min-h-screen bg-gray-100 flex flex-col">
+   
+      {/* Header */}
+       <div className="bg-gradient-to-r from-sky-900 via-sky-800 to-sky-900 w-full h-72 flex items-center justify-center px-4">
+        <div className="text-center text-white max-w-2xl reveal">
+      <h1 className="text-green-400 text-4xl font-bold mb-2 ">
+        Create Your Account
+      </h1>
+      <p className="text-white text-lg mb-8 text-center">
+        Enter your personal details and start your journey with us
+      </p>
+</div>
+      {/* Card */}
+      <div className="flex justify-center px-4 mt-96 mb-10">
+      <div className="bg-white p-8 rounded-xl shadow-2xl w-full max-w-md reveal">
+        <h2 className="text-2xl font-bold mb-2">Sign Up</h2>
+        <p className="text-sm text-gray-500 mb-4">
+          Already have an account?{" "}
+          <Link to="/login" className="text-blue-600 hover:underline">
+            Sign in
+          </Link>
+        </p>
 
-      {/* Form Section */}
-      <div className="w-full max-w-4xl bg-white rounded-2xl shadow-2xl p-10 grid grid-cols-1 lg:grid-cols-2 gap-8">
-        <div className="reveal">
-          <h2 className="text-3xl font-semibold text-gray-800 mb-3">Sign Up</h2>
-          <p className="text-sm text-gray-500">
-            Already have an account?{' '}
-            <Link to="/login" className="text-blue-600 hover:underline">
-              Sign in
-            </Link>
-          </p>
+        {error && <p className="text-red-500 text-sm mb-4">{error}</p>}
 
-          {error && (
-            <p className="text-red-500 text-sm mt-4">{error}</p>
-          )}
-
-          <form onSubmit={submitHandler} className="mt-6 space-y-5">
-            <input
-              type="text"
-              placeholder="Full Name"
-              required
-              onChange={(e) => setName(e.target.value)}
-              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-            <input
-              type="email"
-              placeholder="Email Address"
-              required
-              onChange={(e) => setEmail(e.target.value)}
-              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-            <input
-              type="password"
-              placeholder="Create Password"
-              required
-              onChange={(e) => setPassword(e.target.value)}
-              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
+        <form onSubmit={submitHandler} className="space-y-4">
           <input
-  type="number"
-  placeholder="Mobile Number"
-  required
-  onChange={(e) => setMobile(e.target.value)}
-  className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 no-spinner"
-/>
-
-
-            <div className="flex items-start gap-3 text-sm text-gray-600">
-              <input type="checkbox" id="terms" className="w-5 h-5 mt-1 accent-blue-600" />
-              <label htmlFor="terms">
-                I agree to the
-                <NavLink to="/terms" className="text-green-600 font-medium hover:underline px-1">
-                  Terms of Use
-                </NavLink>
-                and
-                <NavLink to="/policy" className="text-green-600 font-medium hover:underline px-1">
-                  Privacy Policy
-                </NavLink>
-                .
-              </label>
-            </div>
-
-            <button
-              type="submit"
-              disabled={loading}
-              className="w-full bg-green-600 hover:bg-green-700 text-white py-3 rounded-lg font-semibold text-lg shadow-md transition duration-300"
-            >
-              {loading ? "Registering..." : "Sign Up"}
-            </button>
-          </form>
-        </div>
-
-        <div className="hidden lg:flex items-center justify-center">
-          <img
-            src="https://cdn-icons-png.freepik.com/512/5599/5599530.png"
-            alt="Sign Up Illustration"
-            className="w-full max-w-xs"
+            type="text"
+            placeholder="Full Name"
+            required
+            onChange={(e) => setName(e.target.value)}
+            className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
-        </div>
+          <input
+            type="email"
+            placeholder="Email Address"
+            required
+            onChange={(e) => setEmail(e.target.value)}
+            className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+          <input
+            type="password"
+            placeholder="Create Password"
+            required
+            onChange={(e) => setPassword(e.target.value)}
+            className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+          <input
+            type="number"
+            placeholder="Mobile Number"
+            required
+            onChange={(e) => setMobile(e.target.value)}
+            className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+
+          <div className="flex items-start text-sm text-gray-600 gap-2">
+            <input type="checkbox" id="terms" className="mt-1" />
+            <label htmlFor="terms">
+              I agree to the
+              <NavLink to="/terms" className="text-green-600 font-medium hover:underline px-1">
+                Terms of Use
+              </NavLink>
+              and
+              <NavLink to="/policy" className="text-green-600 font-medium hover:underline px-1">
+                Privacy Policy
+              </NavLink>
+              .
+            </label>
+          </div>
+
+          <button
+            type="submit"
+            disabled={loading}
+            className="w-full bg-green-600 hover:bg-green-700 text-white py-3 rounded-lg font-semibold text-lg shadow-md transition duration-300"
+          >
+            {loading ? "Registering..." : "Sign Up"}
+          </button>
+        </form>
       </div>
+    </div>
+    </div>
     </div>
   );
 };

@@ -27,12 +27,14 @@ const TabBar = () => {
   const [activeModal, setActiveModal] = useState(null);
   gsap.set(".fade-in-content", { opacity: 1 });
 
+  
   useGSAP(() => {
     ScrollTrigger.create({
       trigger: ".draw-path ",
       start: "top 30%",
       end: "top 0%",
       scrub: true,
+
 
       // markers:true,
       onEnter: () => {
@@ -87,7 +89,6 @@ const TabBar = () => {
           duration: 1,
           opacity: 0
         })
-
       },
       onLeaveBack: () => {
         gsap.to(".fade-in-content", { opacity: 0, duration: 0.3 });

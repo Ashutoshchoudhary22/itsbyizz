@@ -32,6 +32,7 @@ const Dashboard = () => {
       <div className="flex-1 flex flex-col w-full">
        
         <Header toggleSidebar={toggleSidebar}/>
+        
         <main className="flex-grow p-5 w-full">
           <Outlet />
         </main>

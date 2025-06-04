@@ -4,19 +4,19 @@ import { motion } from "framer-motion";
 export default function IncidentCard() {
   return (
     <motion.div
-      className="relative flex justify-center items-center mt-10 px-4 sm:px-6"
+      className="relative flex justify-center items-center mt-10 px-4 sm:px-2"
       initial={{ opacity: 0, y: 50 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, ease: "easeOut" }}
     >
       {/* Card Container with gradient and compact height */}
       <motion.div
-        className="relative w-full max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl bg-gradient-to-br from-white via-slate-100 to-sky-100 flex flex-col items-center p-5 sm:p-6 rounded-2xl shadow-xl border border-gray-200"
+        className="relative w-full max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl bg-gradient-to-br from-white via-slate-100 to-sky-100 flex flex-col items-center p-5 sm:p-2 rounded-2xl shadow-xl border border-gray-200"
         whileHover={{ scale: 1.02 }}
       >
         {/* Profile Image */}
         <motion.div
-          className="absolute -top-12 w-20 h-20 sm:w-24 sm:h-24 rounded-full overflow-hidden border-4 border-sky-700 shadow-xl bg-white"
+          className="absolute  -top-8 md:-top-12 w-20 h-20 sm:w-24 sm:h-24 rounded-full overflow-hidden border-4 border-sky-700 shadow-xl bg-white"
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
           transition={{ duration: 0.4, ease: "easeOut" }}
@@ -54,11 +54,11 @@ export default function IncidentCard() {
             <div className="mt-3 text-left space-y-2">
               <div className="bg-blue-100 border-l-4 border-blue-500 p-2 rounded-lg text-sm">
                 <strong className="text-blue-800">Actions Taken</strong>
-                <p className="text-gray-700">Retrieved customer order and return policy information from different systems.</p>
+                <p className="text-gray-700">Retrieved customer order and return policy.</p>
               </div>
 
               <div className="bg-green-100 border-l-4 border-green-500 p-2 rounded-lg text-sm">
-                <p className="text-gray-700">Confirmed return eligibility and requested human approval.</p>
+                <p className="text-gray-700">Confirmed return eligibility.</p>
               </div>
             </div>
           </motion.div>

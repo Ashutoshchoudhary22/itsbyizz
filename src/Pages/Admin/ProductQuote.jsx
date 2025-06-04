@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { FaEdit, FaEye } from "react-icons/fa";
-import { MdDelete } from "react-icons/md";
+import { FaEdit, FaEye, FaSearch } from "react-icons/fa";
+import { MdDelete, MdViewModule } from "react-icons/md";
 import Modal from "../../Components/Dashboard/Modal";
 import DetailsComponent from "../../Components/Dashboard/DetailsComponent"; // Import the DetailsComponent
 import axios from "axios";
@@ -8,12 +8,14 @@ import { toast } from "react-hot-toast";
 
 const ProductQuote = () => {
   const [search, setSearch] = useState("");
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  // const [isModalOpen, setIsModalOpen] = useState(false);
   const [productList, setProductList] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedProductQuote, setSelectedProductQuote] = useState(null); // State for selected product quote
   const [isViewModalOpen, setIsViewModalOpen] = useState(false); // State for view modal visibility
   const itemsPerPage = 10; // Show only 10 items per page
+
+  const [searchBy, setSearchBy] = useState("name"); // default to "name"
 
   useEffect(() => {
     const getUsers = async () => {
@@ -82,13 +84,11 @@ const ProductQuote = () => {
     }
   };
 
-  const filteredProducts = productList.filter(
-    (product) =>
-      product?.productName?.toLowerCase().includes(search.toLowerCase()) ||
-      product?.phone?.toLowerCase().includes(search.toLowerCase()) ||
-      product?.email?.toLowerCase().includes(search.toLowerCase()) ||
-      product?.name?.toLowerCase().includes(search.toLowerCase())
-  );
+  const filteredProducts = productList.filter((user) => {
+  const value = user[searchBy]?.toString().toLowerCase() || "";
+  return value.includes(search.toLowerCase());
+});
+
 
   const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
   const paginatedData = filteredProducts.slice(
@@ -119,35 +119,56 @@ const ProductQuote = () => {
     : [];
 
   return (
-    <div className="p-5">
-      <h2 className="text-2xl text-sky-900 font-bold mb-4">
-        IoT Products Quote
-      </h2>
-      <div className="mb-4 flex justify-end space-x-4">
-        <input
-          type="text"
-          placeholder="Search..."
-          className="p-2 border border-gray-200 rounded"
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-        />
-      </div>
+    <div className="p-2">
+    
+      <div className="w-full flex flex-col md:flex-row items-start md:items-center justify-between gap-4 mb-5">
 
-      <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-        <thead className="text-xs text-white uppercase bg-sky-800 dark:bg-gray-700">
+        <h2 className=" text-xl md:text-3xl text-sky-900 font-bold ">IoT Product Quote</h2>
+        <div className="w-xl max-w-[360px] max-h-12 border border-gray-300 rounded shadow-sm  px-3 py-2  flex items-center justify-end gap-1 bg-white">
+          {/* Search Icon */}
+          <FaSearch className="text-gray-500" />
+
+          {/* Input */}
+          <input
+            type="text"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            placeholder={`Search by ${searchBy}`}
+            className="flex-grow outline-none text-sm text-gray-800 placeholder-gray-400"
+          />
+
+          {/* Dropdown (stubbed) */}
+          <select
+            value={searchBy}
+            onChange={(e) => setSearchBy(e.target.value)}
+            className="text-sm bg-transparent text-gray-700 outline-none"
+          >
+            <option value="name">By name</option>
+            <option value="email">By email</option>
+            <option value="mobile">By mobile</option>
+            <option value="product name">By P.name</option>
+          </select>
+
+          {/* Grid Icon */}
+          <MdViewModule className="text-gray-700 text-xl cursor-pointer" />
+        </div>
+      </div>
+<div className="table-scroll max-h-[calc(100vh-200px)] rounded shadow">
+      <table className="w-full text-sm text-left text-gray-600 ">
+       <thead className="text-xs  uppercase bg-gray-100 text-gray-800 bg-gradient-to-b from-gray-100 to-gray-100  rounded-lg   font-bold px-8 py-4 shadow-inner shadow-[#ffffff99] drop-shadow-md tracking-wide ">
           <tr>
-            <th className="px-6 py-3">Name</th>
-            <th className="px-6 py-3">Email</th>
-            <th className="px-6 py-3">Phone</th>
-            <th className="px-6 py-3">Product Name</th>
-            <th className="px-6 py-3">Actions</th>
+            <th className="px-6 py-4">Name</th>
+            <th className="px-6 py-4">Email</th>
+            <th className="px-6 py-4">Phone</th>
+            <th className="px-6 py-4">Product Name</th>
+            <th className="px-6 py-4">Actions</th>
           </tr>
         </thead>
         <tbody>
           {paginatedData.map((product) => (
             <tr
               key={product._id} // Use _id instead of id
-              className="odd:bg-white even:bg-gray-50 border-b"
+              className="odd:bg-white even:bg-gray-100 border-b border-gray-200"
             >
               <td className="p-3">{product.name}</td>
               <td className="p-3">{product.email}</td>
@@ -162,7 +183,7 @@ const ProductQuote = () => {
                 </button>
 
                 <button
-                  className="px-2 py-2 text-lg text-orange-500 rounded hover:text-orange-600"
+                  className="px-2 py-2 text-lg text-red-500 rounded hover:text-red-600"
                   onClick={() => handleDelete(product._id)} // Delete the quote
                 >
                   <MdDelete />
@@ -172,7 +193,7 @@ const ProductQuote = () => {
           ))}
         </tbody>
       </table>
-
+</div>
       {/* Pagination Controls */}
       {totalPages > 1 && (
         <div className="mt-4 flex justify-center items-center space-x-4">

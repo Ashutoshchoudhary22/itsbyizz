@@ -27,7 +27,7 @@ const Home = () => {
 
   const content = [
     { value: 100, label: "Finished Projects" },
-    { value: 30, label: "Created Jobs" },
+    { value: 30, label:(<><span>Created</span><br/><span>Jobs</span></>) },
     { value: 90, label: "Happy Customers" },
   ];
 
@@ -46,10 +46,10 @@ const Home = () => {
   ];
   
   return (
-    <div className="w-full">
+    <div className="w-full ">
       {/* Hero Section */}
-      <div className="w-full max-w-screen-xl mx-auto px-4 py-12 md:py-16 grid gap-8 md:grid-cols-2">
-        <div className="flex flex-col justify-center">
+      <div className="w-full  max-w-screen-xl mx-auto px-2  py-16 grid gap-8 md:grid-cols-2 pb-20">
+        <div className="flex flex-col justify-center text-xl md:text-3xl lg:text-4xl">
           <WavyScrollText
             highlight="ITSYBIZZ – Powered by Deepnap Softech,"
             text="Smart Digital Solutions in Software"
@@ -65,20 +65,12 @@ const Home = () => {
             specialize in Brand Building and delivering Ready-to-Use Software like
             CRM, HRM, and Production Automation Suites (B2B & B2C).
           </p>
-<<<<<<< HEAD
-
-          <div className="flex flex-col sm:flex-row items-center justify-start gap-4 mt-6">
+          <div className="flex  md:flex-row items-center justify-start gap-5 mt-4 ml-3 md:ml-2">
             <button
               onClick={scrollToBookDemo}
-              className="text-gray-700 font-semibold px-8 py-2 bg-green-400 rounded-full hover:bg-green-500 transition-all ease border border-black hover:text-white w-full sm:w-auto"
-=======
-          <div className="flex  md:flex-row items-center justify-start gap-3 mt-4">
-            <button
-              onClick={scrollToBookDemo}
-              className="text-gray-700 font-semibold px-8 py-2 md:px-20 bg-green-400 rounded-full hover:bg-green-500 transition-all ease border  hover:text-white"
->>>>>>> 5e52d0c735b0397e5ac3d01eba1c37effa33edb9
+              className="text-gray-700 font-semibold px-8 py-2 md:px-14 bg-green-400 rounded-full hover:bg-green-500 transition-all ease border  hover:text-white"
             >
-              Book Demo
+              Book A Demo
             </button>
             <NavLink to="/contact-us">
               <span className="text-gray-50 font-semibold px-8 py-2 rounded-full hover:text-green-500 transition-all ease border-2 border-gray-400 hover:border-green-500 w-full sm:w-auto inline-block text-center">
@@ -90,22 +82,22 @@ const Home = () => {
       </div>
 
       {/* Image Slider */}
-      <div className="w-full max-w-screen-xl mx-auto px-4">
+      <div className="w-full max-w-screen-xl mx-auto px-2">
         <AutoSlider />
       </div>
 
       {/* Stats Section */}
-      <div className="w-full max-w-screen-xl mx-auto flex items-center justify-center text-white flex-col px-4 py-12">
+      <div className="w-full max-w-screen-xl mx-auto flex items-center justify-center text-white flex-col px-2 py-12">
         <h2 className="text-2xl md:text-4xl mb-6 font-semibold text-center">
           We have 80% active users across the nation
         </h2>
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-8">
+        <div className="flex  sm:flex-row items-center justify-center  md:gap-10 mb-10 ">
           {content.map((data, index) => (
             <div
               key={index}
-              className="flex w-48 flex-col items-center justify-center"
+              className="flex w-32 flex-col items-center justify-center"
             >
-              <h1 className="text-4xl font-bold text-green-500">
+              <h1 className=" text-xl md:text-4xl font-bold text-green-500">
                 {data.value}+
               </h1>
               <p className="text-lg text-gray-100 font-semibold text-center">

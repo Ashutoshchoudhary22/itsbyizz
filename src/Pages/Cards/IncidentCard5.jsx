@@ -29,7 +29,7 @@ export default function IncidentCard() {
         </motion.div>
 
         {/* Card Content */}
-        <div className="pt-14 text-center w-full">
+        <div className=" pt-[20px] md:pt-14 text-center w-full">
           <h1 className="text-lg font-bold text-gray-800 mb-2">
           🔍 Build with AI agents
           </h1>

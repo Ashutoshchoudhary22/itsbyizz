@@ -8,12 +8,10 @@ import CRMDevelopment from "../Components/Development/CRMDevelopment";
 import WavyScrollText from "../Components/WavyScroll";
 
 const Development = () => {
-  // Extract query parameter
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const title = searchParams.get("title") || "Development";
 
-  // Custom heading and image mapping
   const contentMap = {
     "Web Development": {
       title: "Nurturing Digital Excellence through Web Development",
@@ -42,41 +40,40 @@ const Development = () => {
     },
   };
 
-  // Get title and image based on selected category
   const headerTitle = contentMap[title]?.title || title;
   const imageSrc = contentMap[title]?.image || "/images/default.svg";
   const SelectedComponent = contentMap[title]?.component || null;
 
-  // Split the title into two halves
   const words = headerTitle.split(" ");
   const halfIndex = Math.ceil(words.length / 2);
   const firstHalf = words.slice(0, halfIndex).join(" ");
   const secondHalf = words.slice(halfIndex).join(" ");
 
-    
   return (
     <div className="w-full h-auto">
       {/* Hero Section */}
-      <div className="w-full h-[480px] relative grid md:grid-cols-2 gap-2 grid-cols-1 px-5 py-24">
-        <div className="col-span-1 flex items-center">
-        <WavyScrollText highlight={firstHalf} text={secondHalf} />
-          
+      <div className="w-full min-h-[380px] md:h-[480px] relative grid md:grid-cols-2 grid-cols-1 gap-4 px-4 md:px-10 py-10 md:py-24">
+        {/* Text */}
+        <div className="col-span-1 flex items-center justify-center text-center md:text-left">
+          <div className="text-xl md:text-3xl lg:text-4xl font-semibold leading-snug">
+            <WavyScrollText highlight={firstHalf} text={secondHalf} />
+          </div>
         </div>
-        <div className="col-span-1 flex justify-center items-center">
+
+        {/* Image */}
+        <div className="col-span-1 flex justify-center items-center mt-6 md:mt-0">
           <img
             src={imageSrc}
             alt={title}
-            className="absolute w-[500px] h-[300px] "
+            className="w-[350px] h-[250px] md:w-[500px] md:h-[300px] object-contain"
           />
         </div>
       </div>
 
       {/* Services Section */}
-      <div className="bg-gray-50 p-5">
-       
+      <div className="bg-gray-50 p-4 md:p-8">
         {SelectedComponent}
       </div>
-
     </div>
   );
 };

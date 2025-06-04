@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { FaEdit, FaEye } from "react-icons/fa";
-import { MdDelete } from "react-icons/md";
+import { FaEdit, FaEye, FaPlus, FaSearch } from "react-icons/fa";
+import { MdDelete, MdViewModule } from "react-icons/md";
 import Modal from "../../Components/Dashboard/Modal";
 import FormComponent from "../../Components/Dashboard/FormComponent";
 import DetailsComponent from "../../Components/Dashboard/DetailsComponent";
@@ -17,6 +17,8 @@ const Employees = () => {
   const [isViewModalOpen, setIsViewModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const itemsPerPage = 10;
+
+  const [searchBy, setSearchBy] = useState("name"); // default to "name"
 
   const employeeFields = [
     { name: "name", label: "Employee Name", type: "text", required: true },
@@ -166,13 +168,11 @@ const Employees = () => {
     toast.success("Employee updated successfully");
   };
 
-  const filteredEmployee = employeeList.filter(
-    (emp) =>
-      (emp?.name?.toLowerCase() || "").includes(search?.toLowerCase() || "") ||
-      (emp?.employeeId?.toLowerCase() || "").includes(search?.toLowerCase() || "") ||
-      (emp?.role?.toLowerCase() || "").includes(search?.toLowerCase() || "") ||
-      (emp?.phone?.toLowerCase() || "").includes(search?.toLowerCase() || "")
-  );
+  const filteredEmployee = employeeList.filter((user) => {
+  const value = user[searchBy]?.toString().toLowerCase() || "";
+  return value.includes(search.toLowerCase());
+});
+
 
   const totalPages = Math.ceil(filteredEmployee.length / itemsPerPage);
   const paginatedData = filteredEmployee.length > 0
@@ -206,38 +206,58 @@ const Employees = () => {
     : [];
 
   return (
-    <div className="p-5">
-      <h2 className="text-2xl text-sky-900 font-bold mb-4">Employees</h2>
-      <div className="mb-4 flex justify-end space-x-4">
-        <input
-          type="text"
-          placeholder="Search..."
-          className="p-2 border border-gray-200 rounded"
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-        />
-        <button
-          className="py-2 rounded-md hover:bg-sky-800 border border-sky-800 bg-white hover:text-white text-sky-800 font-semibold px-3 transition-all ease-in"
-          onClick={() => setIsModalOpen(true)}
-        >
-          Add Employee
-        </button>
-      </div>
+    <div className="p-2">
+   <div className="w-full flex flex-col md:flex-row items-start md:items-center justify-between gap-4 mb-5">
+  <h2 className="text-2xl md:text-3xl text-sky-900 font-bold p-3 md:p-0 ">Employees</h2>
+  
 
-      <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-        <thead className="text-xs text-white uppercase bg-sky-800 dark:bg-gray-700">
+  <div className="flex flex-col md:flex-row items-start md:items-center gap-4 w-full md:w-auto">
+    <div className="w-full md:w-auto border border-gray-300 rounded shadow-sm px-4 py-3 flex items-center gap-2 justify-end bg-white">
+      <FaSearch className="text-gray-500" />
+      <input
+        type="text"
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
+        placeholder={`Search by ${searchBy}`}
+        className="flex-grow outline-none text-sm text-gray-800 placeholder-gray-400"
+      />
+      <select
+        value={searchBy}
+        onChange={(e) => setSearchBy(e.target.value)}
+        className="text-sm bg-transparent text-gray-700 outline-none"
+      >
+        <option value="name">By name</option>
+        <option value="email">By email</option>
+        <option value="mobile">By mobile</option>
+        <option value="role">By role</option>
+      </select>
+      <MdViewModule className="text-gray-700 text-xl cursor-pointer" />
+    </div>
+
+    <button
+      className="w-full md:w-auto py-2 md:py-3 px-3 rounded-md bg-sky-800 border hover:border-sky-800 hover:bg-white text-white hover:text-sky-800 font-semibold transition-all ease-in flex items-center justify-center md:justify-start gap-2"
+      onClick={() => setIsModalOpen(true)}
+    >
+      <FaPlus />Add Employee
+    </button>
+  </div>
+</div>
+
+ <div className="table-scroll max-h-[calc(100vh-200px)] rounded shadow">
+      <table className="w-full text-sm text-left text-gray-600 ">
+       <thead className="text-xs  uppercase bg-gray-100 text-gray-800 bg-gradient-to-b from-gray-100 to-gray-100  rounded-lg   font-bold px-8 py-4 shadow-inner shadow-[#ffffff99] drop-shadow-lg tracking-wide ">
           <tr>
-            <th className="px-6 py-3">Name</th>
-            <th className="px-6 py-3">Employee Id</th>
-            <th className="px-6 py-3">Role</th>
-            <th className="px-6 py-3">Mobile</th>
-            <th className="px-6 py-3">Joining Date</th>
-            <th className="px-6 py-3">Actions</th>
+            <th className="px-6 py-4">Name</th>
+            <th className="px-6 py-4">Employee Id</th>
+            <th className="px-6 py-4">Role</th>
+            <th className="px-6 py-4">Mobile</th>
+            <th className="px-6 py-4">Joining Date</th>
+            <th className="px-6 py-4">Actions</th>
           </tr>
         </thead>
         <tbody>
           {paginatedData.map((emp) => (
-            <tr key={emp._id} className="odd:bg-white even:bg-gray-50 border-b">
+            <tr key={emp._id} className="odd:bg-white even:bg-gray-100 border-b border-gray-200">
               <td className="p-3">{emp.name}</td>
               <td className="p-3">{emp.employeeId}</td>
               <td className="p-3">{emp.jobrole}</td>
@@ -273,7 +293,7 @@ const Employees = () => {
           ))}
         </tbody>
       </table>
-
+</div>
       {totalPages > 1 && (
         <div className="mt-4 flex justify-center items-center space-x-4">
           <button

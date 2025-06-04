@@ -18,19 +18,9 @@ const Portfolio = () => {
         link: "https://shivshaktialuminium.com/",
       },
       {
-        title: "Ksec",
-        img: "https://itsybizz.com/assets/port6-v1YFQOwl.png",
-       
-      },
-      {
         title: "Mic N Melon",
         img: "https://itsybizz.com/assets/port8-uMuYPj1B.png",
         link: "https://micnmelons.com/",
-      },
-      {
-        title: "Tuindestries",
-        img: "https://itsybizz.com/assets/port9-MLYEjASM.png",
-        link: "https://shivshaktialuminium.com/",
       },
       {
         title: "Shiv Art",
@@ -38,45 +28,22 @@ const Portfolio = () => {
         link: "https://shivaarts.com/",
       },
       {
-        title: "Tyoharwala",
-        img: "https://itsybizz.com/assets/tyor-fvRAlMa7.jpeg",
-        link: "https://shivshaktialuminium.com/",
-      },
-      {
-        title: "Code Seeker",
-        img: "https://itsybizz.com/assets/codeseekr-ZJ_dH3vE.jpeg",
-        link: "https://shivshaktialuminium.com/",
-      },
-      {
-        title: "Star Son",
-        img: "https://itsybizz.com/assets/starson-QH_7PmrA.jpeg",
-        link: "https://shivshaktialuminium.com/",
-      },
-      {
-        title: "AFS Deals",
-        img: "https://itsybizz.com/assets/port2-DcxdaKXH.png",
-        link: "https://shivshaktialuminium.com/",
-      },
-      {
         title: "Aggarwal Caterer",
         img: "https://itsybizz.com/assets/port4-NNclumCG.png",
         link: "https://shivshaktialuminium.com/",
       },
       {
-        title: "Star Motors",
-        img: "https://itsybizz.com/assets/port7-fkHjhbSV.png",
-        link: "https://shivshaktialuminium.com/",
+        title: "Rtpas",
+        img: "/krishnaLabel.png",
+        link: "https://rtpas.deepmart.shop/",
       },
-      {
-        title: "Kripa Creations",
-        img: "https://itsybizz.com/assets/kripa-AMYKLt7o.jpeg",
-        link: "https://shivshaktialuminium.com/",
-      },
+      
     ],
     B2C: [
       {
         title: "Krishna Labels",
         img: "https://itsybizz.com/assets/finance2-CMQ71K8o.jpeg",
+
       },
     ],
     Finance: [
@@ -99,13 +66,9 @@ const Portfolio = () => {
         img: "https://itsybizz.com/assets/kripa-AMYKLt7o.jpeg",
       },
       {
-        title: "Tyoharwala",
-        img: "https://itsybizz.com/assets/tyor-fvRAlMa7.jpeg",
-      },
-      {
         title: "KFS Fitness",
-        img: "https://itsybizz.com/assets/port2-DcxdaKXH.png",
-        
+        img: "/gym.png",
+        link:"https://kfsfitness.com/"
       },
     ],
     Hospital: [
@@ -131,35 +94,31 @@ const Portfolio = () => {
         title: "Hotel Booking",
         img: "https://itsybizz.com/assets/hotel3-_0etIQDc.jpeg",
       },
-      {
-        title: "Hotel Booking",
-        img: "https://itsybizz.com/assets/hotel4-gpeihLjT.jpeg",
-      },
     ],
     Industries: [
-      {
-        title: "Tuindestries",
-        img: "https://itsybizz.com/assets/port9-MLYEjASM.png",
-      },
+      // {
+      //   title: "Tuindestries",
+      //   img: "https://itsybizz.com/assets/port9-MLYEjASM.png",
+      // },
       {
         title: "Shiv Art",
         img: "https://itsybizz.com/assets/shivart-Iaowi91I.jpeg",
       },
-      { title: "Ksec", img: "https://itsybizz.com/assets/port6-v1YFQOwl.png" },
+      // { title: "Ksec", img: "https://itsybizz.com/assets/port6-v1YFQOwl.png" },
     ],
     Education: [
-      {
-        title: "Educator",
-        img: "https://itsybizz.com/assets/educator-iNap87vx.jpeg",
-      },
-      {
-        title: "Eduma",
-        img: "https://itsybizz.com/assets/LearnPress-ZYfJCs9i.jpeg",
-      },
-      {
-        title: "Code Seeker",
-        img: "https://itsybizz.com/assets/codeseekr-ZJ_dH3vE.jpeg",
-      },
+      // {
+      //   title: "Educator",
+      //   img: "https://itsybizz.com/assets/educator-iNap87vx.jpeg",
+      // },
+      // {
+      //   title: "Eduma",
+      //   img: "https://itsybizz.com/assets/LearnPress-ZYfJCs9i.jpeg",
+      // },
+      // {
+      //   title: "Code Seeker",
+      //   img: "https://itsybizz.com/assets/codeseekr-ZJ_dH3vE.jpeg",
+      // },
       {
         title: "Esquareeduwing Pvt. Ltd.",
         img: "https://itsybizz.com/assets/port3-cxLQtVoe.png",
@@ -192,25 +151,10 @@ const Portfolio = () => {
   return (
     <div className="w-full h-auto ">
       {/* Header Section */}
-<<<<<<< HEAD
-      <div className="w-full  grid md:grid-cols-2 gap-2 grid-cols-1 px-5 py-24">
-      <div className="flex space-x-2 items-center">
-      <WavyScrollText
-  highlight=" Our Products & "
-  text="Our Work Speaks Louder Than Words : Explore&nbsp;Our&nbsp;Digital&nbsp;Creations"
-/>
-
-
-
-
-</div>
-
-=======
       <div className="w-full h-[480px] relative grid md:grid-cols-2 gap-2 grid-cols-1 px-5 py-24">
         <div className="col-span-1 flex items-center">
           <WavyScrollText highlight=" Our Products & " text="Solutions" />
         </div>
->>>>>>> 5e52d0c735b0397e5ac3d01eba1c37effa33edb9
         <div className="col-span-1 flex justify-center items-center">
           <img
             src="product.webp"

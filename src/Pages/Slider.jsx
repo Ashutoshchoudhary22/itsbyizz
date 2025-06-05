@@ -20,12 +20,14 @@ const TabBar = () => {
   const [activeModal, setActiveModal] = useState(null);
   gsap.set(".fade-in-content", { opacity: 1 });
 
+  
   useGSAP(() => {
     ScrollTrigger.create({
       trigger: ".draw-path ",
       start: "top 30%",
       end: "top 0%",
       scrub: true,
+
 
       // markers:true,
       onEnter: () => {
@@ -80,7 +82,6 @@ const TabBar = () => {
           duration: 1,
           opacity: 0
         })
-
       },
       onLeaveBack: () => {
         gsap.to(".fade-in-content", { opacity: 0, duration: 0.3 });
@@ -154,6 +155,8 @@ const TabBar = () => {
     <div className="w-full relative">
       <div className="pt-5 pb-16"></div>
       <svg
+        width="100%"
+        height="60vh"
         viewBox="50 10 100 100"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"

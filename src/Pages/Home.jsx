@@ -46,18 +46,18 @@ const Home = () => {
   ];
   
   return (
-    <div className="w-full ">
+    <div className="w-full  ">
       {/* Hero Section */}
-      <div className="w-full  max-w-screen-xl mx-auto px-2  py-16 grid gap-8 md:grid-cols-2 pb-20">
-        <div className="flex flex-col justify-center text-xl md:text-3xl lg:text-4xl">
+      <div className="  bg-[#053d5e] max-w-screen-2xl  md:mx-4 rounded-b-xl  py-16 grid gap-2 md:grid-cols-2 pb-20">
+        <div className="flex flex-col justify-center text-xl md:text-3xl lg:text-4xl px-4 md:px-8 " >
           <WavyScrollText
             highlight="ITSYBIZZ – Powered by Deepnap Softech,"
             text="Smart Digital Solutions in Software"
           />
         </div>
 
-        <div className="flex flex-col justify-center">
-          <p className="text-gray-200 text-base md:text-lg p-2">
+        <div className="flex flex-col justify-center ">
+          <p className="text-gray-200 text-base md:text-lg p-4 md:p-2 ">
             ITSYBIZZ, powered by Deepnap Softech, is a leading digital solutions
             company offering a wide range of services including Software
             Development, Mobile App Development, Website Development, AI,

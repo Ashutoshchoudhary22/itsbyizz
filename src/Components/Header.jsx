@@ -10,7 +10,7 @@ const Header = () => {
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
   const menuRef = useRef(null);
   const [isScroll, setIsScroll] = useState(false);
-
+ const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
   const developmentmenu = [
     { title: "Web Development", link: "/development?title=Web%20Development" },
     { title: "Web Design", link: "/development?title=Web%20Design" },
@@ -74,78 +74,72 @@ const Header = () => {
 
   return (
     <nav
-      className={`sticky top-0 z-50 md:mx-4 py-2 rounded-t-xl transition-all duration-500 ${isScroll || isMenuOpen
-        ? "bg-[#053d5e] shadow-md rounded-xl"
-        : "bg-[#053d5e] top-1  shadow-md"
-        }`}
+      className={`sticky  bg-[#053d5e] z-50 rounded-t-xl flex  mx-4 py-1 md:shadow-lg items-center ${
+        isScroll ? "bg-[#053d5e] top-0 rounded-2xl shadow-md" : "bg-[#053d5e] top-2 "
+      }`}
     >
-      <div className="md:max-w-screen-xl md:mx-auto px-4 flex items-center justify-between">
-
-        <div className="h-16 w-44 flex items-center">
-          <Link to="/" className="inline-block ">
+      <div className="max-w-screen-xl mx-auto px-4 flex items-center rounded-lg ">
+        <div className="relative bottom-2 h-20 w-44">
+          <Link to="/">
             <img
               src="itsybizz.png"
               alt="Logo"
-              className="h-16 object-contain"
+              className="absolute top-1/2 right-16 h-32 w-52 -translate-x-1/2 -translate-y-1/2 z-50 pointer-events-none"
             />
           </Link>
         </div>
 
-
         <button
-          className="md:hidden text-white p-3 focus:outline-none"
-          onClick={() => setIsMenuOpen(!isMenuOpen)}
+          className="md:hidden ml-auto text-gray-50 p-4 focus:outline-none"
+          onClick={toggleMenu}
           aria-label="Toggle Menu"
         >
-          {isMenuOpen ? <FaTimes className="w-6 h-6" /> : <FaBars className="w-6 h-6" />}
+          {isMenuOpen ? (
+            <FaTimes className="w-6 h-6" />
+          ) : (
+            <FaBars className="w-6 h-6" />
+          )}
         </button>
-
 
         <ul
           ref={dropdownRef}
-          className={`
-    md:flex md:flex-row md:items-center md:static absolute left-0 right-0 top-full z-10 bg-[#053d5e] md:bg-transparent text-white md:space-x-6
-    transition-opacity duration-500 ease-in-out overflow-hidden
-
-    ${isMenuOpen
-              ? "max-h-[500px] opacity-100 translate-y-0"
-              : "max-h-0 opacity-0 -translate-y-2"
-            }
-           md:max-h-full md:opacity-100 md:translate-y-0
-  `}
+          className={`md:flex md:px-2 ml-auto md:space-x-2 absolute md:relative top-full left-0 right-0 bg-sky-950 md:bg-transparent z-10 text-white`}
         >
           <li>
             <NavLink
               to="/"
-              className="block px-4 py-3 md:py-2 text-lg font-medium hover:text-white transition"
+              className="text-gray-50 flex md:inline-flex p-4 items-center hover:text-white"
             >
-              Home
+              <span className="text-xl font-semibold">Home</span>
             </NavLink>
           </li>
 
-
+          {/* Products Dropdown */}
           <li className="relative">
             <MenuList listName="Products" list={products} />
           </li>
+
+          {/* Development Dropdown */}
           <li className="relative">
             <MenuList listName="Development" list={developmentmenu} />
           </li>
+
+          {/* Become Brand Dropdown */}
           <li className="relative">
             <MenuList listName="Brand" list={becomeBrand} />
           </li>
 
-
+          {/* Portfolio Link */}
           <li>
             <NavLink
               to="/portfolio"
-              className="block px-4 py-3 md:py-2 text-lg font-medium hover:text-white transition"
+              className="text-gray-50 flex md:inline-flex p-4 items-center hover:text-white"
             >
-              Portfolio
+              <span className="text-xl font-semibold">Portfolio</span>
             </NavLink>
           </li>
 
-
-          <li className="mt-2 md:mt-0 md:ml-6">
+          <li>
             <NavLink
               to="/login"
               onClick={() => setIsUserMenuOpen(false)}
@@ -160,7 +154,6 @@ const Header = () => {
         </ul>
       </div>
     </nav>
-
   );
 };
 

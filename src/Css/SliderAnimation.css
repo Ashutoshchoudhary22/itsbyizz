@@ -2,7 +2,7 @@
     stroke-dasharray: 1000;
     stroke-dashoffset: 1000;
     transition:
-            stroke-dashoffset 2.5s ease-in,
+            stroke-dashoffset 3.5s ease-in,
             stroke-width 2s ease-in-out 0.5s;
 }
 

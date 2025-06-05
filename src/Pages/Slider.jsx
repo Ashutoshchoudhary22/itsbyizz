@@ -23,7 +23,7 @@ const TabBar = () => {
   useGSAP(() => {
     ScrollTrigger.create({
       trigger: ".draw-path ",
-      start: "top 40%",
+      start: "top 30%",
       end: "top 0%",
       scrub: true,
 
@@ -104,6 +104,26 @@ const TabBar = () => {
     );
   }, []);
 
+  useEffect(() => {
+    const element = document.querySelector(".draw-path");
+
+    const handleScroll = () => {
+      const rect = element.getBoundingClientRect();
+      const inView =
+        rect.top < window.innerHeight * 0.6 &&
+        rect.bottom > window.innerHeight * 0.1;
+
+      if (inView) {
+        element.classList.add("animate");
+      } else {
+        element.classList.remove("animate");
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
 
 
   useEffect(() => {
@@ -124,20 +144,20 @@ const TabBar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // const [activeTab, setActiveTab] = useState(categories[0].name);
-  // const activeCategory = categories.find((category) => category.name === activeTab);
+  const CircleDot = () => (
+    <div className="w-[25px] h-[25px] md:w-[50px] md:h-[50px] rounded-full flex items-center justify-center bg-white/50">
+      <div className="w-[15px] h-[15px] md:w-[30px] md:h-[30px] rounded-full bg-white border border-white"></div>
+    </div>
+  );
 
   return (
-    <div className="w-full  relative ">
+    <div className="w-full relative">
       <div className="pt-5 pb-16"></div>
       <svg
-        width="100%"
-        height="60vh"
         viewBox="50 10 100 100"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
-        className="draw-path max-[800px]:h-[24vh] "
-
+        className="draw-path w-full h-[60vh] sm:h-[50vh] md:h-[40vh] lg:h-[60vh] max-[800px]:h-[24vh]"
         preserveAspectRatio="xMidYMid meet"
       >
         <defs>
@@ -161,22 +181,20 @@ const TabBar = () => {
         </g>
       </svg>
 
-      <div className="fade-in-content  opacity-0 transition-opacity duration-200">
+      <div className="fade-in-content opacity-0 transition-opacity duration-200">
         <div
           id="all-cercle"
-          className="absolute  md:top-[120px] top-[100px] w-full px-10 mb-10 text-white text-center"
+          className="absolute md:top-[120px] top-[100px] w-full px-10 mb-10 text-white text-center"
         >
-          <div className="flex justify-around  md:pt-1">
+          {/* First row */}
+          <div className="flex justify-around md:pt-1">
             <button
               onClick={() => setActiveModal("IT")}
               id="first-cercle"
               className="flex flex-col items-center space-y-2"
             >
-              <p className=" text-[12px] md:text-sm">IT</p>
-              <div className="w-[25px] h-[25px] md:w-[50px] md:h-[50px] rounded-full flex items-center justify-center bg-white/50">
-                <div className=" w-[15px] h-[15px] md:w-[30px] md:h-[30px] rounded-full bg-white border border-white"></div>
-              </div>
-
+              <p className="text-[12px] md:text-sm">IT</p>
+              <CircleDot />
             </button>
 
             <button
@@ -184,144 +202,127 @@ const TabBar = () => {
               id="sec-cercle"
               className="flex flex-col items-center space-y-2 pt-2 md:pt-1 pl-10 md:pl-1"
             >
-              <p className=" text-[12px] md:text-sm">CRM</p>
-              <div className="w-[22px] h-[22px] md:w-[50px] md:h-[50px] rounded-full flex items-center justify-center bg-white/50">
-                <div className="w-[12px] h-[12px] md:w-[30px] md:h-[30px]  rounded-full bg-white border border-white"></div>
-              </div>
-
+              <p className="text-[12px] md:text-sm">CRM</p>
+              <CircleDot />
             </button>
           </div>
 
+          {/* Second row */}
           <div className="flex justify-around">
             <button
               onClick={() => setActiveModal("Security And Risk")}
               id="third-cercle"
-              className=" relative right-24 md:right-40 top-10 md:top-32 flex flex-col items-center space-y-2"
+              className="relative right-24 md:right-40 top-10 md:top-32 flex flex-col items-center space-y-2"
             >
-              <div className="w-[22px] h-[22px] md:w-[50px] md:h-[50px] rounded-full flex items-center justify-center bg-white/50">
-                <div className="w-[12px] h-[12px] md:w-[30px] md:h-[30px]  rounded-full bg-white border border-white"></div>
-              </div>
-              <p className=" text-[12px] md:text-sm">Security &<br /> Risk</p>
+              <CircleDot />
+              <p className="text-[12px] md:text-sm">Security &<br /> Risk</p>
             </button>
 
             <button
               onClick={() => setActiveModal("Finance and Supply")}
               id="fourth-cercle"
-              className="  relative left-[100px] md:left-52  top-10 md:top-32 flex flex-col items-center space-y-2"
+              className="relative left-[100px] md:left-52 top-10 md:top-32 flex flex-col items-center space-y-2"
             >
-              <div className="w-[22px] h-[22px] md:w-[50px] md:h-[50px] rounded-full flex items-center justify-center bg-white/50">
-                <div className="w-[12px] h-[12px] md:w-[30px] md:h-[30px] rounded-full bg-white border border-white"></div>
-              </div>
-              <p className=" text-[10px] md:text-sm">Finance<br />& Supply</p>
+              <CircleDot />
+              <p className="text-[10px] md:text-sm">Finance<br />& Supply</p>
             </button>
           </div>
 
-          <div className="flex justify-around relative  mb-10 md:mb-0 top-6 md:top-64">
+          {/* Third row */}
+          <div className="flex justify-around relative mb-10 md:mb-0 top-6 md:top-64">
             <button
               onClick={() => setActiveModal("Human Resources")}
               id="five-cercle"
-              className="flex flex-col items-center space-y-2 "
+              className="flex flex-col items-center space-y-2"
             >
-              <div className="w-[25px] h-[25px] md:w-[50px] md:h-[50px] rounded-full flex items-center justify-center bg-white/50">
-                <div className="w-[15px] h-[15px] md:w-[30px] md:h-[30px]  rounded-full bg-white border border-white"></div>
-              </div>
-              <p className=" text-[12px] md:text-sm">Human Resources</p>
+              <CircleDot />
+              <p className="text-[12px] md:text-sm">Human Resources</p>
             </button>
 
             <button
               onClick={() => setActiveModal("App Development")}
               id="six-cercle"
-              className="flex flex-col items-center space-y-2  "
+              className="flex flex-col items-center space-y-2"
             >
-              <div className="w-[25px] h-[25px] md:w-[50px] md:h-[50px] rounded-full flex items-center justify-center bg-white/50">
-                <div className="w-[15px] h-[15px] md:w-[30px] md:h-[30px] rounded-full bg-white border border-white"></div>
-              </div>
-              <p className=" text-[12px] md:text-sm">App Development</p>
+              <CircleDot />
+              <p className="text-[12px] md:text-sm">App Development</p>
             </button>
           </div>
         </div>
 
+        {/* Heading */}
         <div className="absolute w-full text-center top-2 md:-top-5">
           <h1 className="text-[18px] sm:text-[22px] md:text-[40px] font-bold text-white leading-tight">
             <span className="text-[#62D84E]">The AI platform</span> <br />
             <span className="text-[20px] md:text-[25px]">for business transformation</span>
           </h1>
         </div>
+
+        {/* Center section with Employees, AI, Customers */}
         <div
           id="first-container"
-          className="absolute top-[12rem] md:top-[16rem] hidden md:block left-1/2 transform -translate-x-1/2 w-[90%] md:w-[70%] lg:w-[60%]"
+          className="absolute top-[11rem] md:top-[16rem] left-1/2 transform -translate-x-1/2 w-[70%] sm:w-[80%] md:w-[65%] lg:w-[60%]"
         >
-          <div className="flex flex-col md:flex-row justify-between items-center gap-6  ">
-
+          <div className="flex flex-row justify-between items-center gap-4 w-full">
+            {/* Employees */}
             <div className="flex flex-col items-center">
               <img
                 id="img1"
                 src="/menLogo.avif"
                 alt="Employees"
-                className="w-[120px] md:w-[160px] lg:w-[200px]"
+                className="w-[80px] sm:w-[100px] md:w-[160px] lg:w-[200px] md:block hidden"
               />
               <div
                 id="img-text1"
-                className="mt-2 md:mt-[-20px] px-4 py-1 border border-blue-500 bg-blue-900 rounded-full text-white text-[12px] md:text-[16px]"
+                className="mt-2 px-3 py-1 border border-blue-500 bg-blue-900 rounded-full text-white text-[10px] sm:text-[12px] md:text-[16px]"
               >
                 Employees
               </div>
             </div>
 
-
-            <div className="text-center">
+            {/* AI AGENTS */}
+            <div className="text-center px-2">
               <p
                 id="text-2"
-                className="text-stroke text-[32px] md:text-[40px] font-extrabold leading-tight"
+                className="text-stroke font-extrabold leading-tight text-[18px] sm:text-[32px] md:text-[40px]"
               >
-                <span className="text-[48px] md:text-[60px]">AI</span>
+                <span className="text-[25px] sm:text-[48px] md:text-[60px]">AI</span>
                 <br />
                 AGENTS
               </p>
             </div>
 
-
+            {/* Customers */}
             <div className="flex flex-col items-center">
               <img
                 id="img2"
                 src="/womenLogo.avif"
                 alt="Customers"
-                className="w-[120px] md:w-[160px] lg:w-[200px]"
+                className="w-[80px] sm:w-[100px] md:block hidden md:w-[160px] lg:w-[200px]"
               />
               <div
                 id="img-text2"
-                className="mt-2 md:mt-[-20px] px-4 py-1 border border-blue-500 bg-blue-900 rounded-full text-white text-[12px] md:text-[16px]"
+                className="mt-2 px-3 py-1 border border-blue-500 bg-blue-900 rounded-full text-white text-[10px] sm:text-[12px] md:text-[16px]"
               >
                 Customers
               </div>
             </div>
           </div>
         </div>
-
       </div>
 
+      {/* AnimatePresence Modals */}
       <AnimatePresence>
-        {activeModal === "IT" && (
-          <It show={true} onClose={() => setActiveModal(null)} />
-        )}
-        {activeModal === "CRM" && (
-          <CRM show={true} onClose={() => setActiveModal(null)} />
-        )}
-        {activeModal === "Security And Risk" && (
-          <Security show={true} onClose={() => setActiveModal(null)} />
-        )}
-        {activeModal === "Human Resources" && (
-          <HumanResource show={true} onClose={() => setActiveModal(null)} />
-        )}
-        {activeModal === "App Development" && (
-          <AppDevelopment show={true} onClose={() => setActiveModal(null)} />
-        )}
-        {activeModal === "Finance and Supply" && (
-          <Finance show={true} onClose={() => setActiveModal(null)} />
-        )}
+        {activeModal === "IT" && <It show={true} onClose={() => setActiveModal(null)} />}
+        {activeModal === "CRM" && <CRM show={true} onClose={() => setActiveModal(null)} />}
+        {activeModal === "Security And Risk" && <Security show={true} onClose={() => setActiveModal(null)} />}
+        {activeModal === "Human Resources" && <HumanResource show={true} onClose={() => setActiveModal(null)} />}
+        {activeModal === "App Development" && <AppDevelopment show={true} onClose={() => setActiveModal(null)} />}
+        {activeModal === "Finance and Supply" && <Finance show={true} onClose={() => setActiveModal(null)} />}
       </AnimatePresence>
     </div>
   );
-};
+
+}
 
 export default TabBar;

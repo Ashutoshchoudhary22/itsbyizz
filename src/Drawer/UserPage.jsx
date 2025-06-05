@@ -1,25 +1,34 @@
 import React from "react";
 import {
-  FiHome,
   FiUser,
-  FiInfo,
-  FiHelpCircle,
+  FiHelpCircle, 
+  FiLogOut,
 } from "react-icons/fi";
+import { NavLink, useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
+import { CiUnlock } from "react-icons/ci";
 
-const UserPage = ({ isOpen, onClose }) => {
+
+const UserPage = ({ isOpen, setOpen }) => {
+     const navigate = useNavigate();
   if (!isOpen) return null;
+ const handlelogout = () => {
+    localStorage.removeItem("user");
+    toast.success("Logout successfully.");
+    navigate("/");
+  };
 
   return (
-    <div className="fixed inset-0 z-50 flex justify-end">
+    <div className={` ${isOpen ? " transform-x-0 visible" : "transform-x-100 invisible"} fixed inset-0 z-50 flex justify-end  transition-transform duration-500 ease-in-out` }>
       {/* Overlay */}
-      <div className="fixed inset-0 bg-black/30" onClick={onClose}></div>
+      {/* <div className="transition-transform duration-500 ease-in-out fixed inset-0 bg-black/30 " onClick={()=> setOpen(false)}></div> */}
 
       {/* Drawer Content */}
-      <div className="relative w-72 bg-[#0d3b66] text-white shadow-lg flex flex-col items-center py-6 rounded-l-lg">
+      <div className=" relative w-72 bg-[#0d3b66] text-white shadow-lg flex flex-col items-center py-6 rounded-l-lg">
         {/* Close Button */}
         <button
           className="absolute top-2 right-2 text-white text-xl"
-          onClick={onClose}
+          onClick={()=> setOpen(false)}
         >
           ✕
         </button>
@@ -43,8 +52,9 @@ const UserPage = ({ isOpen, onClose }) => {
              <hr className="my-2 border-gray-400" />
           <ul className="flex flex-col gap-3 text-sm font-medium">
             <li>
-              <button className="flex items-center gap-3 w-full p-2 rounded hover:bg-sky-900 transition">
-                <FiHome size={18} />
+              <button className="flex items-center gap-3 w-full p-2 rounded hover:bg-sky-900 transition"
+              >
+                <CiUnlock size={20} strokeWidth={1}/>
                 Change password
               </button>
             </li>
@@ -55,9 +65,10 @@ const UserPage = ({ isOpen, onClose }) => {
               </button>
             </li>
             <li>
-              <button className="flex items-center gap-3 w-full p-2 rounded hover:bg-sky-900 transition">
-                <FiInfo size={18} />
-                Info
+              <button className="flex items-center gap-3 text-red-200 w-full p-2 rounded hover:bg-sky-900 transition"
+               onClick={handlelogout}>
+                <FiLogOut size={18} className="shrink-0" />
+                Logout
               </button>
             </li>
             <hr className="my-2 border-gray-400" />

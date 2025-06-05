@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
+
 
 import {
   FiMenu,
@@ -22,6 +23,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 
 const Sidebar = ({ toggleSidebar, isOpen }) => {
+  const sidebarRef=useRef(false)
   const navigate = useNavigate();
 
   const handlelogout = () => {
@@ -30,18 +32,43 @@ const Sidebar = ({ toggleSidebar, isOpen }) => {
     navigate("/");
   };
 
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        window.innerWidth < 768 &&
+        isOpen &&
+        sidebarRef.current &&
+        !sidebarRef.current.contains(event.target)
+      ) {
+        toggleSidebar();
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isOpen, toggleSidebar]);
+
   return (
     <aside
+    ref={sidebarRef}
       className={`sidebar-scroll fixed inset-y-0 left-0 z-50 w-64 bg-gradient-to-b from-sky-900 to-sky-800 text-white transform ${
         isOpen ? "translate-x-0" : "-translate-x-64"
       } transition-transform duration-300 ease-in-out md:relative md:translate-x-0 md:w-64`}
     >
       <div className="h-screen sidebar-scroll">
         <nav className="p-3 ">
-          <div className=" flex items-center justify-between font-bold text-xl mb-10 ml-5">
-            <h1>ITSYBIZZ</h1>
+          <div className=" flex items-center justify-between font-bold text-xl mb-6 ml-7">
+            <div className="relative bottom-2 h-16 w-44">
+           <img 
+           src="\itsybizz.png"
+           alt="logo"
+           className="absolute top-1/2 left-12 h-32 w-52 -translate-x-1/2 -translate-y-1/2 z-50 pointer-events-none"
+           />
+           </div>
             <button className="md:hidden text-white" onClick={toggleSidebar}>
-              {isOpen ? <FiX size={24} /> : <FiMenu size={24} />}
+              {isOpen ? <FiX size={24} className="mb-10"/> : ""}
             </button>
           </div>
           <ul className="space-y-4">

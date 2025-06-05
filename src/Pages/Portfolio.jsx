@@ -32,12 +32,26 @@ const Portfolio = () => {
         img: "https://itsybizz.com/assets/port4-NNclumCG.png",
         link: "https://shivshaktialuminium.com/",
       },
-      {
-        title: "Rtpas",
-        img: "/krishnaLabel.png",
-        link: "https://rtpas.deepmart.shop/",
+      // {
+      //   title: "Rtpas",
+      //   img: "/krishnaLabel.png",
+      //   link: "https://rtpas.deepmart.shop/",
+      // },
+       {
+        title: "Esquareeduwing Pvt. Ltd.",
+        img: "https://itsybizz.com/assets/port3-cxLQtVoe.png",
+        link:"https://esquareduwings.com/"
       },
-      
+       {
+        title: "KFS Fitness",
+        img: "/gym.png",
+        link:"https://kfsfitness.com/"
+      },
+      {
+        title: "Hotel Booking",
+        img: "https://itsybizz.com/assets/hotel3-_0etIQDc.jpeg",
+        link:"https://himaratheme.com/"
+      },
     ],
     B2C: [
       {
@@ -96,39 +110,25 @@ const Portfolio = () => {
       },
     ],
     Industries: [
-      // {
-      //   title: "Tuindestries",
-      //   img: "https://itsybizz.com/assets/port9-MLYEjASM.png",
-      // },
+      
       {
         title: "Shiv Art",
         img: "https://itsybizz.com/assets/shivart-Iaowi91I.jpeg",
       },
-      // { title: "Ksec", img: "https://itsybizz.com/assets/port6-v1YFQOwl.png" },
+    
     ],
     Education: [
-      // {
-      //   title: "Educator",
-      //   img: "https://itsybizz.com/assets/educator-iNap87vx.jpeg",
-      // },
-      // {
-      //   title: "Eduma",
-      //   img: "https://itsybizz.com/assets/LearnPress-ZYfJCs9i.jpeg",
-      // },
-      // {
-      //   title: "Code Seeker",
-      //   img: "https://itsybizz.com/assets/codeseekr-ZJ_dH3vE.jpeg",
-      // },
+      
       {
         title: "Esquareeduwing Pvt. Ltd.",
         img: "https://itsybizz.com/assets/port3-cxLQtVoe.png",
       },
     ],
     SocialMedia: [
-      {
-        title: "Vinod Bhati",
-        img: "https://itsybizz.com/assets/vbf-8c4BGq_S.jpeg",
-      },
+      // {
+      //   title: "Vinod Bhati",
+      //   img: "https://itsybizz.com/assets/vbf-8c4BGq_S.jpeg",
+      // },
       {
         title: "Aggarwal Caterer",
         img: "https://itsybizz.com/assets/AGG-rw1mH0xJ.jpeg",

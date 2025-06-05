@@ -133,7 +133,7 @@ const TabBar = () => {
       <div className="pt-5 pb-16"></div>
       <svg
         width="100%"
-        height="60vh"
+        height="80vh"
         viewBox="50 10 100 100"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"

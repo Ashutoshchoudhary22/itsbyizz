@@ -149,10 +149,10 @@ const Header = () => {
             <NavLink
               to="/login"
               onClick={() => setIsUserMenuOpen(false)}
-              className="relative inline-flex items-center px-6 py-2 font-semibold text-white rounded-full bg-sky-950 group hover:bg-black transition"
+              className="relative inline-flex items-center px-4 py-2 font-semibold text-white rounded-full bg-sky-950 group hover:bg-black transition"
             >
               <span className="absolute inset-0 rounded-full p-[1px] bg-gradient-to-r from-blue-500 via-purple-500 to-red-500 group-hover:from-blue-600 group-hover:to-red-600 transition-all duration-300"></span>
-              <span className="relative z-10 bg-sky-950 px-5 py-1.5 rounded-full flex items-center space-x-2">
+              <span className="relative z-10 bg-sky-950 px-3 py-2 rounded-full flex items-center space-x-2">
                 <span>LOGIN</span>
               </span>
             </NavLink>

@@ -159,7 +159,7 @@ const Portfolio = () => {
           <img
             src="product.webp"
             alt="Products & Solutions"
-            className=" absolute w-[500px] h-[400px]  "
+            className=" absolute w-[300px] h-[200px] md:w-[500px] md:h-[400px]  "
           />
         </div>
       </div>

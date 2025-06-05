@@ -101,7 +101,7 @@ const Contact = () => {
     {
       title: "Emails",
       description:
-        "support@deepnapsoftech.com, enquiry@deepnapsoftech.com, itsybizz@gmail.com",
+        "support@itsybizz.com, info@itsybizz.com enquiry@itsybizz.com, itsybizz@gmail.com",
       icon: <MdEmail className="w-10 h-10 text-green-500" />,
     },
     {

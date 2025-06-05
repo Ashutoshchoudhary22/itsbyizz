@@ -74,23 +74,23 @@ const Header = () => {
 
   return (
     <nav
-      className={`sticky  bg-[#053d5e] z-50 rounded-t-xl flex  mx-4 py-1 md:shadow-lg items-center ${
-        isScroll ? "bg-[#053d5e] top-0 rounded-2xl shadow-md" : "bg-[#053d5e] top-2 "
+      className={`sticky  bg-[#053d5e] z-50 rounded-t-xl flex  md:mx-4 py-1 md:shadow-lg items-center ${
+        isScroll ? "bg-[#053d5e] top-0 md:rounded-2xl shadow-md" : "bg-[#053d5e] md:top-2 "
       }`}
     >
-      <div className="max-w-screen-xl mx-auto px-4 flex items-center rounded-lg ">
+      <div className="max-w-screen-xl mx-auto px-2 flex items-center rounded-lg ">
         <div className="relative bottom-2 h-20 w-44">
           <Link to="/">
             <img
               src="itsybizz.png"
               alt="Logo"
-              className="absolute top-1/2 right-16 h-32 w-52 -translate-x-1/2 -translate-y-1/2 z-50 pointer-events-none"
+              className="absolute top-1/2 md:right-14 h-32 w-52 -translate-x-1/2 -translate-y-1/2 z-50 pointer-events-none"
             />
           </Link>
         </div>
 
         <button
-          className="md:hidden ml-auto text-gray-50 p-4 focus:outline-none"
+          className="md:hidden  text-gray-50 p-4 focus:outline-none"
           onClick={toggleMenu}
           aria-label="Toggle Menu"
         >
@@ -103,7 +103,17 @@ const Header = () => {
 
         <ul
           ref={dropdownRef}
-          className={`md:flex md:px-2 ml-auto md:space-x-2 absolute md:relative top-full left-0 right-0 bg-sky-950 md:bg-transparent z-10 text-white`}
+          className={`
+              md:flex md:flex-row md:items-center md:static absolute left-0 right-0 top-full z-10 bg-[#053d5e] md:bg-transparent text-white 
+              transition-all duration-500 ease-in-out
+          
+              ${isMenuOpen
+              ? "max-h-[500px] opacity-100 translate-y-0 overflow-visible"
+              : "max-h-0 opacity-0 -translate-y-2 overflow-hidden"
+              }
+          
+              md:max-h-none md:opacity-100 md:translate-y-0 md:overflow-visible
+            `}
         >
           <li>
             <NavLink
@@ -138,16 +148,24 @@ const Header = () => {
               <span className="text-xl font-semibold">Portfolio</span>
             </NavLink>
           </li>
+          <li>
+           <NavLink
+              to="/about-us"
+              className="text-gray-50 flex md:inline-flex p-4 items-center hover:text-white"
+            >
+              <span className="text-xl font-semibold">About Us</span>
+            </NavLink>
+          </li>
 
           <li>
             <NavLink
               to="/login"
               onClick={() => setIsUserMenuOpen(false)}
-              className="relative inline-flex items-center px-6 py-2 font-semibold text-white rounded-full bg-sky-950 group hover:bg-black transition"
+              className="relative left-2 md:left-16  inline-flex items-center px-1 py-1 font-semibold text-white rounded-full bg-sky-950 group hover:bg-black transition"
             >
-              <span className="absolute inset-0 rounded-full p-[1px] bg-gradient-to-r from-blue-500 via-purple-500 to-red-500 group-hover:from-blue-600 group-hover:to-red-600 transition-all duration-300"></span>
-              <span className="relative z-10 bg-sky-950 px-5 py-1.5 rounded-full flex items-center space-x-2">
-                <span>LOGIN</span>
+              <span className="absolute inset-0 rounded-full p-[1px] bg-gradient-to-r from-blue-500 via-sky-500 to-green-500 group-hover:from-blue-600 group-hover:to-green-700 transition-all duration-300"></span>
+              <span className="relative z-10 bg-sky-950 px-7 py-2  rounded-full flex items-center space-x-2">
+                <span>Login</span>
               </span>
             </NavLink>
           </li>

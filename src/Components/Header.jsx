@@ -74,15 +74,15 @@ const Header = () => {
 
   return (
     <nav
-      className={`sticky top-0 z-50 mx-4 py-2 rounded-t-xl transition-all duration-500 ${isScroll || isMenuOpen
-        ? "bg-[#053d5e] shadow-md "
-        : "bg-[#053d5e] top-0"
+      className={`sticky top-0 z-50 md:mx-4 py-2 rounded-t-xl transition-all duration-500 ${isScroll || isMenuOpen
+        ? "bg-[#053d5e] shadow-md rounded-xl"
+        : "bg-[#053d5e] top-1  shadow-md"
         }`}
     >
-      <div className="max-w-screen-xl mx-auto px-4 flex items-center justify-between">
+      <div className="md:max-w-screen-xl md:mx-auto px-4 flex items-center justify-between">
 
         <div className="h-16 w-44 flex items-center">
-          <Link to="/" className="inline-block">
+          <Link to="/" className="inline-block ">
             <img
               src="itsybizz.png"
               alt="Logo"
@@ -111,8 +111,6 @@ const Header = () => {
             }
   `}
         >
-
-
           <li>
             <NavLink
               to="/"

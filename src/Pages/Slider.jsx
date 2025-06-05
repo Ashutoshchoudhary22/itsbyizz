@@ -156,11 +156,11 @@ const TabBar = () => {
       <div className="pt-5 pb-16"></div>
       <svg
         width="100%"
-        height="60vh"
+        height="80vh"
         viewBox="50 10 100 100"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
-        className="draw-path w-full h-[60vh] sm:h-[50vh] md:h-[40vh] lg:h-[60vh] max-[800px]:h-[24vh]"
+        className="draw-path w-full max-[800px]:h-[24vh]"
         preserveAspectRatio="xMidYMid meet"
       >
         <defs>

@@ -103,7 +103,17 @@ const Header = () => {
 
         <ul
           ref={dropdownRef}
-          className={`md:flex md:px-2 ml-auto md:space-x-2 absolute md:relative top-full left-0 right-0 bg-sky-950 md:bg-transparent z-10 text-white`}
+          className={`
+              md:flex md:flex-row md:items-center md:static absolute left-0 right-0 top-full z-10 bg-[#053d5e] md:bg-transparent text-white md:space-x-6
+              transition-all duration-500 ease-in-out
+          
+              ${isMenuOpen
+              ? "max-h-[500px] opacity-100 translate-y-0 overflow-visible"
+              : "max-h-0 opacity-0 -translate-y-2 overflow-hidden"
+              }
+          
+              md:max-h-none md:opacity-100 md:translate-y-0 md:overflow-visible
+            `}
         >
           <li>
             <NavLink

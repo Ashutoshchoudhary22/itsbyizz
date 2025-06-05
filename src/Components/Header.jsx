@@ -103,12 +103,15 @@ const Header = () => {
 
         <ul
           ref={dropdownRef}
-          className={`md:flex md:flex-row md:items-center md:static absolute left-0 right-0 top-full z-10 bg-[#053d5e] md:bg-transparent text-white md:space-x-6 
-    overflow-hidden transition-all duration-500 ease-in-out
+          className={`
+    md:flex md:flex-row md:items-center md:static absolute left-0 right-0 top-full z-10 bg-[#053d5e] md:bg-transparent text-white md:space-x-6
+    transition-opacity duration-500 ease-in-out overflow-hidden
+
     ${isMenuOpen
-              ? "max-h-[500px] visible translate-y-0"
-              : "max-h-0 invisible -translate-y-2"
+              ? "max-h-[500px] opacity-100 translate-y-0"
+              : "max-h-0 opacity-0 -translate-y-2"
             }
+           md:max-h-full md:opacity-100 md:translate-y-0
   `}
         >
           <li>

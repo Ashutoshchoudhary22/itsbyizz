@@ -74,9 +74,8 @@ const Header = () => {
 
   return (
     <nav
-      className={`sticky  bg-[#053d5e] z-50 md:rounded-t-xl flex  md:mx-4 py-1 md:shadow-lg items-center ${
-        isScroll ? "bg-[#053d5e] top-0 md:rounded-2xl shadow-md" : "bg-[#053d5e] md:top-2 "
-      }`}
+      className={`sticky top-0 z-50 bg-[#053d5e] py-2 md:mx-4 rounded-t-xl transition-all duration-500 ${isScroll ? "shadow-md rounded-2xl" : ""
+        }`}
     >
       <div className="max-w-screen-xl mx-auto px-4 flex items-center justify-between flex-wrap">
 

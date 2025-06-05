@@ -10,7 +10,7 @@ const Header = () => {
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
   const menuRef = useRef(null);
   const [isScroll, setIsScroll] = useState(false);
- const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+
   const developmentmenu = [
     { title: "Web Development", link: "/development?title=Web%20Development" },
     { title: "Web Design", link: "/development?title=Web%20Design" },
@@ -74,79 +74,84 @@ const Header = () => {
 
   return (
     <nav
-      className={`sticky  bg-[#053d5e] z-50 rounded-t-xl flex  mx-4 py-1 md:shadow-lg items-center ${
-        isScroll ? "bg-[#053d5e] top-0 rounded-2xl shadow-md" : "bg-[#053d5e] top-2 "
-      }`}
+      className={`sticky top-0 z-50 mx-4 py-2 rounded-t-xl transition-all duration-500 ${isScroll || isMenuOpen
+        ? "bg-[#053d5e] shadow-md "
+        : "bg-[#053d5e] top-0"
+        }`}
     >
-      <div className="max-w-screen-xl mx-auto px-4 flex items-center rounded-lg ">
-        <div className="relative bottom-2 h-20 w-44">
-          <Link to="/">
+      <div className="max-w-screen-xl mx-auto px-4 flex items-center justify-between">
+
+        <div className="h-16 w-44 flex items-center">
+          <Link to="/" className="inline-block">
             <img
               src="itsybizz.png"
               alt="Logo"
-              className="absolute top-1/2 right-16 h-32 w-52 -translate-x-1/2 -translate-y-1/2 z-50 pointer-events-none"
+              className="h-16 object-contain"
             />
           </Link>
         </div>
 
+
         <button
-          className="md:hidden ml-auto text-gray-50 p-4 focus:outline-none"
-          onClick={toggleMenu}
+          className="md:hidden text-white p-3 focus:outline-none"
+          onClick={() => setIsMenuOpen(!isMenuOpen)}
           aria-label="Toggle Menu"
         >
-          {isMenuOpen ? (
-            <FaTimes className="w-6 h-6" />
-          ) : (
-            <FaBars className="w-6 h-6" />
-          )}
+          {isMenuOpen ? <FaTimes className="w-6 h-6" /> : <FaBars className="w-6 h-6" />}
         </button>
+
 
         <ul
           ref={dropdownRef}
-          className={`md:flex md:px-2 ml-auto md:space-x-2 absolute md:relative top-full left-0 right-0 bg-sky-950 md:bg-transparent z-10 text-white`}
+          className={`md:flex md:flex-row md:items-center md:static absolute left-0 right-0 top-full z-10 bg-[#053d5e] md:bg-transparent text-white md:space-x-6 
+    overflow-hidden transition-all duration-500 ease-in-out
+    ${isMenuOpen
+              ? "max-h-[500px] visible translate-y-0"
+              : "max-h-0 invisible -translate-y-2"
+            }
+  `}
         >
+
+
           <li>
             <NavLink
               to="/"
-              className="text-gray-50 flex md:inline-flex p-4 items-center hover:text-white"
+              className="block px-4 py-3 md:py-2 text-lg font-medium hover:text-white transition"
             >
-              <span className="text-xl font-semibold">Home</span>
+              Home
             </NavLink>
           </li>
 
-          {/* Products Dropdown */}
+
           <li className="relative">
             <MenuList listName="Products" list={products} />
           </li>
-
-          {/* Development Dropdown */}
           <li className="relative">
             <MenuList listName="Development" list={developmentmenu} />
           </li>
-
-          {/* Become Brand Dropdown */}
           <li className="relative">
             <MenuList listName="Brand" list={becomeBrand} />
           </li>
 
-          {/* Portfolio Link */}
-          <li>
-            <NavLink
-              to="/portfolio"
-              className="text-gray-50 flex md:inline-flex p-4 items-center hover:text-white"
-            >
-              <span className="text-xl font-semibold">Portfolio</span>
-            </NavLink>
-          </li>
 
           <li>
             <NavLink
+              to="/portfolio"
+              className="block px-4 py-3 md:py-2 text-lg font-medium hover:text-white transition"
+            >
+              Portfolio
+            </NavLink>
+          </li>
+
+
+          <li className="mt-2 md:mt-0 md:ml-6">
+            <NavLink
               to="/login"
               onClick={() => setIsUserMenuOpen(false)}
-              className="group relative left-28 inline-flex items-center justify-end mt-2  px-1 py-1 font-semibold text-white rounded-full bg-sky-950 hover:bg-black"
+              className="relative inline-flex items-center px-6 py-2 font-semibold text-white rounded-full bg-sky-950 group hover:bg-black transition"
             >
               <span className="absolute inset-0 rounded-full p-[1px] bg-gradient-to-r from-blue-500 via-purple-500 to-red-500 group-hover:from-blue-600 group-hover:to-red-600 transition-all duration-300"></span>
-              <span className="relative z-10 flex items-center space-x-2 bg-sky-950 rounded-full px-7 py-2">
+              <span className="relative z-10 bg-sky-950 px-5 py-1.5 rounded-full flex items-center space-x-2">
                 <span>LOGIN</span>
               </span>
             </NavLink>
@@ -154,6 +159,7 @@ const Header = () => {
         </ul>
       </div>
     </nav>
+
   );
 };
 

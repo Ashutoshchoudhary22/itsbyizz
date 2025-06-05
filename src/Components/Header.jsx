@@ -90,7 +90,7 @@ const Header = () => {
         </div>
 
         <button
-          className="md:hidden  text-gray-50 p-4 focus:outline-none"
+          className="md:hidden relative left-16 text-gray-50 p-4 focus:outline-none"
           onClick={toggleMenu}
           aria-label="Toggle Menu"
         >
@@ -104,7 +104,7 @@ const Header = () => {
         <ul
           ref={dropdownRef}
           className={`
-              md:flex md:flex-row md:items-center md:static absolute left-0 right-0 top-full z-10 bg-[#053d5e] md:bg-transparent text-white 
+              md:flex md:flex-row md:items-center md:static absolute left-0 right-0 top-full z-10 pb-5 bg-sky-900 md:bg-transparent text-white 
               transition-all duration-500 ease-in-out
           
               ${isMenuOpen

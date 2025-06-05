@@ -19,7 +19,7 @@ const UserPage = ({ isOpen, setOpen }) => {
   };
 
   return (
-    <div className={` ${isOpen ? " transform-x-0 visible" : "transform-x-100 invisible"} fixed inset-0 z-50 flex justify-end  transition-transform duration-500 ease-in-out` }>
+    <div className={` ${isOpen ? "translate-x-0" : "-translate-x-64"} fixed inset-0 z-50 flex justify-end  transition-transform duration-300 ease-in-out` }>
       {/* Overlay */}
       {/* <div className="transition-transform duration-500 ease-in-out fixed inset-0 bg-black/30 " onClick={()=> setOpen(false)}></div> */}
 

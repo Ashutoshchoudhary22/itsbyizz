@@ -33,7 +33,7 @@ const Header = ({ toggleSidebar }) => {
           <button className="md:hidden text-white" onClick={toggleSidebar}>
             <FiMenu size={24} />
           </button>
-          <div className="  bottom-2 ">
+          <div className=" md:hidden bottom-2 ">
             <img
             src="/itsybizz.png"
             alt="logo"

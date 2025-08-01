@@ -1,12 +1,20 @@
 import React, { useEffect, useRef, useState } from "react";
 import { NavLink } from "react-router-dom";
 
-const MenuList = ({ listName, list }) => {
+const MenuList = ({ listName, list, onLinkClick }) => {
   const [openDropdown, setOpenDropdown] = useState(null);
   const dropdownRef = useRef(null);
 
   const toggleDropdown = (dropdown) => {
     setOpenDropdown((prev) => (prev === dropdown ? null : dropdown));
+  };
+
+  // Function to handle link clicks and close menu
+  const handleLinkClick = () => {
+    setOpenDropdown(null);
+    if (onLinkClick) {
+      onLinkClick();
+    }
   };
 
   useEffect(() => {
@@ -20,7 +28,7 @@ const MenuList = ({ listName, list }) => {
   }, []);
 
   return (
-    <div ref={dropdownRef}   onMouseLeave={() => setOpenDropdown(null)}>
+    <div ref={dropdownRef} onMouseLeave={() => setOpenDropdown(null)}>
       <div
         className="text-gray-50 flex p-4 items-center justify-between hover:text-white cursor-pointer w-full"
         onClick={() => toggleDropdown("products")}
@@ -39,12 +47,12 @@ const MenuList = ({ listName, list }) => {
       </div>
 
       {openDropdown === "products" && (
-        <ul className="md:absolute bg-white rounded-md md:rounded-lg p-2 w-[410px] md:w-44 shadow-xl flex flex-col z-50">
+        <ul className="md:absolute bg-[#053d5e] rounded-md md:rounded-lg p-2 w-[410px] md:w-44 shadow-xl flex flex-col z-50 border border-[#053d5e]">
           {list.map((item, index) => (
             <li
               key={index}
-              className={`p-2 hover:bg-sky-100 rounded-md ${
-                index !== list.length - 1 ? "border-b border-gray-300" : ""
+              className={`p-2 hover:bg-[#0a5a7a] rounded-md transition-colors duration-200 ${
+                index !== list.length - 1 ? "border-b border-[#0a5a7a]" : ""
               }`}
             >
               {item.external ? (
@@ -52,16 +60,16 @@ const MenuList = ({ listName, list }) => {
                   href={item.link}
                   target="_blank"
                   rel="noopener noreferrer"
-                  onClick={() => setOpenDropdown(null)}
-                  className="block text-gray-900 font-medium"
+                  onClick={handleLinkClick}
+                  className="block text-white font-medium hover:text-gray-200 transition-colors duration-200"
                 >
                   {item.title}
                 </a>
               ) : (
                 <NavLink
                   to={item.link}
-                  onClick={() => setOpenDropdown(null)}
-                  className="block text-gray-900 font-medium"
+                  onClick={handleLinkClick}
+                  className="block text-white font-medium hover:text-gray-200 transition-colors duration-200"
                 >
                   {item.title}
                 </NavLink>

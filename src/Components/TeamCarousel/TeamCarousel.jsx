@@ -5,37 +5,42 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { FaLinkedin } from "react-icons/fa";
-
+import deepak from "../../../public/teams/deepak.webp"
+import pankaj from "../../../public/teams/pankaj.webp"
+import vivek from "../../../public/teams/vivek.webp"
+import kiara from "../../../public/teams/kiara.webp"
+import nitin from "../../../public/teams/nitin.webp"
+import dinki from "../../../public/teams/nitin.webp"
 const teamMembers = [
   {
     name: "Deepak Sharma",
     post: "CEO",
-    image: "https://itsybizz.com/images/teams/deepak.webp",
+    image: deepak,
   },
   {
     name: "Pankaj Kumar Shukla",
     post: "CTO",
-    image: "https://itsybizz.com/images/teams/pankajshukla.webp",
+    image:pankaj,
   },
   {
     name: "Vivek",
     post: "CMO",
-    image: "https://itsybizz.com/images/teams/yatish.webp",
+    image: vivek,
   },
   {
     name: "Kiara Chauhan",
     post: "HR",
-    image: "https://itsybizz.com/images/teams/kiara.webp",
+    image: kiara,
   },
   {
     name: "Nitin Thakur",
     post: "Full Stack Developer",
-    image: "https://itsybizz.com/images/teams/devesh.webp",
+    image: nitin,
   },
   {
-    name: "Vishal Panchal",
+    name: "Dinki",
     post: "Full Stack Developer",
-    image: "https://itsybizz.com/images/teams/pankaj.webp",
+    image: dinki,
   },
 ];
 

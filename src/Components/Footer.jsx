@@ -26,8 +26,8 @@ const Footer = () => {
   ];
 
   return (
-    <div className="w-full bg-gradient-to-b from-sky-800 to-sky-900 text-white py-10 px-6">
-      <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between">
+    <div className="w-full bg-gradient-to-b from-sky-800 to-sky-900 text-white py-10 px-6 max-w-[2480px] mx-auto">
+      <div className="max-w-[2480px] mx-auto flex flex-col md:flex-row justify-between">
         {/* Left - Social Links */}
         <div className="flex flex-col md:items-start items-center space-y-4 md:space-y-0">
           <h2 className="text-lg font-bold pb-3">Follow Us</h2>

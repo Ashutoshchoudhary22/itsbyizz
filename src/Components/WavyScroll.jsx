@@ -19,12 +19,12 @@ const WavyScrollText = ({ highlight, text }) => {
 
   return (
     <h1 className="text-gray-50 text-5xl font-bold flex flex-wrap gap-2">
-      {/* Highlighted Text (with same animation) */}
+      {/* Highlighted Text with gradient background */}
       {highlight.split(" ").map((word, index) => (
         <span
           key={`highlight-${index}`}
           ref={(el) => (textRef.current[index] = el)}
-          className="text-green-400"
+          className="bg-gradient-to-r from-blue-500 via-sky-500 to-green-500 bg-clip-text text-transparent"
         >
           {word}
         </span>

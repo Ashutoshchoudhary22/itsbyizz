@@ -1,7 +1,8 @@
 import React, { useState, useRef, useEffect } from "react";
 import { NavLink } from "react-router-dom";
-import { FaRegUserCircle, FaBars, FaTimes } from "react-icons/fa";
+import { FaRegUserCircle, FaBars, FaTimes, FaUser, FaRocket } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { motion, AnimatePresence } from "framer-motion";
 import MenuList from "./MenuList";
 
 const Header = () => {
@@ -10,7 +11,14 @@ const Header = () => {
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
   const menuRef = useRef(null);
   const [isScroll, setIsScroll] = useState(false);
- const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+  
+  const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+  
+  // Function to close the hamburger menu
+  const closeMenu = () => {
+    setIsMenuOpen(false);
+  };
+
   const developmentmenu = [
     { title: "Web Development", link: "/development?title=Web%20Development" },
     { title: "Web Design", link: "/development?title=Web%20Design" },
@@ -49,6 +57,16 @@ const Header = () => {
       link: "https://hr.deepmart.shop",
       external: true,
     },
+    {
+      title: "SOPAS",
+      link: "https://sopasb2c.deepmart.shop/login",
+      external: true,
+    },
+    {
+      title: "RTPAS",
+      link: "https://inventory.deepmart.shop/login",
+      external: true,
+    },
   ];
 
   useEffect(() => {
@@ -73,101 +91,196 @@ const Header = () => {
   }, []);
 
   return (
-    <nav
-      className={`sticky top-0 z-50 bg-[#053d5e] py-2 md:mx-4 rounded-t-xl transition-all duration-500 ${isScroll ? "shadow-md rounded-2xl" : ""
-        }`}
+    <motion.nav
+      initial={{ y: -100 }}
+      animate={{ y: 0 }}
+      transition={{ duration: 0.6, ease: "easeOut" }}
+      className={`sticky top-0 z-50 transition-all duration-500 ${
+        isScroll 
+          ? "bg-gradient-to-r from-[#053d5e]/95 to-[#0a5a7a]/95 backdrop-blur-md shadow-2xl border-b border-white/10" 
+          : "bg-gradient-to-r from-[#053d5e] to-[#0a5a7a]"
+      }`}
     >
-      <div className="max-w-screen-xl mx-auto px-4 flex items-center justify-between flex-wrap">
-
+             <div className="max-w-[2480px] mx-auto px-4 2xl:px-8 flex items-center justify-between flex-wrap">
         {/* Logo */}
-        <div className="h-16 w-44 flex items-center">
-          <Link to="/">
-            <img
+        <motion.div 
+          className="h-16 w-44 flex items-center"
+          whileHover={{ scale: 1.05 }}
+          transition={{ duration: 0.2 }}
+        >
+          <Link to="/" onClick={closeMenu}>
+            <motion.img
               src="itsybizz.png"
               alt="Logo"
               className="h-28 object-contain"
+              whileHover={{ filter: "brightness(1.1)" }}
+              transition={{ duration: 0.3 }}
             />
           </Link>
-        </div>
+        </motion.div>
 
         {/* Hamburger Menu Button (Mobile Only) */}
-        <button
-          className="md:hidden text-white p-2"
+        <motion.button
+          className="md:hidden text-white p-2 rounded-lg hover:bg-white/10 transition-colors duration-200"
           onClick={toggleMenu}
           aria-label="Toggle Menu"
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.9 }}
         >
-          {isMenuOpen ? <FaTimes className="w-6 h-6" /> : <FaBars className="w-6 h-6" />}
-        </button>
+          <AnimatePresence mode="wait">
+            {isMenuOpen ? (
+              <motion.div
+                key="close"
+                initial={{ rotate: -90, opacity: 0 }}
+                animate={{ rotate: 0, opacity: 1 }}
+                exit={{ rotate: 90, opacity: 0 }}
+                transition={{ duration: 0.2 }}
+              >
+                <FaTimes className="w-6 h-6" />
+              </motion.div>
+            ) : (
+              <motion.div
+                key="menu"
+                initial={{ rotate: 90, opacity: 0 }}
+                animate={{ rotate: 0, opacity: 1 }}
+                exit={{ rotate: -90, opacity: 0 }}
+                transition={{ duration: 0.2 }}
+              >
+                <FaBars className="w-6 h-6" />
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </motion.button>
 
         {/* Navigation Links */}
-        <ul
+        <motion.ul
           ref={dropdownRef}
           className={`
-          w-full md:w-auto flex-col md:flex-row md:flex md:items-center text-white font-medium
-          bg-[#053d5e] md:bg-transparent absolute md:static left-0 right-0 top-full md:top-auto
-          transition-all duration-500 ease-in-out overflow-hidden md:overflow-visible
-  
-          ${isMenuOpen ? "flex max-h-[500px] opacity-100" : "max-h-0 opacity-0 invisible md:visible md:opacity-100 md:max-h-none"}
-        `}
+            w-full md:w-auto flex-col md:flex-row md:flex md:items-center text-white font-medium
+            bg-gradient-to-b from-[#053d5e]/95 to-[#0a5a7a]/95 backdrop-blur-md md:bg-transparent 
+            absolute md:static left-0 right-0 top-full md:top-auto
+            transition-all duration-500 ease-in-out overflow-hidden md:overflow-visible
+            ${isMenuOpen ? "flex min-h-screen opacity-100" : "max-h-0 opacity-0 invisible md:visible md:opacity-100 md:max-h-none"}
+          `}
         >
           {/* Nav Items */}
-          <li>
+          <motion.li
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3, delay: 0.1 }}
+          >
             <NavLink
               to="/"
-              className="block px-4 py-3 md:py-2 text-lg hover:text-white transition"
+              onClick={closeMenu}
+              className="block px-4 py-3 md:py-2 text-lg hover:text-blue-200 transition-all duration-300"
             >
               Home
             </NavLink>
-          </li>
+          </motion.li>
 
-          <li className="relative">
-            <MenuList listName="Products" list={products} />
-          </li>
+          <motion.li 
+            className="relative"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3, delay: 0.2 }}
+          >
+            <MenuList listName="Products" list={products} onLinkClick={closeMenu} />
+          </motion.li>
 
-          <li className="relative">
-            <MenuList listName="Development" list={developmentmenu} />
-          </li>
+          <motion.li 
+            className="relative"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3, delay: 0.3 }}
+          >
+            <MenuList listName="Development" list={developmentmenu} onLinkClick={closeMenu} />
+          </motion.li>
 
-          <li className="relative">
-            <MenuList listName="Brand" list={becomeBrand} />
-          </li>
+          <motion.li 
+            className="relative"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3, delay: 0.4 }}
+          >
+            <MenuList listName="Brand" list={becomeBrand} onLinkClick={closeMenu} />
+          </motion.li>
 
-          <li>
+          <motion.li
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3, delay: 0.5 }}
+          >
             <NavLink
               to="/portfolio"
-              className="block px-4 py-3 md:py-2 text-lg hover:text-white transition"
+              onClick={closeMenu}
+              className="block px-4 py-3 md:py-2 text-lg hover:text-blue-200 transition-all duration-300"
             >
               Portfolio
             </NavLink>
-          </li>
+          </motion.li>
 
-          <li>
+          <motion.li
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3, delay: 0.6 }}
+          >
+            <NavLink
+              to="/contact-us"
+              onClick={closeMenu}
+              className="block px-4 py-3 md:py-2 text-lg hover:text-blue-200 transition-all duration-300"
+            >
+              Contact Us
+            </NavLink>
+          </motion.li>
+
+          <motion.li
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3, delay: 0.7 }}
+          >
             <NavLink
               to="/about-us"
-              className="block px-4 py-3 md:py-2 text-lg hover:text-white transition"
+              onClick={closeMenu}
+              className="block px-4 py-3 md:py-2 text-lg hover:text-blue-200 transition-all duration-300"
             >
               About Us
             </NavLink>
-          </li>
+          </motion.li>
 
           {/* Login Button */}
-          <li className="mt-2 md:mt-0 md:ml-6">
+          <motion.li 
+            className="mt-2 md:mt-0 md:ml-6"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3, delay: 0.8 }}
+          >
             <NavLink
               to="/login"
-              onClick={() => setIsUserMenuOpen(false)}
-              className="relative inline-flex items-center px-4 py-2 font-semibold text-white rounded-full bg-sky-950 group hover:bg-black transition"
+              onClick={() => {
+                setIsUserMenuOpen(false);
+                closeMenu();
+              }}
+              className="relative inline-flex items-center px-6 py-3 font-semibold text-white rounded-full group transition-all duration-300 overflow-hidden"
             >
-              <span className="absolute inset-0 rounded-full p-[1px] bg-gradient-to-r from-blue-500 via-sky-500 to-green-500 group-hover:from-blue-600 group-hover:to-green-700 transition-all duration-300"></span>
-              <span className="relative z-10 bg-sky-950 px-5 py-1.5 rounded-full flex items-center space-x-2">
+              {/* Gradient Background */}
+              <div className="absolute inset-0 bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 rounded-full group-hover:from-blue-700 group-hover:via-purple-700 group-hover:to-indigo-700 transition-all duration-300"></div>
+              
+              {/* Shine Effect */}
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
+              
+              {/* Content */}
+              <span className="relative z-10 flex items-center space-x-2">
+                <FaUser className="w-4 h-4" />
                 <span>Login</span>
               </span>
+              
+              {/* Border Glow */}
+              <div className="absolute inset-0 rounded-full bg-gradient-to-r from-blue-400 via-purple-400 to-indigo-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-sm"></div>
             </NavLink>
-          </li>
-        </ul>
+          </motion.li>
+        </motion.ul>
       </div>
-    </nav>
-  
-
+    </motion.nav>
   );
 };
 

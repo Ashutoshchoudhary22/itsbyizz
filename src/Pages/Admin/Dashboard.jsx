@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Sidebar from "../../Components/Dashboard/Sidebar";
 import { Outlet } from "react-router-dom";
 import { FiMenu } from "react-icons/fi";
-import Header from "../../Components/Dashboard/Header";
+import Header from "../../Components/Dashboard/header";
 
 const Dashboard = () => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
